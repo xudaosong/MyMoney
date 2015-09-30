@@ -1,0 +1,47 @@
+{
+  "name": "MyMoney",
+  "version": "0.0.1",
+  "description": "采用企业化财务管理方案进行家庭财务管理，有助于全方位管理家庭财务。如：股票、投资、日常开销等。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mean"
+  ],
+  "author": "xudaosong",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "compression": "^1.5.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^0.8.2",
+    "cookie-parser": "^1.3.5",
+    "ejs": "^2.3.3",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.1.3",
+    "morgan": "^1.6.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-concurrent": "^2.0.1",
+    "grunt-contrib-csslint": "^0.5.0",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-env": "^0.4.4",
+    "grunt-karma": "^0.12.0",
+    "grunt-mocha-test": "^0.12.7",
+    "grunt-node-inspector": "^0.2.0",
+    "grunt-nodemon": "^0.4.0",
+    "grunt-protractor-runner": "^2.1.0",
+    "karma": "^0.13.9",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "mocha": "^2.3.0",
+    "phantomjs": "^1.9.18",
+    "should": "^7.1.0",
+    "supertest": "^1.1.0"
+  }
+}
