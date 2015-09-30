@@ -1,0 +1,28 @@
+{
+  "name": "MyMoney",
+  "version": "0.0.1",
+  "authors": [
+    "xudaosong <xudaosong@163.com>"
+  ],
+  "description": "采用企业化财务管理方案进行家庭财务管理，有助于全方位管理家庭财务。如：股票、投资、日常开销等。",
+  "main": "./mymoney.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "angular",
+    "mymoney"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/xudaosong/MyMoney",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.4.7"
+  }
+}
