@@ -11,6 +11,10 @@
   ],
   "author": "xudaosong",
   "license": "MIT",
+  "repository": {
+	"type": "git",
+	"url": "git://github.com/xudaosong/MyMoney.git"
+  },
   "dependencies": {
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
