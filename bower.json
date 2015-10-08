@@ -24,6 +24,12 @@
   ],
   "dependencies": {
     "angular": "^1.4.7",
-    "fishjs": "*"
+    "angular-animate": "^1.4.7",
+    "angular-messages": "^1.4.7",
+    "angular-resource": "~1.4.7",
+    "angular-sanitize": "^1.4.7",
+    "angular-ui-router": "^0.2.15",
+    "animate.css": "^3.4.0",
+    "jquery": "^2.1.4"
   }
 }
