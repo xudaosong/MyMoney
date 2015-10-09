@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <!-- build:css css/base.min.css -->
+    <link rel="stylesheet" href="css/base.css">
+    <!-- endbuild -->
+    <!-- build:css css/money.min.css -->
+    <link rel="stylesheet" href="css/money.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="money">
+
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <a class="navbar-brand" href="#/">money</a>
+          </div>
+
+          <div class="collapse">
+
+            <ul class="nav navbar-nav">
+              <li class="active"><a ui-sref="home">Home</a></li>
+              <li><a ui-sref="about">About</a></li>
+              <li><a href="#/">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+    <div ui-view=""></div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      </div>
+    </div>
+
+    <!-- build:js js/base.min.js -->
+    <!-- bower:js -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../bower_components/angular-messages/angular-messages.js"></script>
+    <script src="../bower_components/fishjs/dist/fish-2.0.0.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../bower_components/rangy/rangy-core.js"></script>
+    <script src="../bower_components/rangy/rangy-classapplier.js"></script>
+    <script src="../bower_components/rangy/rangy-highlighter.js"></script>
+    <script src="../bower_components/rangy/rangy-selectionsaverestore.js"></script>
+    <script src="../bower_components/rangy/rangy-serializer.js"></script>
+    <script src="../bower_components/rangy/rangy-textrange.js"></script>
+    <script src="../bower_components/textAngular/dist/textAngular.js"></script>
+    <script src="../bower_components/textAngular/dist/textAngular-sanitize.js"></script>
+    <script src="../bower_components/textAngular/dist/textAngularSetup.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js js/money.min.js -->
+    <!-- injector:js -->
+    <script src="money.web.js"></script>
+    <script src="about/AboutCtrl.js"></script>
+    <script src="home/HomeCtrl.js"></script>
+    <script src="../.tmp/web/money.views.js"></script>
+    <!-- endinjector -->
+    <!-- endbuild -->
+
+</body>
+</html>

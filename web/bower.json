@@ -24,6 +24,8 @@
   ],
   "dependencies": {
     "angular": "^1.4.7",
-	"fishjs": "~0.0.1"
+    "fishjs": "~0.0.1",
+    "angular-ui-router": "~0.2.15",
+    "textAngular": "~1.4.6"
   }
 }
