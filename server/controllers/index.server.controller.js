@@ -8,4 +8,11 @@ exports.render = function (req, res) {
         title: 'Hello World',
         user: JSON.stringify(req.user)
     });
+
+};
+exports.requiresLogin = function (req, res, next) {
+    if (!req.isAuthenticated()) {
+        res.redirect('/signin');
+    }
+    next();
 };

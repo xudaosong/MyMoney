@@ -2,8 +2,8 @@ var mongoose = require('mongoose'),
     crypto = require('crypto'),
     Schema = mongoose.Schema;
 var UserSchema = new Schema({
-    firstName: String,
-    lastName: String,
+    //firstName: String,
+    //lastName: String,
     email: {
         type: String,
         index: true,
@@ -36,13 +36,13 @@ var UserSchema = new Schema({
     }
 });
 // 添加虚拟属性fullName，该属性不会存储到mongodb中
-UserSchema.virtual('fullName').get(function () {
-    return this.firstName + ' ' + this.lastName;
-}).set(function (fullName) { // 使用set方法，对fullName进行拆分，用firstName和lastName进行存储
-    var splitName = fullName.split(' ');
-    this.firstName = splitName[0] || '';
-    this.lastName = splitName[1] || '';
-});
+//UserSchema.virtual('fullName').get(function () {
+//    return this.firstName + ' ' + this.lastName;
+//}).set(function (fullName) { // 使用set方法，对fullName进行拆分，用firstName和lastName进行存储
+//    var splitName = fullName.split(' ');
+//    this.firstName = splitName[0] || '';
+//    this.lastName = splitName[1] || '';
+//});
 
 // 用户保存前的预处理操作。用于对用户密码进行哈希操作
 UserSchema.pre('save', function (next) {

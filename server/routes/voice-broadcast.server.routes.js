@@ -3,10 +3,10 @@ var user = require('../controllers/users.server.controller'),
 
 module.exports = function (app) {
     app.route('/api/voiceBroadcast')
-        .get(voiceBroadcast.list)
+        .get(voiceBroadcast.requiresLogin, voiceBroadcast.list)
         .post(voiceBroadcast.requiresLogin, voiceBroadcast.create);
     app.route('/api/voiceBroadcast/:voiceBroadcastId')
-        .get(voiceBroadcast.voiceBroadcastById, voiceBroadcast.read)
+        .get(voiceBroadcast.requiresLogin, voiceBroadcast.voiceBroadcastById, voiceBroadcast.read)
         .put(voiceBroadcast.requiresLogin, voiceBroadcast.hasAuthorization, voiceBroadcast.update)
         .delete(voiceBroadcast.requiresLogin, voiceBroadcast.hasAuthorization, voiceBroadcast.delete);
     app.param('voiceBroadcastId', voiceBroadcast.voiceBroadcastById);

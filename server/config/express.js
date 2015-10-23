@@ -1,7 +1,9 @@
 var config = require('./config'),
     http = require('http'),
+
 //    socketio = require('socket.io'),
     express = require('express'),
+    ejs = require('ejs'),
     morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
@@ -37,8 +39,10 @@ module.exports = function (db) {
         secret: config.sessionSecret,
         store: mongoStore
     }));
-    app.set('views', './server/views');
-    app.set('view engine', 'ejs');
+    app.set('views', config.static);
+    app.engine('.html', ejs.__express);
+    app.set('view engine', 'html');
+    //app.set('view engine', 'ejs');
 
     app.use(flash());
     app.use(passport.initialize());
@@ -48,7 +52,11 @@ module.exports = function (db) {
     require('../routes/users.server.routes')(app);
     require('../routes/voice-broadcast.server.routes')(app);
 
-    app.use(express.static('./client'));
+    if (process.env.NODE_ENV === 'development') {
+        app.use(express.static('../../'));
+        app.use(express.static('../web'));
+    }
+    app.use(express.static(config.static));
 
 //    require('./socketio')(server, io, mongoStore);
 

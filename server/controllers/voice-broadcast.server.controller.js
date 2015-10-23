@@ -26,14 +26,32 @@ exports.create = function (req, res, next) {
 };
 
 exports.list = function (req, res) {
-    VoiceBroadcast.find().sort('-created').exec(function (err, voiceBroadcast) {
+    VoiceBroadcast.count(function (err, total) {
         if (err) {
             return res.status(400).send({
                 message: getErrorMessage(err)
             });
         } else {
-            res.json(voiceBroadcast);
+            var sort = req.query.sort || "-created";
+            console.log(req.query);
+            VoiceBroadcast.find({
+                content: new RegExp(req.query.content, 'i')
+            }).sort(sort).limit(req.query.limit).skip((req.query.page - 1) * req.query.limit).exec(function (err, voiceBroadcast) {
+                if (err) {
+                    return res.status(400).send({
+                        message: getErrorMessage(err)
+                    });
+                } else {
+                    res.json({total: total, data: voiceBroadcast});
+                }
+            });
         }
+        //if(req.query.offset){
+        //    voiceBroadcast.skip(req.query.offset);
+        //}
+        //if(req.query.limit){
+        //    voiceBroadcast.limit(req.query.limit);
+        //}
     });
 };
 
@@ -90,10 +108,10 @@ exports.requiresLogin = function (req, res, next) {
 };
 
 exports.hasAuthorization = function (req, res, next) {
-    if (req.VoiceBroadcast.creator.id !== req.user.id) {
-        res.status(403).send({
-            message: '对不起，您没有权限操作该文章'
-        });
-    }
+    //if (req.VoiceBroadcast.creator !== req.user.id) {
+    //    res.status(403).send({
+    //        message: '对不起，您没有权限操作该文章'
+    //    });
+    //}
     next();
 };

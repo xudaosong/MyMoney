@@ -1,0 +1,81 @@
+<div class="container-fluid" ng-init="vm.getList()">
+    <div class="clearfix" style="margin: 20px 0;">
+
+        <div class="input-group" style="width:200px; float:right">
+            <input type="text" ng-model="vm.search" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button" ng-click="vm.getList(vm.search)">搜索</button>
+              </span>
+        </div>
+        <button class="btn btn-primary" ng-click="vm.showDialog()" style="float:right;margin-right:10px;">dialog新增</button>
+        <a class="btn btn-primary" ui-sref="create" style="float:right;margin-right:10px;">新增</a>
+    </div>
+    <!--<div ui-grid="vm.gridOptions" ui-grid-pagination ui-grid-infinite-scroll>-->
+
+    <!--</div>-->
+    <table class="table table-striped">
+        <thead class="thead-default">
+        <tr>
+            <th>序号</th>
+            <th>内容</th>
+            <th>视频URL</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in vm.list">
+            <th scope="row">{{$index+1+(vm.currentPage-1)*5}}</th>
+            <td>{{item.content}}</td>
+            <td>{{item.videoUrl}}</td>
+            <td>{{item.created | date:'yyyy-MM-dd'}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="vm.remove(item)">删除</button>
+                <button class="btn btn-primary" ng-click="vm.update(item)">修改</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <fs-pagination style="float:right" items-per-page="5" total-items="vm.list.total" ng-model="vm.currentPage"
+                   ng-change="vm.getList();"></fs-pagination>
+</div>
+<script type="text/ng-template" id="create-voice-broadcast.tpl.html">
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" ng-show="title">
+                    <button type="button" class="close" ng-click="$hide()">&times;</button>
+                    <h4 class="modal-title" ng-bind-html="title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="container" novalidate ng-submit="vm.create()">
+                        <div class="form-group">
+                            <label for="content">内容</label>
+                            <input type="text" ng-model="vm.data.content" class="form-control" id="content" placeholder="内容">
+                        </div>
+                        <div class="form-group">
+                            <label for="videoUrl">视频地址</label>
+                            <input type="text" ng-model="vm.data.videoUrl" class="form-control" id="videoUrl" placeholder="视频地址">
+                        </div>
+                        <div class="form-group">
+                            <label for="created">创建时间</label>
+                            <input fs-datepicker data-date-format="yyyy-MM-dd" data-autoclose="1" ng-model="vm.data.created" type="text" class="form-control" id="created" placeholder="创建时间">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary" ng-click="$hide()">保存</button>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-control alert alert-danger" role="alert" ng-if="vm.message.length>0">
+                                {{vm.message}}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="$hide()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

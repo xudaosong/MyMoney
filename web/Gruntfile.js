@@ -85,7 +85,7 @@ module.exports = function (grunt) {
         // 自动注入Bower的组件
         wiredep: {
             html: {
-                src: ['<%= yeoman.src %>/index.html']
+                src: ['<%= yeoman.src %>/*.html']
             }
         },
 
@@ -249,7 +249,29 @@ module.exports = function (grunt) {
                 'compass:dist'
             ]
         },
-
+        watch: {
+            css: {
+                files: ['src/scss/**/*.scss'],
+                tasks: ['compass'],
+                options: {
+                    livereload: true
+                }
+            },
+            html:{
+                files: ['src/**/*.html'],
+                tasks: ['html2js'],
+                options: {
+                    livereload: true
+                }
+            },
+            js: {
+                files: ['src/*.js','src/**/*.js'],
+                tasks: [],
+                options: {
+                    livereload: true
+                }
+            }
+        },
         // 注入本地的业务JS文件到HTML
         injector: {
             options: {

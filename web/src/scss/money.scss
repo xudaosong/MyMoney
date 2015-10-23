@@ -1,3 +1,6 @@
-.page-wrapper{
-  color:#fff;
-}
+@charset "UTF-8";
+//==== bootstrap
+// Core variables and mixins
+@import 'money/mixins';
+@import 'money/base';
+@import 'money/header';

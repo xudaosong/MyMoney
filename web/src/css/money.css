@@ -1,4 +1,130 @@
-/* line 1, ../scss/money.scss */
-.page-wrapper {
+/* line 2, ../scss/money/mixins/_layout.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 5, ../scss/money/mixins/_layout.scss */
+#main-container {
+  clear: both;
+  position: relative;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -40px;
+}
+/* line 12, ../scss/money/mixins/_layout.scss */
+#main-container #place-footer-container {
+  height: 40px;
+}
+/* line 15, ../scss/money/mixins/_layout.scss */
+#main-container #main-content-container {
+  min-height: 550px;
+}
+/* line 17, ../scss/money/mixins/_layout.scss */
+#main-container #main-content-container #sidebar-container {
+  position: absolute;
+  top: 45px;
+  bottom: 40px;
+  overflow: hidden;
+  width: 200px;
+}
+/* line 24, ../scss/money/mixins/_layout.scss */
+#main-container #main-content-container #content-container {
+  margin-right: 200px;
+}
+
+/* line 29, ../scss/money/mixins/_layout.scss */
+#footer-container {
+  clear: both;
+  position: relative;
+  height: 40px;
+}
+
+/* line 6, ../scss/money/_base.scss */
+#footer-container {
+  background-color: #ccc;
+}
+
+/* line 10, ../scss/money/_base.scss */
+#sidebar-container {
+  border: 1px solid #ccc;
+  border-width: 0 1px 0 0;
+  background-color: #f2f2f2;
+}
+
+/* line 15, ../scss/money/_base.scss */
+#content-container {
+  background-color: #d4d4d4;
+}
+
+/* line 1, ../scss/money/_header.scss */
+#header-container {
+  height: 45px;
+  background-color: #438eb9;
+}
+/* line 4, ../scss/money/_header.scss */
+#header-container .logo {
+  margin: 6px 0 0 20px;
+}
+/* line 7, ../scss/money/_header.scss */
+#header-container .logo a {
   color: #fff;
+}
+/* line 9, ../scss/money/_header.scss */
+#header-container .logo a span {
+  padding-left: 10px;
+  font-size: 20px;
+}
+/* line 15, ../scss/money/_header.scss */
+#header-container .header-menu {
+  background-color: #62a8d1;
+  margin-right: 20px;
+  padding: 0 10px;
+  height: 45px;
+}
+/* line 20, ../scss/money/_header.scss */
+#header-container .header-menu a {
+  color: #fff;
+  height: 100%;
+  vertical-align: middle;
+  height: 45px;
+  position: relative;
+}
+/* line 26, ../scss/money/_header.scss */
+#header-container .header-menu a i {
+  padding: 10px;
+}
+/* line 29, ../scss/money/_header.scss */
+#header-container .header-menu a img {
+  margin: -12px 8px 0 0;
+  max-width: 40px;
+}
+/* line 34, ../scss/money/_header.scss */
+#header-container .header-menu .user-info {
+  max-width: 100px;
+  display: inline-block;
+  line-height: 15px;
+  margin-top: 6px;
+}
+/* line 39, ../scss/money/_header.scss */
+#header-container .header-menu .user-info small {
+  display: block;
+}
+/* line 44, ../scss/money/_header.scss */
+#header-container a:hover, #header-container a:active, #header-container a:focus {
+  text-decoration: none;
+}
+
+/* line 50, ../scss/money/_header.scss */
+#sidebar-container .panel-default {
+  border-color: #e5e5e5;
+  border-width: 0 0 1px 0;
+}
+/* line 54, ../scss/money/_header.scss */
+#sidebar-container .panel {
+  border-radius: 0;
+}
+/* line 57, ../scss/money/_header.scss */
+#sidebar-container .panel-group .panel + .panel {
+  margin: 0;
 }

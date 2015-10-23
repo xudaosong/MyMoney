@@ -11,7 +11,7 @@ var VoiceBroadcastSchema = new Schema({
         trim: true,
         required: '请输入直播内容'
     },
-    VideoUrl:{
+    videoUrl:{
         type: String,
         default: '',
         trim: true

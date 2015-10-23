@@ -1,0 +1,15 @@
+<div class="panel-group" ng-model="panels.activePanel" role="tablist" aria-multiselectable="true" fs-collapse data-animation="fs-collapse" >
+    <div class="panel panel-default" ng-repeat="pane in vm.panes">
+        <div class="panel-heading clearfix" role="tab" fs-collapse-toggle>
+            <span class="menu-text pull-left">{{pane.title}}</span>
+            <i class="pull-right fa" ng-class="{'fa-angle-down':panels.activePanel !== $index,'fa-angle-up':panels.activePanel === $index}"></i>
+        </div>
+        <div class="panel-collapse" role="tabpanel" fs-collapse-target>
+            <div class="panel-body">
+                <ul>
+                    <li ng-repeat="menu in pane.items"><a href="{{menu.href}}">{{menu.title}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

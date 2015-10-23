@@ -52,17 +52,24 @@ exports.signup = function (req, res, next) {
         user.provider = 'local';
         user.save(function (err) {
             if (err) {
-                message = getErrorMessage(err);
+                return res.status(400).send({
+                    message: getErrorMessage(err)
+                });
+                //message = getErrorMessage(err);
                 // 当对页面进行重新定向时，无法直接将参数传给目的页面。
                 // 所以需要Node模块connect-flash，它具有在不同的请求之间传递临时消息的机制
-                req.flash('error', message); // 将错误消息写入flash中
-                return res.redirect('/signup');
+                //req.flash('error', message); // 将错误消息写入flash中
+                //return res.redirect('/signup');
+            } else {
+                return res.json({
+                    message: 'success'
+                });
             }
             // 如果注册成功，则使用passport的login方法进行登录，登录成功后，user对象会注册到req.user对象中
-            req.login(user, function (err) {
-                if (err) return next(err);
-                return res.redirect('/');
-            });
+            //req.login(user, function (err) {
+            //    if (err) return next(err);
+            //    return res.redirect('/');
+            //});
         });
     } else {
         return res.redirect('/');
