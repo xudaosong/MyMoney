@@ -52,10 +52,10 @@ module.exports = function (db) {
     require('../routes/users.server.routes')(app);
     require('../routes/voice-broadcast.server.routes')(app);
 
-    if (process.env.NODE_ENV === 'development') {
+    //if (process.env.NODE_ENV === 'development') {
         app.use(express.static('../../'));
         app.use(express.static('../web'));
-    }
+    //}
     app.use(express.static(config.static));
 
 //    require('./socketio')(server, io, mongoStore);

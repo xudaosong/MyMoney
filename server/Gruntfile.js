@@ -30,7 +30,10 @@ module.exports = function (grunt) {
                     ext: 'js,html',
                     watch: ['server.js', '**/*.js', '!node_modules/**']
                 }
-            }
+            },
+			production:{
+                script: 'server.js'
+			}
         },
         'node-inspector': {
             debug: {}
@@ -47,9 +50,15 @@ module.exports = function (grunt) {
                 options: {
                     logConcurrentOutput: true
                 }
+            },
+            production: {
+                tasks: ['nodemon:production'],
+                options: {
+                }
             }
         }
     });
     grunt.registerTask('default', ['env:dev', 'concurrent:dev']);
     grunt.registerTask('debug', ['env:dev', 'concurrent:debug']);
+    grunt.registerTask('production', ['env:production', 'concurrent:production']);
 };

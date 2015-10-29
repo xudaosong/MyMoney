@@ -45,10 +45,8 @@ exports.list = function (req, res) {
                 message: getErrorMessage(err)
             });
         } else {
-            var sort = req.query.sort || "created";
             VoiceBroadcast.find({
-                content: new RegExp(req.query.content, 'i')
-            }).sort(sort).limit(req.query.limit).skip((req.query.page - 1) * req.query.limit).exec(function (err, voiceBroadcast) {
+            }).exec(function (err, voiceBroadcast) {
                 if (err) {
                     return res.status(400).send({
                         message: getErrorMessage(err)
