@@ -1,0 +1,18 @@
+.table {
+  th,td{
+    text-align: center;
+    vertical-align:inherit;
+  }
+  thead {
+    tr {
+      color: #707070;
+      font-weight: normal;
+      background-color: #f2f2f2;
+      background-repeat: repeat-x;
+      background-image: linear-gradient(to bottom, #f8f8f8 0, #ececec 100%);
+    }
+  }
+  .hasEssential{
+    color:red;
+  }
+}

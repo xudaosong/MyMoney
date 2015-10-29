@@ -1,3 +1,4 @@
+var util = require('util');
 var VoiceBroadcast = require('mongoose').model('VoiceBroadcast');
 
 var getErrorMessage = function (err) {
@@ -12,17 +13,29 @@ var getErrorMessage = function (err) {
 };
 
 exports.create = function (req, res, next) {
-    var voiceBroadcast = new VoiceBroadcast(req.body);
-    voiceBroadcast.creator = req.user;
-    voiceBroadcast.save(function (err) {
-        if (err) {
-            return res.status(400).send({
-                message: getErrorMessage(err)
-            });
-        } else {
-            res.json(voiceBroadcast);
-        }
-    });
+    if (util.isArray(req.body)) {
+        VoiceBroadcast.collection.insert(req.body, function (err) {
+            if (err) {
+                return res.status(400).send({
+                    message: getErrorMessage(err)
+                });
+            } else {
+                return res.end();
+            }
+        });
+    } else {
+        var voiceBroadcast = new VoiceBroadcast(req.body);
+        voiceBroadcast.creator = req.user;
+        voiceBroadcast.save(function (err) {
+            if (err) {
+                return res.status(400).send({
+                    message: getErrorMessage(err)
+                });
+            } else {
+                res.json(voiceBroadcast);
+            }
+        });
+    }
 };
 
 exports.list = function (req, res) {
@@ -32,8 +45,7 @@ exports.list = function (req, res) {
                 message: getErrorMessage(err)
             });
         } else {
-            var sort = req.query.sort || "-created";
-            console.log(req.query);
+            var sort = req.query.sort || "created";
             VoiceBroadcast.find({
                 content: new RegExp(req.query.content, 'i')
             }).sort(sort).limit(req.query.limit).skip((req.query.page - 1) * req.query.limit).exec(function (err, voiceBroadcast) {
@@ -56,14 +68,19 @@ exports.list = function (req, res) {
 };
 
 exports.voiceBroadcastById = function (req, res, next, id) {
-    VoiceBroadcast.findById(id).exec(function (err, voiceBroadcast) {
-        if (err) return next(err);
-        if (!voiceBroadcast) {
-            return next(new Error('文章不存在，id为' + id));
-        }
-        req.voiceBroadcast = voiceBroadcast;
+    if (id.indexOf(',') > 0) {
         next();
-    });
+    } else {
+        console.log(id);
+        VoiceBroadcast.findById(id).exec(function (err, voiceBroadcast) {
+            if (err) return next(err);
+            if (!voiceBroadcast) {
+                return next(new Error('文章不存在，id为' + id));
+            }
+            req.voiceBroadcast = voiceBroadcast;
+            next();
+        });
+    }
 };
 
 exports.read = function (req, res) {
@@ -72,8 +89,9 @@ exports.read = function (req, res) {
 
 exports.update = function (req, res) {
     var voiceBroadcast = req.voiceBroadcast;
-    voiceBroadcast.title = req.body.title;
+    voiceBroadcast.isEssential = req.body.isEssential;
     voiceBroadcast.content = req.body.content;
+    voiceBroadcast.created = req.body.created;
     voiceBroadcast.save(function (err) {
         if (err) {
             res.status(400).send({
@@ -86,16 +104,23 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    var voiceBroadcast = req.voiceBroadcast;
-    voiceBroadcast.remove(function (err) {
-        if (err) {
-            res.status(400).send({
-                message: getErrorMessage(err)
-            });
-        } else {
-            res.json(voiceBroadcast);
-        }
-    });
+    if (req.params.voiceBroadcastId) {
+        var ids = req.params.voiceBroadcastId.split(',');
+        VoiceBroadcast.remove({_id: {$in: ids}}, function (err) {
+            res.end();
+        });
+    } else {
+        var voiceBroadcast = req.voiceBroadcast;
+        voiceBroadcast.remove(function (err) {
+            if (err) {
+                res.status(400).send({
+                    message: getErrorMessage(err)
+                });
+            } else {
+                res.json(voiceBroadcast);
+            }
+        });
+    }
 };
 
 exports.requiresLogin = function (req, res, next) {

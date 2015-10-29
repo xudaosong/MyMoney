@@ -13,28 +13,28 @@
             title: '企业招聘',
             items: [{
                 title: '招聘信息发布管理',
-                href: ''
+                href: 'voiceBroadcast'
             }, {
                 title: '职位申请信息管理',
-                href: ''
+                href: 'index'
             }]
         },{
             title: '企业招聘',
             items: [{
                 title: '招聘信息发布管理',
-                href: ''
+                href: 'index'
             }, {
                 title: '职位申请信息管理',
-                href: ''
+                href: 'index'
             }]
         },{
             title: '企业招聘',
             items: [{
                 title: '招聘信息发布管理',
-                href: ''
+                href: 'index'
             }, {
                 title: '职位申请信息管理',
-                href: ''
+                href: 'index'
             }]
         }];
 

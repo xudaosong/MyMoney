@@ -17,12 +17,13 @@
       #{$sidebar-selector}{
         position: absolute;
         top:$header-height;
-        bottom:$footer-height;
+        bottom:$footer-height - 1;
         overflow: hidden;
         width: $sidebar-width;
+        z-index:100;
       }
       #{$content-selector}{
-        margin-right: $sidebar-width;
+        margin-left: $sidebar-width;
       }
     }
   }
@@ -30,5 +31,6 @@
     clear: both;
     position: relative;
     height: $footer-height;
+    z-index:10;
   }
 }

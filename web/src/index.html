@@ -23,7 +23,10 @@
     <div id="main-content-container">
         <div id="sidebar-container" money-sidebar>
         </div>
-        <div class="content-container" ui-view></div>
+        <div id="content-container">
+            <div money-breadcrumbs></div>
+            <div ui-view></div>
+        </div>
     </div>
     <footer id="place-footer-container"></footer>
 </div>
@@ -64,18 +67,23 @@
 <script src="money.config.js"></script>
 <script src="money.route.js"></script>
 <script src="money.web.js"></script>
+<script src="breadcrumbs/breadcrumbs.module.js"></script>
 <script src="common/common.module.js"></script>
+<script src="dialog/dialog.module.js"></script>
 <script src="header/header.module.js"></script>
 <script src="sidebar/sidebar.module.js"></script>
 <script src="signup/signup.module.js"></script>
 <script src="voice-broadcast/voice-broadcast.module.js"></script>
 <script src="about/AboutCtrl.js"></script>
+<script src="breadcrumbs/breadcrumbs.controller.js"></script>
+<script src="breadcrumbs/breadcrumbs.directive.js"></script>
 <script src="common/angular-locale_zh-cn.js"></script>
 <script src="common/authentication.service.js"></script>
 <script src="common/csv.js"></script>
 <script src="common/pdfmake.js"></script>
 <script src="common/router-helper.provider.js"></script>
 <script src="common/vfs_fonts.js"></script>
+<script src="dialog/dialog.service.js"></script>
 <script src="header/header.controller.js"></script>
 <script src="header/header.directive.js"></script>
 <script src="home/HomeCtrl.js"></script>

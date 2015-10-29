@@ -1,0 +1,8 @@
+/* line 1, ../../scss/money/toolbar.scss */
+.btn-toolbar {
+  margin: 10px 0;
+}
+/* line 3, ../../scss/money/toolbar.scss */
+.btn-toolbar .input-search-group {
+  width: 200px;
+}
