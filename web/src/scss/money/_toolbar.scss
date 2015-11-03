@@ -1,6 +1,25 @@
-.toolbarContainer{
-  margin:10px 0;
-  .input-search-group{
-    width:200px;
+@charset "UTF-8";
+.toolbarContainer {
+  width: 100%;
+  max-width: 100%;
+  margin: 10px 0;
+  .input-search-group {
+    width: 200px;
   }
+  .searchForm {
+    .form-group {
+      > label {
+        font-weight: normal;
+        &:after {
+          font-family: '宋体';
+          content: "：";
+        }
+      }
+      margin-right: 10px;
+    }
+    .w110 {
+      width: 110px;
+    }
+  }
+
 }

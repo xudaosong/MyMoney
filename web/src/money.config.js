@@ -3,7 +3,7 @@
     angular
         .module('money')
         .config(config);
-    function config(RestangularProvider, $dropdownProvider, fsPaginationConfig) {
+    function config(RestangularProvider, $dropdownProvider, $datepickerProvider, fsPaginationConfig) {
         //=== RestangularProvider
         RestangularProvider.setBaseUrl('/api');
         RestangularProvider.setRestangularFields({
@@ -28,5 +28,10 @@
         fsPaginationConfig.nextText = "下一页";
         fsPaginationConfig.firstText = "首页";
         fsPaginationConfig.lastText = "尾页";
+        //==== $datepickerProvider
+        angular.extend($datepickerProvider.defaults, {
+            dateFormat: 'yyyy-MM-dd',
+            startWeek: 1
+        });
     }
 })();

@@ -18,14 +18,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in vm.parseData">
+        <tr ng-repeat="item in vm.parseData" ng-class="{hasEssential:item.isEssential}">
             <th scope="row">{{$index}}</th>
             <td><input type="checkbox" ng-model="item.isEssential" ng-checked="item.isEssential"></td>
-            <td>{{item.created | date:'yyyy-MM-dd hh:mm'}}</td>
-            <td style="text-align: left" ng-bind-html="item.content"></td>
+            <td>{{item.created | date:'yyyy-MM-dd HH:mm'}}</td>
+            <td style="text-align: left" ng-bind-html="item.content" ng-click="item.isEssential=!item.isEssential"></td>
         </tr>
         </tbody>
     </table>
-    <button type="button" class="form-control btn btn-primary" ng-click="vm.batchSave()">保存</button>
+    <div style="text-align: center;">
+        <button type="button" class="btn btn-primary" fs-busy="vm.batchSave(false)" busy-class="disabled">保存并继续</button>
+        <button type="button" class="btn btn-primary" fs-busy="vm.batchSave(true)" busy-class="disabled">保存并返回</button>
+    </div>
 </form>
 </div>

@@ -1,12 +1,37 @@
 <div class="container-fluid" ng-init="vm.getList()">
     <div class="toolbarContainer clearfix">
         <div class="pull-left">
-            <div class="input-group input-search-group">
+            <!--<div class="input-group input-search-group">
                 <input type="search" ng-model="vm.search" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" ng-click="vm.getList(vm.search)">搜索</button>
                 </span>
-            </div>
+            </div>-->
+            <form class="form-inline searchForm" novalidate ng-submit="vm.search()">
+                <div class="form-group">
+                    <label for="search_content">关键字</label>
+                    <input type="text" class="form-control" id="search_content" placeholder="内容关键字">
+                </div>
+                <div class="form-group">
+                    <label for="search_isEssential">要点</label>
+                    <select class="form-control" name="search_isEssential" id="search_isEssential">
+                        <option value="-1">全部</option>
+                        <option value="1">是要点</option>
+                        <option value="0">不是要点</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">创建时间</label>
+                    <div class="input-daterange input-group">
+                        <input class="form-control w110" type="text" id="startDate" placeholder="起始日期"
+                               ng-model="startDate" fs-datepicker data-max-date="{{endDate}}">
+                        <span class="input-group-addon">到</span>
+                        <input class="form-control w110" type="text" placeholder="结束日期" ng-model="endDate" fs-datepicker
+                               data-min-date="{{startDate}}">
+                    </div>
+                </div>
+                <button type="submit" class="form-group btn btn-default">搜索</button>
+            </form>
         </div>
         <div class="btn-toolbar pull-right">
             <button class="btn btn-primary btn-group" ng-click="vm.showDialog()">新增</button>
@@ -17,7 +42,8 @@
         <thead class="thead-default">
         <tr>
             <th style="width:60px;">序号</th>
-            <th style="width:30px;"><input type="checkbox" ng-model="checkedAll" ng-change="vm.toggleChecked(checkedAll)"></th>
+            <th style="width:30px;"><input type="checkbox" ng-model="checkedAll"
+                                           ng-change="vm.toggleChecked(checkedAll)"></th>
             <th style="width:160px">创建时间</th>
             <th style="width:60px;">要点</th>
             <th>内容</th>
@@ -32,14 +58,19 @@
             <td>{{item.isEssential?'要点':''}}</td>
             <td style="text-align: left" ng-bind-html="item.content"></td>
             <td>
-                <button class="btn btn-primary btn-xs btn-danger" ng-click="vm.remove(item)"><i class="fa fa-trash-o"></i>删除</button>
-                <button class="btn btn-primary btn-xs" ng-click="vm.showDialog(item)"><i class="fa fa-pencil-square-o"></i>修改</button>
+                <button class="btn btn-primary btn-xs btn-danger" ng-click="vm.remove(item)"><i
+                        class="fa fa-trash-o"></i>删除
+                </button>
+                <button class="btn btn-primary btn-xs" ng-click="vm.showDialog(item)"><i
+                        class="fa fa-pencil-square-o"></i>修改
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
     <div class="pagination-container">
-        <fs-pagination items-per-page="20" total-items="vm.list.total" ng-model="vm.currentPage" ng-change="vm.getList();"></fs-pagination>
+        <fs-pagination items-per-page="20" total-items="vm.list.total" ng-model="vm.currentPage"
+                       ng-change="vm.getList();"></fs-pagination>
     </div>
 </div>
 <script type="text/ng-template" id="create-voice-broadcast.tpl.html">
@@ -47,20 +78,24 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form class="form-horizontal" name="vm.my_form" novalidate ng-submit="vm.save()">
-                <div class="modal-header" ng-show="title">
-                    <button type="button" class="close" ng-click="$hide()">&times;</button>
-                    <h4 class="modal-title" ng-bind-html="title"></h4>
-                </div>
-                <div class="modal-body">
+                    <div class="modal-header" ng-show="title">
+                        <button type="button" class="close" ng-click="$hide()">&times;</button>
+                        <h4 class="modal-title" ng-bind-html="title"></h4>
+                    </div>
+                    <div class="modal-body">
                         <div class="form-group">
                             <label class="col-sm-2 control-label required" for="content">内容</label>
-                            <div class="col-sm-10 has-feedback" ng-class="{'has-success': vm.check(vm.my_form.content,true),'has-error':vm.check(vm.my_form.content,false)}">
-                                <input class="form-control" type="text" id="content" name="content" placeholder="内容" ng-model="vm.data.content" required>
+
+                            <div class="col-sm-10 has-feedback"
+                                 ng-class="{'has-success': vm.check(vm.my_form.content,true),'has-error':vm.check(vm.my_form.content,false)}">
+                                <input class="form-control" type="text" id="content" name="content" placeholder="内容"
+                                       ng-model="vm.data.content" required>
                                 <span class="form-control-feedback fa"
                                       ng-if="vm.interacted(vm.my_form.content)"
                                       ng-class="{'fa-check':vm.my_form.content.$valid,'fa-remove':vm.my_form.content.$invalid}"></span>
 
-                                <div class="error-messages" ng-if="vm.interacted(vm.my_form.content)" ng-messages="vm.my_form.content.$error">
+                                <div class="error-messages" ng-if="vm.interacted(vm.my_form.content)"
+                                     ng-messages="vm.my_form.content.$error">
                                     <div ng-message="required">请输入内容</div>
                                 </div>
                             </div>
@@ -69,7 +104,8 @@
                             <div class="col-md-offset-2 col-sm-10">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" ng-model="vm.data.isEssential" ng-checked="vm.data.isEssential">
+                                        <input type="checkbox" ng-model="vm.data.isEssential"
+                                               ng-checked="vm.data.isEssential">
                                         是要点
                                     </label>
                                 </div>
@@ -77,6 +113,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="created">创建时间</label>
+
                             <div class="col-sm-10">
                                 <input class="form-control" id="created" type="text" placeholder="创建时间"
                                        ng-model="vm.data.created"
@@ -86,16 +123,17 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert" ng-if="vm.message.length>0">
+                            <div class="col-sm-offset-1 col-sm-10 alert alert-danger" role="alert"
+                                 ng-if="vm.message.length>0">
                                 <i class="fa fa-warning"></i>{{vm.message}}
                             </div>
                         </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="$hide()">取消</button>
-                    <button type="submit" class="btn btn-primary">保存</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="$hide()">取消</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
                 </form>
             </div>
         </div>
