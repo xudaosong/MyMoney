@@ -29,7 +29,6 @@
     "textAngular": "~1.4.6",
     "angular-resource": "~1.4.7",
     "restangular": "~1.5.1",
-    "angular-ui-grid": "~3.0.7",
     "animate.css": "~3.4.0",
     "font-awesome": "~4.4.0",
     "bootstrap-sass": "~3.3.5",

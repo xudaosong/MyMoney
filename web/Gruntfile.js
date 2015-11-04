@@ -29,8 +29,8 @@ module.exports = function (grunt) {
     // 全局的配置文件
     var appConfig = {
         src: 'src',
-        timestamp: new Date().getTime(),
-        dist: 'dist'
+        dist: 'dist',
+        timestamp: new Date().getTime()
     };
 
 
@@ -56,13 +56,38 @@ module.exports = function (grunt) {
 
         // 清除目录
         clean: {
+            options: {
+                force: true
+            },
             dist: {
                 files: [{
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= yeoman.dist %>/{,*/}*'
+                        '<%= yeoman.dist %>'
                     ]
+                }]
+            }
+        },
+
+        // 复制文件
+        copy: {
+            options: {
+                force: true
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= yeoman.src %>',
+                    dest: '<%= yeoman.dist %>',
+                    src: ['*.html']
+                }, {
+                    expand: true,
+                    dot: true,
+                    cwd: 'bower_components/font-awesome/fonts',
+                    dest: '<%= yeoman.dist %>/fonts',
+                    src: ['**']
                 }]
             }
         },
@@ -121,16 +146,7 @@ module.exports = function (grunt) {
         useminPrepare: {
             html: ['<%= yeoman.src %>/*.html'],
             options: {
-                dest: '<%= yeoman.dist %>'/*,
-                flow: {
-                    html: {
-                        steps: {
-                            //js: ['concat'*//*, 'uglifyjs'*//*],
-                            css: ['cssmin']
-                        },
-                        post: {}
-                    }
-                }*/
+                dest: '<%= yeoman.dist %>'
             }
         },
 
@@ -140,7 +156,7 @@ module.exports = function (grunt) {
         usemin: {
             html: ['<%= yeoman.dist %>/*.html'],
             options: {
-                assetsDirs: ['dist/js','dist/css']
+                assetsDirs: ['<%= yeoman.dist %>/js', '<%= yeoman.dist %>/css', '<%= yeoman.dist %>/images']
             }
             //css: ['<%= yeoman.dist %>/css/{,}*.css'],
             //options: {
@@ -228,20 +244,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        // 复制文件
-        copy: {
-            dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= yeoman.src %>',
-                    dest: '<%= yeoman.dist %>',
-                    src: [
-                        '*.html'
-                    ]
-                }]
-            }
-        },
 
         // 并行运行一组任务
         concurrent: {
@@ -257,7 +259,7 @@ module.exports = function (grunt) {
                     livereload: true
                 }
             },
-            html:{
+            html: {
                 files: ['src/**/*.html'],
                 tasks: ['html2js'],
                 options: {
@@ -265,7 +267,7 @@ module.exports = function (grunt) {
                 }
             },
             js: {
-                files: ['src/*.js','src/**/*.js'],
+                files: ['src/*.js', 'src/**/*.js'],
                 tasks: [],
                 options: {
                     livereload: true
@@ -276,6 +278,7 @@ module.exports = function (grunt) {
         injector: {
             options: {
                 addRootSlash: false,
+                lineEnding: grunt.util.linefeed,
                 ignorePath: ['<%= yeoman.src %>/'],
                 transform: injector_transform
             },
@@ -311,11 +314,6 @@ module.exports = function (grunt) {
         'usemin',
         'cachebreaker',
         'htmlmin',
-        'imagemin'
-    ]);
-
-    // 压缩图片任务
-    grunt.registerTask('images', [
         'imagemin'
     ]);
 

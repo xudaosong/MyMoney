@@ -15,7 +15,7 @@
             state: 'index',
             config: {
                 url: '',
-                templateUrl: 'voice-broadcast/list-voice-broadcast.view.html',
+                templateUrl: 'voice-broadcast/voice-broadcast-list.view.html',
                 controller: 'VoiceBroadcastController',
                 controllerAs: 'vm'
             }

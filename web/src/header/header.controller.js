@@ -13,7 +13,7 @@
         var vm = this;
         vm.dropdown = [
             {text: '<i class="fa fa-pencil-square-o"></i>&nbsp;个人信息修改', href: '#info'},
-            {text: '<i class="fa fa-sign-out"></i>&nbsp;退出', href: '/singout'}
+            {text: '<i class="fa fa-sign-out"></i>&nbsp;退出', href: '/signout'}
         ];
     }
 })();

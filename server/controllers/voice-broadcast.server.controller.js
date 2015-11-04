@@ -14,7 +14,12 @@ var getErrorMessage = function (err) {
 
 exports.create = function (req, res, next) {
     if (util.isArray(req.body)) {
-        VoiceBroadcast.collection.insert(req.body, function (err) {
+        var voiceBroadcasts = [];
+        for (var i = 0; i < req.body.length; i++) {
+            voiceBroadcasts.push(new VoiceBroadcast(req.body[i]).toObject());
+        }
+
+        VoiceBroadcast.collection.insert(voiceBroadcasts, function (err) {
             if (err) {
                 return res.status(400).send({
                     message: getErrorMessage(err)
