@@ -49,8 +49,8 @@ exports.list = function (req, res) {
             return res.status(400).send({
                 message: getErrorMessage(err)
             });
-        } else {
-            VoiceBroadcast.find({}).sort({"created": 1}).exec(function (err, voiceBroadcast) {
+        } else { 
+            VoiceBroadcast.find().sort({"created": 1}).exec(function (err, voiceBroadcast) {
                 if (err) {
                     return res.status(400).send({
                         message: getErrorMessage(err)
