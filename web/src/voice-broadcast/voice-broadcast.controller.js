@@ -11,16 +11,18 @@
         /* jshint validthis: true */
         var vm = this,
             modal = null,
-            voiceBroadcast = Restangular.all('voiceBroadcast'),
-            paginationOptions = {
-                limit: 100,
-                page: 1,
-                sort: null,
-                content: null
-            };
+            voiceBroadcast = Restangular.all('voiceBroadcast');
+        vm.options = {
+            limit: 20,
+            page: 1,
+            startDate: null,
+            endDate: null,
+            isEssential: null,
+            sort: null,
+            keywords: null
+        };
         vm.htmlContent = $templateCache.get('voice-broadcast/article.view.html');
         vm.submitted = false;
-        vm.currentPage = 1;
         vm.data = {};
         vm.search = '';
         vm.getList = getList;
@@ -34,11 +36,9 @@
         vm.batchSave = batchSave;
         vm.toggleChecked = toggleChecked;
         ////////////////
-        function getList(search) {
-            paginationOptions.page = vm.currentPage;
-            if (search !== undefined)
-                paginationOptions.content = search;
-            voiceBroadcast.getList(paginationOptions).then(function (res) {
+        function getList() {
+            if (vm.options.isEssential === '') vm.options.isEssential = null;
+            voiceBroadcast.getList(vm.options).then(function (res) {
                 vm.list = res;
             });
         }

@@ -10,9 +10,9 @@
         /* jshint validthis: true */
         var vm = this;
         vm.panes = [{
-            title: '企业招聘',
+            title: '文章管理',
             items: [{
-                title: '招聘信息发布管理',
+                title: '直播室',
                 href: 'voiceBroadcast'
             }, {
                 title: '职位申请信息管理',

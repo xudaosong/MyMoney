@@ -8,6 +8,7 @@
     min-height: 100%;
     height: auto !important;
     height: 100%;
+    min-width: 1000px;
     margin-bottom: -$footer-height;
     #{$place-footer-selector} {
       height: $footer-height;

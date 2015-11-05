@@ -44,21 +44,39 @@ exports.create = function (req, res, next) {
 };
 
 exports.list = function (req, res) {
-    VoiceBroadcast.count(function (err, total) {
+    var filter = {};
+    if (!!req.query.keywords) {
+        filter.content = new RegExp(req.query.keywords, 'i');
+    }
+    if (req.query.isEssential !== undefined) {
+        filter.isEssential = req.query.isEssential;
+    }
+    if (!!req.query.startDate) {
+        filter.created = filter.created || {};
+        filter.created.$gte = new Date(req.query.startDate);
+    }
+    if (!!req.query.endDate) {
+        filter.created = filter.created || {};
+        filter.created.$lte = new Date(req.query.endDate);
+    }
+
+    VoiceBroadcast.count(filter, function (err, total) {
         if (err) {
             return res.status(400).send({
                 message: getErrorMessage(err)
             });
-        } else { 
-            VoiceBroadcast.find().sort({"created": 1}).exec(function (err, voiceBroadcast) {
-                if (err) {
-                    return res.status(400).send({
-                        message: getErrorMessage(err)
-                    });
-                } else {
-                    res.json({total: total, data: voiceBroadcast});
-                }
-            });
+        } else {
+            VoiceBroadcast.find(filter).sort({"created": 1})
+                .skip((req.query.page - 1) * req.query.limit).limit(req.query.limit)
+                .exec(function (err, voiceBroadcast) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: getErrorMessage(err)
+                        });
+                    } else {
+                        res.json({total: total, data: voiceBroadcast});
+                    }
+                });
         }
         //if(req.query.offset){
         //    voiceBroadcast.skip(req.query.offset);

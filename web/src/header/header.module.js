@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-        .module('money.header', ['fish']);
+        .module('money.header', ['fish','money.common']);
 })();

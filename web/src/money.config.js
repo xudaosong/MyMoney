@@ -31,7 +31,10 @@
         //==== $datepickerProvider
         angular.extend($datepickerProvider.defaults, {
             dateFormat: 'yyyy-MM-dd',
-            startWeek: 1
+            startWeek: 1,
+            autoclose: true,
+            iconLeft: 'fa fa-chevron-left',
+            iconRight: 'fa fa-chevron-right'
         });
     }
 })();

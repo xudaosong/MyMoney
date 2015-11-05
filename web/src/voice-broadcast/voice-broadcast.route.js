@@ -19,12 +19,16 @@
                 controllerAs: 'vm'
             }
         },{
-            state: 'voiceBroadcast/create',
+            state: 'voiceBroadcast.create',
             config: {
-                url:'/voiceBroadcast/create',
-                templateUrl: 'voice-broadcast/voice-broadcast-create.view.html',
-                controller: 'VoiceBroadcastController',
-                controllerAs: 'vm'
+                url:'/create',
+                views:{
+                    '@':{
+                        templateUrl: 'voice-broadcast/voice-broadcast-create.view.html',
+                        controller: 'VoiceBroadcastController',
+                        controllerAs: 'vm'
+                    }
+                }
             }
         }];
     }

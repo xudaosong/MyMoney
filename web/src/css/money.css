@@ -11,17 +11,18 @@ html, body {
   min-height: 100%;
   height: auto !important;
   height: 100%;
+  min-width: 1000px;
   margin-bottom: -40px;
 }
-/* line 12, ../scss/money/mixins/_layout.scss */
+/* line 13, ../scss/money/mixins/_layout.scss */
 #main-container #place-footer-container {
   height: 40px;
 }
-/* line 15, ../scss/money/mixins/_layout.scss */
+/* line 16, ../scss/money/mixins/_layout.scss */
 #main-container #main-content-container {
   min-height: 550px;
 }
-/* line 17, ../scss/money/mixins/_layout.scss */
+/* line 18, ../scss/money/mixins/_layout.scss */
 #main-container #main-content-container #sidebar-container {
   position: absolute;
   top: 45px;
@@ -30,12 +31,12 @@ html, body {
   width: 200px;
   z-index: 100;
 }
-/* line 25, ../scss/money/mixins/_layout.scss */
+/* line 26, ../scss/money/mixins/_layout.scss */
 #main-container #main-content-container #content-container {
   margin-left: 200px;
 }
 
-/* line 30, ../scss/money/mixins/_layout.scss */
+/* line 31, ../scss/money/mixins/_layout.scss */
 #footer-container {
   clear: both;
   position: relative;
@@ -218,26 +219,27 @@ form label.required:after {
 .toolbarContainer {
   width: 100%;
   max-width: 100%;
-  margin: 10px 0;
+  padding: 10px 0;
+  background-color: #fff;
 }
-/* line 6, ../scss/money/_toolbar.scss */
+/* line 7, ../scss/money/_toolbar.scss */
 .toolbarContainer .input-search-group {
   width: 200px;
 }
-/* line 10, ../scss/money/_toolbar.scss */
+/* line 11, ../scss/money/_toolbar.scss */
 .toolbarContainer .searchForm .form-group {
   margin-right: 10px;
 }
-/* line 11, ../scss/money/_toolbar.scss */
+/* line 12, ../scss/money/_toolbar.scss */
 .toolbarContainer .searchForm .form-group > label {
   font-weight: normal;
 }
-/* line 13, ../scss/money/_toolbar.scss */
+/* line 14, ../scss/money/_toolbar.scss */
 .toolbarContainer .searchForm .form-group > label:after {
   font-family: '宋体';
   content: "：";
 }
-/* line 20, ../scss/money/_toolbar.scss */
+/* line 21, ../scss/money/_toolbar.scss */
 .toolbarContainer .searchForm .w110 {
   width: 110px;
 }
