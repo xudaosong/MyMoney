@@ -16,7 +16,10 @@
                 url: '/voiceBroadcast',
                 templateUrl: 'voice-broadcast/voice-broadcast-list.view.html',
                 controller: 'VoiceBroadcastController',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                fsBreadcrumb: {
+                    label: '直播室'
+                }
             }
         },{
             state: 'voiceBroadcast.create',
@@ -28,31 +31,11 @@
                         controller: 'VoiceBroadcastController',
                         controllerAs: 'vm'
                     }
+                },
+                fsBreadcrumb: {
+                    label: '新增直播文章'
                 }
             }
         }];
     }
-        /*.config(config)
-    function config($stateProvider) {
-        $stateProvider
-            .state('voiceBroadcast', {
-                url: '/voiceBroadcast',
-                templateUrl: 'voice-broadcast/voice-broadcast.list.view.html'
-            })
-            //.state('voiceBroadcast.list',{
-            //    url: '/list',
-            //    templateUrl: 'voice-broadcast/voice-broadcast.list.view.html',
-            //    controller: 'VoiceBroadcastController',
-            //    controllerAs: 'vm'
-            //})
-            .state('voiceBroadcast.create', {
-                url: '/create',
-                templateUrl: 'voice-broadcast/voice-broadcast.create.view.html',
-                controller: 'VoiceBroadcastController',
-                controllerAs: 'vm'
-            });
-
-    }*/
-
-
 })();

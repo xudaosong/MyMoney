@@ -1,9 +1,8 @@
 (function () {
     'use strict';
     angular
-        .module('money')
+        .module('money.home')
         .run(webRun);
-
     webRun.$inject = ['routerHelper'];
     /* @ngInject */
     function webRun(routerHelper) {
@@ -12,12 +11,15 @@
 
     function getStates() {
         return [{
-            state: 'index',
+            state: 'home',
             config: {
-                url: '',
-                templateUrl: 'voice-broadcast/voice-broadcast-list.view.html',
-                controller: 'VoiceBroadcastController',
-                controllerAs: 'vm'
+                url: '/',
+                templateUrl: 'home/home.view.html',
+                controller: 'HomeController',
+                controllerAs: 'vm',
+                fsBreadcrumb: {
+                    label: '首页'
+                }
             }
         }];
     }

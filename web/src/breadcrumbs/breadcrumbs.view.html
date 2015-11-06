@@ -1,7 +1,9 @@
 <div class="breadcrumbs">
+    <i class="fa fa-home"></i>
     <ol class="breadcrumb">
-        <li><i class="fa fa-home"></i><a href="#">首页</a></li>
-        <li class="active">招聘信息发布管理</li>
+        <li ng-repeat="step in steps" ng-class="{active: $last}" ng-switch="$last || !!step.abstract">
+            <a ng-switch-when="false" href="{{step.fsBreadcrumbLink}}">{{step.fsBreadcrumbLabel}}</a>
+            <span ng-switch-when="true">{{step.fsBreadcrumbLabel}}</span>
+        </li>
     </ol>
 </div>
-

@@ -15,6 +15,7 @@
         };
 
         //$locationProvider.html5Mode(!!(window.history && history.pushState));
+        $urlRouterProvider.when('', '/');
         $locationProvider.hashPrefix('!');
         this.configure = function(cfg) {
             angular.extend(config, cfg);

@@ -261,16 +261,20 @@ form label.required:after {
   background-color: #f5f5f5;
 }
 /* line 5, ../scss/money/_breadcurmbs.scss */
+.breadcrumbs i {
+  position: relative;
+  top: 2px;
+  margin: 0 10px 0 20px;
+  font-size: 20px;
+}
+/* line 11, ../scss/money/_breadcurmbs.scss */
 .breadcrumbs .breadcrumb {
   display: inline-block;
-  margin: 0 0 0 10px;
+  margin: 0;
   padding: 9px 0 8px 0;
   border-radius: 0;
 }
-/* line 6, ../scss/money/_breadcurmbs.scss */
-.breadcrumbs .breadcrumb i {
-  position: relative;
-  top: 2px;
-  margin-right: 10px;
-  font-size: 20px;
+/* line 16, ../scss/money/_breadcurmbs.scss */
+.breadcrumbs .breadcrumb li + li:before {
+  padding: 0 0 0 5px;
 }

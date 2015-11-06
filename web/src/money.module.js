@@ -12,8 +12,8 @@
             'money.dialog',
             'money.sidebar',
             'money.common',
-            'money.breadcrumbs',
             'money.signup',
+            'money.home',
             'money.voiceBroadcast'
         ]);
 })();

@@ -3,7 +3,7 @@
     angular
         .module('money')
         .config(config);
-    function config(RestangularProvider, $dropdownProvider, $datepickerProvider, fsPaginationConfig) {
+    function config(RestangularProvider, $dropdownProvider, $datepickerProvider,$breadcrumbProvider, fsPaginationConfig) {
         //=== RestangularProvider
         RestangularProvider.setBaseUrl('/api');
         RestangularProvider.setRestangularFields({
@@ -35,6 +35,11 @@
             autoclose: true,
             iconLeft: 'fa fa-chevron-left',
             iconRight: 'fa fa-chevron-right'
+        });
+        //==== $breadcrumbProvider
+        $breadcrumbProvider.setOptions({
+            prefixStateName: 'home',
+            templateUrl: 'breadcrumbs/breadcrumbs.view.html'
         });
     }
 })();
