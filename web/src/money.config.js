@@ -26,12 +26,13 @@
         //==== fsPaginationConfig
         fsPaginationConfig.previousText = "上一页";
         fsPaginationConfig.nextText = "下一页";
-        fsPaginationConfig.firstText = "首页";
+        fsPaginationConfig.firstText = "首页"; 
         fsPaginationConfig.lastText = "尾页";
+        fsPaginationConfig.maxSize = 7;
         //==== $datepickerProvider
         angular.extend($datepickerProvider.defaults, {
             dateFormat: 'yyyy-MM-dd',
-            startWeek: 1,
+            startWeek: 1, 
             autoclose: true,
             iconLeft: 'fa fa-chevron-left',
             iconRight: 'fa fa-chevron-right'

@@ -21,7 +21,7 @@
             sort: null,
             keywords: null
         };
-        vm.htmlContent = $templateCache.get('voice-broadcast/article.view.html');
+        vm.htmlContent = '';
         vm.submitted = false;
         vm.data = {};
         vm.search = '';
@@ -35,7 +35,13 @@
         vm.parse = parse;
         vm.batchSave = batchSave;
         vm.toggleChecked = toggleChecked;
+        activate();
         ////////////////
+        function activate(){
+            $scope.$watch('vm.htmlContent',function(newValue){
+                if(!!newValue) parse();
+            });
+        }
         function getList() {
             if (vm.options.isEssential === '') vm.options.isEssential = null;
             voiceBroadcast.getList(vm.options).then(function (res) {
@@ -140,14 +146,20 @@
                 item.checked = checked;
             });
         };
-        function parse() {
+        function parse(type) {
             var data = [], item;
             var article = angular.element('<div>' + vm.htmlContent + '</div>');
-            var rows = article.find('p.MsoNormal');
+            var rows = article.find('div.lylist>dl>dd>');
+            if(type===2 || rows.length < 15){
+                rows = article.find('div.lylist .MsoNormal');
+            }
+
             var year = article.find("div.name").text();
             year = year.substr(year.indexOf('发表于') + 3, 5);
             angular.forEach(rows, function (row) {
-                var text = year + angular.element(row).text().replace('·', '').trim();
+                var text = angular.element(row).text().replace('·', '').trim();
+                if(text === '') return false;
+                text = year + text;
                 if (!!Date.parse(text)) {
                     item && data.push(item);
                     item = {
@@ -156,11 +168,14 @@
                     };
                     item.created = new Date(year + (angular.element(row).text().replace('·', '').trim()));
                 } else {
+                    if(!item) return false;
+                    if(angular.element(row).hasClass('sign')) return false;
                     item.content += angular.element(row).html().split('<br>').map(function (content) {
                         return '<p>' + angular.element('<div>' + content + '</div>').text() + '</p>';
                     }).join('');
                 }
             });
+            item && data.push(item);
             vm.parseData = data;
             return data;
         }

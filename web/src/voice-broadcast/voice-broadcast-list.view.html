@@ -34,9 +34,13 @@
             </form>
         </div>
         <div class="btn-toolbar pull-right">
+            <button class="btn btn-primary btn-group" ng-click="vm.showDialog()">
+                <i class="fa fa-trash-o"></i>
+                新增
+            </button> 
             <a class="btn btn-primary btn-group" ui-sref=".create">
                 <i class="fa fa-plus"></i>
-                新增
+                批量新增
             </a>
             <button class="btn btn-primary btn-group" ng-click="vm.removeChecked()">
                 <i class="fa fa-trash-o"></i>
@@ -76,7 +80,7 @@
         </tbody>
     </table>
     <div class="pagination-container" fs-affix data-bottom="0" data-limit="#content-container">
-        <fs-pagination data-items-per-page="vm.options.limit" data-total-items="vm.list.total" ng-model="vm.options.page"
+        <fs-pagination data-items-per-page="vm.options.limit" data-total-items="vm.list.total" data-boundary-links="true" ng-model="vm.options.page"
                        ng-change="vm.getList();"></fs-pagination>
     </div>
 </div>
