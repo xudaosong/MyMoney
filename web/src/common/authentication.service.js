@@ -9,12 +9,15 @@
     /* @ngInject */
     function authentication($window) {
         var service = {
-            user: $window.user
+            user: $window.user,
+            isLogin: isLogin
         };
         return service;
 
         ////////////////
-
+        function isLogin() {
+            return !!service.user;
+        }
 
     }
 })();

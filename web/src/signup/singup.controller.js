@@ -7,33 +7,23 @@
     /* @ngInject */
     function SignupController($scope, signup) {
         var vm = this;
-        vm.data = {
-            username: 'xudaosong',
-            password: 'xudaosong',
-            email: 'xudaosong@163.com'
-        };
-        vm.activate = activate;
+        vm.data = {};
         vm.signupSubmit = signupSubmit;
         vm.interacted = interacted;
         vm.isSuccess = isSuccess;
         vm.isError = isError;
         vm.message = '';
-        activate();
 
         ////////////////
-        function activate() {
-            console.log('signup');
-        }
 
         function signupSubmit() {
-            console.log(vm.data);
             vm.submitted = true;
-            signup.create(vm.data).then(function (data) {
+            if (vm.signup_form.$invalid)
+                return;
+            signup.create(vm.data).then(function () {
+                window.location.href = "/signin";
+            }, function (data) {
                 vm.message = data.data.message;
-                console.log('success', data);
-            },function (data) {
-                vm.message = data.data.message;
-                console.log('fail', data);
             });
             return false;
         }

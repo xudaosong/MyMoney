@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
-    <title><%= title %></title>
+    <title>我的钱</title>
     <!-- build:css css/base.min.css -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="../bower_components/animate.css/animate.css"/>
@@ -16,110 +16,17 @@
     <!-- endbuild -->
 </head>
 <body ng-app="money">
-<div class="main">
-    <header class="main"></header>
-    <div class="container" ng-controller="SignupController as vm">
-        <form name="signupForm" ng-submit="vm.signupSubmit()" novalidate>
-            <div class="form-group"
-                 ng-class="{'has-success':vm.isSuccess(signupForm.username),'has-error':vm.isError(signupForm.username)}">
-                <label for="username">用户名:</label>
-                <input class="form-control"
-                       type="text"
-                       id="username"
-                       name="username"
-                       placeholder="请输入用户名"
-                       ng-model="vm.data.username"
-                       ng-model-options="{ updateOn: 'blur' }"
-                       ng-minlength="2"
-                       ng-maxlength="10"
-                       ng-class="{'form-control-success':vm.isSuccess(signupForm.username),'form-control-error':vm.isError(signupForm.username)}"
-                       required/>
-                <div class="error-messages" ng-if="vm.interacted(signupForm.username)"
-                     ng-messages="signupForm.username.$error">
-                    <div class="label label-danger" ng-message="required">请输入用户名</div>
-                    <div class="label label-danger" ng-message="minlength || maxlength">用户名必须在2~10个字之间</div>
-                    <div class="label label-danger" ng-message="fsRealnameValidation">用户名必须是中英文字符</div>
-                </div>
-            </div>
-            <div class="form-group"
-                 ng-class="{'has-success':vm.isSuccess(signupForm.email),'has-error':vm.isError(signupForm.email)}">
-                <label for="email">邮箱:</label>
-                <input class="form-control"
-                       id="email"
-                       type="email"
-                       name="email"
-                       placeholder="请输入邮箱"
-                       ng-class="{'form-control-success':vm.isSuccess(signupForm.email),'form-control-error':vm.isError(signupForm.email)}"
-                       ng-model="vm.data.email"
-                       ng-model-options="{ updateOn: 'blur' }"
-                       fs-email-validation
-                       required/>
-
-                <div class="error-messages" ng-if="vm.interacted(signupForm.email)" ng-messages="signupForm.email.$error">
-                    <div ng-message="required" class="label label-danger">请输入邮箱</div>
-                    <div ng-message="fsEmailValidation" class="label label-danger">请输入正确的邮箱</div>
-                </div>
-            </div>
-            <div class="form-group"
-                 ng-class="{'has-success':vm.isSuccess(signupForm.password),'has-error':vm.isError(signupForm.password)}">
-                <label for="password">密码:</label>
-                <input class="form-control"
-                       type="password"
-                       name="password"
-                       id="password"
-                       placeholder="请输入密码"
-                       ng-class="{'form-control-success':vm.isSuccess(signupForm.password),'form-control-error':vm.isError(signupForm.password)}"
-                       ng-model="vm.data.password"
-                       ng-model-options="{ updateOn: 'blur' }"
-                       ng-minlength="6"
-                       ng-maxlength="12"
-                       required/>
-
-                <div class="error-messages" ng-if="vm.interacted(signupForm.password)"
-                     ng-messages="signupForm.password.$error">
-                    <ng-messages-include src="password-messages"></ng-messages-include>
-                </div>
-            </div>
-
-            <!--<div class="form-group"-->
-                 <!--ng-class="{'has-success':vm.isSuccess(signupForm.password_confirm),'has-error':vm.isError(signupForm.password_confirm)}">-->
-                <!--<label for="password_confirm">确认密码:</label>-->
-                <!--<input class="form-control"-->
-                       <!--type="password"-->
-                       <!--name="password_confirm"-->
-                       <!--id="password_confirm"-->
-                       <!--placeholder="请输入确认密码"-->
-                       <!--ng-class="{'form-control-success':vm.isSuccess(signupForm.password_confirm),'form-control-error':vm.isError(signupForm.password_confirm)}"-->
-                       <!--ng-model="password_confirm"-->
-                       <!--ng-model-options="{ updateOn: 'blur' }"-->
-                       <!--ng-minlength="6"-->
-                       <!--ng-maxlength="12"-->
-                       <!--fs-match-validation="vm.data.password"-->
-                       <!--required/>-->
-
-                <!--<div class="error-messages" ng-if="vm.interacted(signupForm.password_confirm)"-->
-                     <!--ng-messages="signupForm.password_confirm.$error">-->
-                    <!--<ng-messages-include src="password-messages"></ng-messages-include>-->
-                <!--</div>-->
-            <!--</div>-->
-            <div class="form-group">
-            <input class="form-control btn btn-primary" type="submit" value="注册"/>
-            </div>
-            <div class="form-group">
-            <div class="form-control alert alert-danger" role="alert" ng-if="vm.message.length>0">
-                {{vm.message}}
-            </div>
-            </div>
-        </form>
-        <script type="text/ng-template" id="password-messages">
-            <div class="label label-danger" ng-message="required">请输入密码</div>
-            <div class="label label-danger" ng-message="minlength || maxlength">密码必须是6~12位</div>
-            <div class="label label-danger" ng-message="fsMatchValidation">密码不一致</div>
-        </script>
+<div id="main-container">
+    <header id="header-container" money-header>
+    </header>
+    <div id="main-content-container">
+        <div class="container signup" money-signup></div>
     </div>
-    <footer class="sticky"></footer>
+    <footer id="place-footer-container"></footer>
 </div>
-<footer class="main"></footer>
+<footer id="footer-container">
+    <p>Copyright ©2003-2015 www.fishjs.com All rights reserved</p>
+</footer>
 <!-- build:js js/base.min.js -->
 <!-- bower:js -->
 <script src="../bower_components/jquery/dist/jquery.js"></script>
@@ -167,6 +74,7 @@
 <script src="home/home.route.js"></script>
 <script src="sidebar/sidebar.controller.js"></script>
 <script src="sidebar/sidebar.directive.js"></script>
+<script src="signup/signup.directive.js"></script>
 <script src="signup/signup.server.js"></script>
 <script src="signup/singup.controller.js"></script>
 <script src="voice-broadcast/voice-broadcast.controller.js"></script>

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 // 解决bootstrap在IE10以上，滚动条占据内容区域
 body{
-  overflow-y: scroll;
+//  overflow-y: scroll;
   -ms-overflow-style: scrollbar;
 }
 
@@ -21,4 +21,12 @@ body{
     background-color: #f2f2f2;
 }
 #content-container{
+}
+.layout-middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
