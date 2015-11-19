@@ -151,7 +151,7 @@
         function autoParse() {
             var data = parse(1);
             var data2 = parse(2);
-            vm.parseData = data.length >= data2.length ? data : data2;
+            vm.parseData = data.length > data2.length ? data : data2;
             return vm.parseData;
         }
 
@@ -190,13 +190,13 @@
                     if (angular.element(row).hasClass('sign')) return false;
                     item.content += angular.element(row).html().split('<br>').map(function(content) {
                         var text = angular.element('<div>' + content + '</div>').text();
-                        if (!!Date.parse(text.trim())) {
+                        if (!!Date.parse(year+text.trim())) {
                             item && data.push(item);
                             item = {
                                 content: '',
                                 isEssential: false
                             };
-                            item.created = new Date(text.trim());
+                            item.created = new Date(year+text.trim());
                             return;
                         }
                         return '<p>' + angular.element('<div>' + content + '</div>').text() + '</p>';
