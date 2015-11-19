@@ -1,0 +1,8 @@
+标题
+创建时间
+类别
+正文（含图片转化到本地），可以标注重要内容
+作者
+是否精品
+
+语音课文章过滤：document.querySelector(".lylist dd").innerText.split('\n')
