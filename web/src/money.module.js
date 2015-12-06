@@ -14,6 +14,7 @@
             'money.common',
             'money.signup',
             'money.home',
-            'money.voiceBroadcast'
+            'money.voiceBroadcast',
+            'money.article'
         ]);
 })();

@@ -6,13 +6,16 @@ module.exports = function (grunt) {
     grunt.initConfig({
         env: {
             test: {
-                NODE_ENV: 'test'
+                NODE_ENV: 'test',
+                TMPDIR : 'E:/github/myMoney/temp'
             },
             dev: {
-                NODE_ENV: 'development'
+                NODE_ENV: 'development',
+                TMPDIR : 'E:/github/myMoney/temp'
             },
             production: {
-                NODE_ENV: 'production'
+                NODE_ENV: 'production',
+                TMPDIR : 'E:/github/myMoney/temp'
             }
         },
         nodemon: {

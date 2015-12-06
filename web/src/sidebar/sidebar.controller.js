@@ -15,8 +15,8 @@
                 title: '直播室',
                 href: 'voiceBroadcast'
             }, {
-                title: '职位申请信息管理',
-                href: 'index'
+                title: '文章',
+                href: 'article'
             }]
         },{
             title: '企业招聘',

@@ -51,12 +51,15 @@ module.exports = function (db) {
     require('../routes/index.server.routes')(app);
     require('../routes/users.server.routes')(app);
     require('../routes/voice-broadcast.server.routes')(app);
+    require('../routes/article.server.routes')(app);
+    require('../routes/file-upload.server.routes')(app);
 
     if (process.env.NODE_ENV === 'development') {
         app.use(express.static('../../'));
         app.use(express.static('../web'));
     }
     app.use(express.static(config.static));
+    app.use(express.static(config.resources));
 
 //    require('./socketio')(server, io, mongoStore);
 

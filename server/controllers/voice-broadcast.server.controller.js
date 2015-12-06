@@ -37,7 +37,7 @@ exports.create = function (req, res, next) {
                     message: getErrorMessage(err)
                 });
             } else {
-                res.json(voiceBroadcast);
+                return res.json(voiceBroadcast);
             }
         });
     }
@@ -74,7 +74,7 @@ exports.list = function (req, res) {
                             message: getErrorMessage(err)
                         });
                     } else {
-                        res.json({total: total, data: voiceBroadcast});
+                        return res.json({total: total, data: voiceBroadcast});
                     }
                 });
         }
@@ -104,7 +104,7 @@ exports.voiceBroadcastById = function (req, res, next, id) {
 };
 
 exports.read = function (req, res) {
-    res.json(req.voiceBroadcast);
+    return res.json(req.voiceBroadcast);
 };
 
 exports.update = function (req, res) {
@@ -118,7 +118,7 @@ exports.update = function (req, res) {
                 message: getErrorMessage(err)
             });
         } else {
-            res.json(voiceBroadcast);
+            return res.json(voiceBroadcast);
         }
     });
 };
@@ -137,7 +137,7 @@ exports.delete = function (req, res) {
                     message: getErrorMessage(err)
                 });
             } else {
-                res.json(voiceBroadcast);
+                return res.json(voiceBroadcast);
             }
         });
     }

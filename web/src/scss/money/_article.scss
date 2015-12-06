@@ -1,0 +1,35 @@
+.important{
+  color: red;
+}
+.red{
+  color: red;
+}
+.article{
+  background-color: #FFF2D5;
+  font-size:16px;
+  line-height: 25px;
+ 
+  time{
+    margin-right: 20px;
+  }
+  p{
+    text-indent:32px;
+  }
+  header{
+    margin-bottom:20px;
+  }
+}
+section.articles{
+  background:#FFF2D5;
+  article{
+    font-size:16px;
+    .article-content{
+      max-height: 120px;
+      overflow: hidden;
+    }
+    time,.author{
+      font-size: 0.8rem;
+      color:#ccc;
+    }
+   }
+}

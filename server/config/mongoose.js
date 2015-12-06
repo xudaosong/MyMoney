@@ -6,6 +6,7 @@ module.exports = function () {
 
     require('../models/user.server.model');
     require('../models/voice-broadcast.server.model');
+    require('../models/article.server.model');
 
     return db;
 };

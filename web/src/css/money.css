@@ -309,3 +309,51 @@ form label.required:after {
 .signup {
   margin-top: 20px;
 }
+
+/* line 1, ../scss/money/_article.scss */
+.important {
+  color: red;
+}
+
+/* line 4, ../scss/money/_article.scss */
+.red {
+  color: red;
+}
+
+/* line 7, ../scss/money/_article.scss */
+.article {
+  background-color: #FFF2D5;
+  font-size: 16px;
+  line-height: 25px;
+}
+/* line 12, ../scss/money/_article.scss */
+.article time {
+  margin-right: 20px;
+}
+/* line 15, ../scss/money/_article.scss */
+.article p {
+  text-indent: 32px;
+}
+/* line 18, ../scss/money/_article.scss */
+.article header {
+  margin-bottom: 20px;
+}
+
+/* line 22, ../scss/money/_article.scss */
+section.articles {
+  background: #FFF2D5;
+}
+/* line 24, ../scss/money/_article.scss */
+section.articles article {
+  font-size: 16px;
+}
+/* line 26, ../scss/money/_article.scss */
+section.articles article .article-content {
+  max-height: 120px;
+  overflow: hidden;
+}
+/* line 30, ../scss/money/_article.scss */
+section.articles article time, section.articles article .author {
+  font-size: 0.8rem;
+  color: #ccc;
+}

@@ -1,5 +1,6 @@
 module.exports = {
     sessionSecret: 'developmentSessionSecret',
     db: 'mongodb://localhost/mymoney-dev',
-    static:'../web/src'
+    static:'../web/src',
+    resources:'../resources-dev'
 };

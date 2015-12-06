@@ -2,26 +2,36 @@
     'use strict';
     angular
         .module('money')
-        .controller('VoiceBroadcastController', VoiceBroadcastController);
+        .controller('ArticleController', ArticleController);
 
-    VoiceBroadcastController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', '$templateCache', '$state'];
+    ArticleController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', '$templateCache', '$state'];
 
     /* @ngInject */
-    function VoiceBroadcastController($scope, Restangular, $modal, dialog, $templateCache, $state) {
+    function ArticleController($scope, Restangular, $modal, dialog, $templateCache, $state) {
         /* jshint validthis: true */
         var vm = this,
             modal = null,
-            voiceBroadcast = Restangular.all('voiceBroadcast');
+            article = Restangular.all('article');
+        vm.authors = ["王宁", "王晓"];
+        vm.sources = ["和讯直播室","微信公众号","网易博客"]
         vm.options = {
             limit: 20,
             page: 1,
             startDate: null,
             endDate: null,
-            isEssential: null,
+            isGood: null,
             sort: null,
             keywords: null
         };
-        vm.htmlContent = '';
+        vm.icons = [
+            {value: 'Heart', label: '<i class="glyphicon glyphicon-heart"></i> Heart'},
+            {value: 'Star', label: '<i class="glyphicon glyphicon-star"></i> Star'},
+            {value: 'Home', label: '<i class="glyphicon glyphicon-home"></i> Home'},
+            {value: 'Camera', label: '<i class="glyphicon glyphicon-camera"></i> Camera'}
+        ];
+        vm.categories = ["股票技术"];
+        vm.authors = ["王宁","王晓"];
+        vm.source = '';
         vm.submitted = false;
         vm.data = {};
         vm.search = '';
@@ -38,19 +48,19 @@
         activate();
         ////////////////
         function activate() {
-            $scope.$watch('vm.htmlContent', function(newValue) {
+            $scope.$watch('vm.source', function(newValue) {
                 if (!!newValue) autoParse();
             });
         }
 
         function getList() {
             if (vm.options.isEssential === '') vm.options.isEssential = null;
-            voiceBroadcast.getList(vm.options).then(function(res) {
+            article.getList(vm.options).then(function(res) {
                 vm.list = res;
             });
         }
 
-        function save() {
+        function save(isReturn) {
             vm.submitted = true;
             if (vm.my_form.$invalid)
                 return;
@@ -58,11 +68,14 @@
             if (!!vm.data._id) {
                 promise = vm.data.put();
             } else {
-                promise = voiceBroadcast.post(vm.data);
+                promise = article.post(vm.data);
             }
-            promise.then(function() {
-                modal.hide();
-                getList();
+            return promise.then(function() {
+                if (isReturn) {
+                    $state.go('article');
+                } else {
+                    vm.data = {};
+                }
             }, function(response) {
                 if (response.status === 404) {
                     vm.message = '网络错误，请稍候再试！';
@@ -93,7 +106,7 @@
             } else {
                 dialog.confirm('确定要删除选中的数据？', function() {
                     console.log(ids);
-                    voiceBroadcast.several(ids).remove().then(function() {
+                    article.several(ids).remove().then(function() {
                         getList();
                         dialog.alert('删除成功');
                     }, function() {
@@ -149,16 +162,21 @@
         };
 
         function autoParse() {
-            var data = parse(1);
-            var data2 = parse(2);
-            vm.parseData = data.length > data2.length ? data : data2;
-            return vm.parseData;
+            vm.data.content = parse(1);
+            // var data2 = parse(2);
+            // vm.parseData = data.length > data2.length ? data : data2;
+            return vm.content;
         }
 
         function parse(type) {
-            var data = [],
-                item, rows;
-            var article = angular.element('<div>' + vm.htmlContent + '</div>');
+            var items = vm.source.split('\n');
+            angular.forEach(items, function(item, i) {
+                var item = item.trim();
+                if (item.length === 0)
+                    return false;
+                items[i] = "<p>" + item + "</p>";
+            });
+            return items.join('');
             // var rows = article.find('div.lylist>dl>dd>');
             // if(type===2 || rows.length < 15){
             //     rows = article.find('div.lylist .MsoNormal');
@@ -166,7 +184,7 @@
 
             switch (type) {
                 case 1:
-                    rows = article.find('div.lylist>dl>dd>');
+                    rows = article.find(".lylist dd").text().split('\n')
                     break;
                 case 2:
                     rows = article.find('div.lylist .MsoNormal');
@@ -211,9 +229,9 @@
         }
 
         function batchSave(isReturn) {
-            return voiceBroadcast.post(vm.parseData).then(function(res) {
+            return article.post(vm.parseData).then(function(res) {
                 if (isReturn) {
-                    $state.go('voiceBroadcast');
+                    $state.go('article');
                 } else {
                     vm.parseData = [];
                     vm.htmlContent = '';

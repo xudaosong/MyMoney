@@ -1,0 +1,108 @@
+<div class="container-fluid" ng-init="vm.getList()">
+    <div class="toolbarContainer clearfix" fs-affix>
+        <div class="pull-left">
+            <!--<div class="input-group input-search-group">
+                <input type="search" ng-model="vm.search" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="vm.getList(vm.search)">搜索</button>
+                </span>
+            </div>-->
+            <form class="form-inline searchForm" novalidate ng-submit="vm.getList()">
+                <div class="form-group">
+                    <label for="search_content">关键字</label>
+                    <input type="text" class="form-control" id="search_content" placeholder="内容关键字" ng-model="vm.options.keywords">
+                </div>
+                <div class="form-group">
+                    <label for="search_isGood">精华</label>
+                    <select class="form-control" name="search_isGood" id="search_isGood" ng-model="vm.options.isGood">
+                        <option value="">全部</option>
+                        <option value="1">是精华</option>
+                        <option value="0">不是精华</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="search_author">作者</label>
+                    <select class="form-control" name="search_isGood" id="search_author" ng-model="vm.options.author" ng-options="author for author in vm.authors">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="search_author">来源</label>
+                    <select class="form-control" name="search_isGood" id="search_author" ng-model="vm.options.source" ng-options="source for source in vm.sources">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">创建时间</label>
+                    <div class="input-daterange input-group">
+                        <input class="form-control w110" type="text" id="startDate" placeholder="起始日期" readonly
+                               ng-model="vm.options.startDate" fs-datepicker data-max-date="{{vm.options.endDate}}">
+                        <span class="input-group-addon">到</span>
+                        <input class="form-control w110" type="text" placeholder="结束日期" readonly
+                               ng-model="vm.options.endDate" fs-datepicker data-min-date="{{vm.options.startDate}}">
+                    </div>
+                </div>
+                <button type="submit" class="form-group btn btn-default">搜索</button>
+            </form>
+        </div>
+        <div class="btn-toolbar pull-right">
+            <a class="btn btn-primary btn-group" ui-sref=".create">
+                <i class="fa fa-plus"></i>
+                新增
+            </a>
+            <button class="btn btn-primary btn-group" ng-click="vm.removeChecked()">
+                <i class="fa fa-trash-o"></i>
+                批量删除
+            </button>
+        </div>
+    </div>
+    <section class="articles" ng-hide="true">
+        <article ng-repeat="item in vm.list">
+            <header>
+                <h4><a ui-sref="article.detail({ id: item._id })">{{::item.title}}</a></h4>
+                <time pubdate>{{::item.created | date:'yyyy-MM-dd HH:mm:ss'}}</time>
+                <span class="author">{{::item.author}}</author>
+            </header>
+            <div class="article-content" ng-bind-html="::item.content"></div>
+        </article>
+    </section>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-default">
+        <tr>
+            <th style="width:60px;">序号</th>
+            <th style="width:30px;">
+                <input type="checkbox" ng-model="checkedAll" ng-change="vm.toggleChecked(checkedAll)">
+            </th>
+            <th style="width:160px">创建时间</th>
+            <th style="width:60px;">精华</th>
+            <th style="width:60px;">作者</th>
+            <th>来源</th>
+            <th>标题</th>
+            <th style="width:160px;">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in vm.list" ng-class="{hasEssential:item.isEssential}">
+            <th scope="row">{{$index+1+(vm.options.page-1)*vm.options.limit}}</th>
+            <td><input type="checkbox" ng-model="item.checked" ng-checked="item.checked"></td>
+            <td>{{::item.created | date:'yyyy-MM-dd HH:mm'}}</td>
+            <td>{{::item.isGood?'精华':''}}</td>
+            <td>{{::item.author}}</td>
+            <td>{{::item.source}}</td>
+            <td style="text-align: left"><a ui-sref="article.detail({ id: item._id })">{{::item.title}}</a></td>
+            <td>
+                <button class="btn btn-primary btn-xs btn-danger" ng-click="vm.remove(item)"><i
+                        class="fa fa-trash-o"></i>删除
+                </button>
+                <a class="btn btn-primary btn-xs" ui-sref="article.edit({id:item._id})"><i
+                        class="fa fa-pencil-square-o"></i>修改
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="pagination-container" fs-affix data-bottom="0" data-limit="#content-container">
+        <fs-pagination data-items-per-page="vm.options.limit" data-total-items="vm.list.total" data-boundary-links="true" ng-model="vm.options.page"
+                       ng-change="vm.getList();"></fs-pagination>
+    </div>
+</div>
