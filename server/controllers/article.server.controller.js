@@ -29,7 +29,9 @@ exports.create = function(req, res, next) {
 exports.list = function(req, res) {
     var filter = {};
     if (!!req.query.keywords) {
-        filter.content = new RegExp(req.query.keywords, 'i');
+        filter.$or = [];
+        filter.$or.push({title:new RegExp(req.query.keywords, 'i')});
+        filter.$or.push({content:new RegExp(req.query.keywords, 'i')});
     }
     if (!!req.query.author) {
         filter.author = new RegExp(req.query.author, 'i');

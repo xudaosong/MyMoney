@@ -6,3 +6,5 @@
 /.idea
 /server/node_modules
 /server/*.bat
+/resources
+/resources-dev
