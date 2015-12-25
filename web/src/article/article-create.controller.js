@@ -14,7 +14,7 @@
         vm.categories = ["股票技术"];
         vm.authors = ["王宁", "王晓"];
         vm.sources = ["和讯直播室","微信公众号","网易博客"]
-        vm.source = '';
+        vm.origin = '';
         vm.submitted = false;
         vm.data = {};
         vm.save = save;
@@ -29,7 +29,7 @@
                     vm.data = data;
                 });
             }
-            $scope.$watch('vm.source', function(newValue) {
+            $scope.$watch('vm.origin', function(newValue) {
                 if (!!newValue) autoParse();
             });
         }
@@ -48,7 +48,7 @@
                 if (isReturn) {
                     $state.go('article');
                 } else {
-                    vm.source = '';
+                    vm.origin = '';
                     vm.data = {
                         category: vm.data.category,
                         author: vm.data.author,
@@ -94,7 +94,7 @@
         }
 
         function parse(type) {
-            var items = vm.source.split('\n');
+            var items = vm.origin.split('\n');
             angular.forEach(items, function(item, i) {
                 var item = item.trim();
                 if (item.length === 0)

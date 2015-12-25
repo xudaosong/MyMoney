@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "dependencies": {},
   "repository": {},
+  "description": "myMoney.web",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^2.0.0",

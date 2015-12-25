@@ -8575,3 +8575,569 @@ button.close {
   animation-play-state: running;
   -webkit-animation-play-state: running;
 }
+
+/**
+ * 该css来自ui-select组件
+ * 1. 替换ui-select为fs-typeahead
+ */
+/* Style when highlighting a search. */
+/* line 7, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-highlight {
+  font-weight: bold;
+}
+
+/* line 11, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-offscreen {
+  clip: rect(0 0 0 0) !important;
+  width: 1px !important;
+  height: 1px !important;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  outline: 0 !important;
+  left: 0px !important;
+  top: 0px !important;
+}
+
+/* line 26, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-choices-row:hover {
+  background-color: #f5f5f5;
+}
+
+/* Select2 theme */
+/* Mark invalid Select2 */
+/* line 33, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.ng-dirty.ng-invalid > a.select2-choice {
+  border-color: #D44950;
+}
+
+/* line 37, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.select2-result-single {
+  padding-left: 0;
+}
+
+/* line 41, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.select2-locked > .select2-search-choice-close {
+  display: none;
+}
+
+/* line 45, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.select-locked > .fs-typeahead-match-close {
+  display: none;
+}
+
+/* line 49, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+body > .select2-container.open {
+  z-index: 9999;
+  /* The z-index Select2 applies to the select2-drop */
+}
+
+/* Handle up direction Select2 */
+/* line 54, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-container[theme="select2"].direction-up .fs-typeahead-match {
+  border-radius: 4px;
+  /* FIXME hardcoded value :-/ */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* line 59, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-container[theme="select2"].direction-up .fs-typeahead-dropdown {
+  border-radius: 4px;
+  /* FIXME hardcoded value :-/ */
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-width: 1px;
+  /* FIXME hardcoded value :-/ */
+  border-top-style: solid;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
+  margin-top: -4px;
+  /* FIXME hardcoded value :-/ */
+}
+
+/* line 71, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-container[theme="select2"].direction-up .fs-typeahead-dropdown .select2-search {
+  margin-top: 4px;
+  /* FIXME hardcoded value :-/ */
+}
+
+/* line 74, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-container[theme="select2"].direction-up.select2-dropdown-open .fs-typeahead-match {
+  border-bottom-color: #5897fb;
+}
+
+/* Selectize theme */
+/* Helper class to show styles when focus */
+/* line 81, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.selectize-input.selectize-focus {
+  border-color: #007FBB !important;
+}
+
+/* Fix input width for Selectize theme */
+/* line 86, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.selectize-control > .selectize-input > input {
+  width: 100%;
+}
+
+/* Fix dropdown width for Selectize theme */
+/* line 91, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.selectize-control > .selectize-dropdown {
+  width: 100%;
+}
+
+/* Mark invalid Selectize */
+/* line 96, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.ng-dirty.ng-invalid > div.selectize-input {
+  border-color: #D44950;
+}
+
+/* Handle up direction Selectize */
+/* line 101, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-container[theme="selectize"].direction-up .fs-typeahead-dropdown {
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
+  margin-top: -2px;
+  /* FIXME hardcoded value :-/ */
+}
+
+/* Bootstrap theme */
+/* Helper class to show styles when focus */
+/* line 110, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.btn-default-focus {
+  color: #333;
+  background-color: #EBEBEB;
+  border-color: #ADADAD;
+  text-decoration: none;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+/* line 120, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap .fs-typeahead-toggle {
+  position: relative;
+}
+
+/* line 124, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap .fs-typeahead-toggle > .caret {
+  position: absolute;
+  height: 10px;
+  top: 50%;
+  right: 10px;
+  margin-top: -2px;
+}
+
+/* Fix Bootstrap dropdown position when inside a input-group */
+/* line 133, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.input-group > .fs-typeahead-bootstrap.dropdown {
+  /* Instead of relative */
+  position: static;
+}
+
+/* line 138, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.input-group > .fs-typeahead-bootstrap > input.fs-typeahead-search.form-control {
+  border-radius: 4px;
+  /* FIXME hardcoded value :-/ */
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* line 143, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.input-group > .fs-typeahead-bootstrap > input.fs-typeahead-search.form-control.direction-up {
+  border-radius: 4px !important;
+  /* FIXME hardcoded value :-/ */
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+/* line 149, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap > .fs-typeahead-match > .btn {
+  /* Instead of center because of .btn */
+  text-align: left !important;
+}
+
+/* line 154, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap > .fs-typeahead-match > .caret {
+  position: absolute;
+  top: 45%;
+  right: 15px;
+}
+
+/* See Scrollable Menu with Bootstrap 3 http://stackoverflow.com/questions/19227496 */
+/* line 161, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap > .fs-typeahead-choices {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+  margin-top: -1px;
+}
+
+/* line 169, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+body > .fs-typeahead-bootstrap.open {
+  z-index: 1000;
+  /* Standard Bootstrap dropdown z-index */
+}
+
+/* line 173, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-multiple.fs-typeahead-bootstrap {
+  height: auto;
+  padding: 3px 3px 0 3px;
+}
+
+/* line 178, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-multiple.fs-typeahead-bootstrap input.fs-typeahead-search {
+  background-color: transparent !important;
+  /* To prevent double background when disabled */
+  border: none;
+  outline: none;
+  height: 1.666666em;
+  margin-bottom: 3px;
+}
+
+/* line 186, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-multiple.fs-typeahead-bootstrap .fs-typeahead-match .close {
+  font-size: 1.6em;
+  line-height: 0.75;
+}
+
+/* line 191, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-multiple.fs-typeahead-bootstrap .fs-typeahead-match-item {
+  outline: 0;
+  margin: 0 3px 3px 0;
+}
+
+/* line 196, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-multiple .fs-typeahead-match-item {
+  position: relative;
+}
+
+/* line 200, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-multiple .fs-typeahead-match-item.dropping-before:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 100%;
+  height: 100%;
+  margin-right: 2px;
+  border-left: 1px solid #428bca;
+}
+
+/* line 210, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-multiple .fs-typeahead-match-item.dropping-after:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 100%;
+  height: 100%;
+  margin-left: 2px;
+  border-right: 1px solid #428bca;
+}
+
+/* line 220, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap .fs-typeahead-choices-row > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* line 230, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap .fs-typeahead-choices-row > a:hover, .fs-typeahead-bootstrap .fs-typeahead-choices-row > a:focus {
+  text-decoration: none;
+  color: #262626;
+  background-color: #f5f5f5;
+}
+
+/* line 236, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap .fs-typeahead-choices-row.active > a {
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #428bca;
+}
+
+/* line 243, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap .fs-typeahead-choices-row.disabled > a,
+.fs-typeahead-bootstrap .fs-typeahead-choices-row.active.disabled > a {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+}
+
+/* fix hide/show angular animation */
+/* line 251, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-match.ng-hide-add,
+.fs-typeahead-search.ng-hide-add {
+  display: none !important;
+}
+
+/* Mark invalid Bootstrap */
+/* line 257, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-bootstrap.ng-dirty.ng-invalid > button.btn.fs-typeahead-match {
+  border-color: #D44950;
+}
+
+/* Handle up direction Bootstrap */
+/* line 262, ../../bower_components/fishjs/scss/fish/_typeahead.scss */
+.fs-typeahead-container[theme="bootstrap"].direction-up .fs-typeahead-dropdown {
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* line 5, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th {
+  text-align: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* line 14, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable {
+  cursor: pointer;
+}
+/* line 17, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable .sort-indicator {
+  padding-right: 18px;
+  position: relative;
+}
+/* line 21, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable .sort-indicator:after, .fs-table th.sortable .sort-indicator:before {
+  content: "";
+  border-width: 0 4px 4px;
+  border-style: solid;
+  border-color: #000 transparent;
+  visibility: visible;
+  right: 5px;
+  top: 50%;
+  position: absolute;
+  opacity: .3;
+  margin-top: -4px;
+}
+/* line 33, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable .sort-indicator:before {
+  margin-top: 2px;
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000;
+}
+/* line 42, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable .sort-indicator:hover:after, .fs-table th.sortable .sort-indicator:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+/* line 46, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable.sort-desc, .fs-table th.sortable.sort-asc {
+  background-color: rgba(141, 192, 219, 0.25);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+/* line 50, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable.sort-desc .sort-indicator:after, .fs-table th.sortable.sort-asc .sort-indicator:after {
+  margin-top: -2px;
+}
+/* line 53, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable.sort-desc .sort-indicator:before, .fs-table th.sortable.sort-asc .sort-indicator:before {
+  visibility: hidden;
+}
+/* line 57, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable.sort-asc .sort-indicator:after, .fs-table th.sortable.sort-asc .sort-indicator:hover:after {
+  visibility: visible;
+  filter: alpha(opacity=60);
+  -khtml-opacity: 0.6;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+}
+/* line 64, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.sortable.sort-desc .sort-indicator:after {
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000;
+  visibility: visible;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  filter: alpha(opacity=60);
+  -khtml-opacity: 0.6;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+}
+/* line 80, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table th.filter .input-filter {
+  margin: 0;
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 92, ../../bower_components/fishjs/scss/fish/_table.scss */
+.fs-table-pagination {
+  margin-top: 0;
+}
+
+@media only screen and (max-width: 800px) {
+  /* line 97, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .fs-table-responsive {
+    border-bottom: 1px solid #999;
+  }
+  /* line 99, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .fs-table-responsive tr {
+    border-top: 1px solid #999;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+  }
+  /* line 104, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .fs-table-responsive td:before {
+    position: absolute;
+    padding: 8px;
+    left: 0;
+    top: 0;
+    width: 50%;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+  /* line 116, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .fs-table-responsive thead tr th {
+    text-align: left;
+  }
+  /* line 120, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .fs-table-responsive thead tr.fs-table-filters th {
+    padding: 0;
+  }
+  /* line 123, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .fs-table-responsive thead tr.fs-table-filters th form > div {
+    padding: 8px;
+  }
+  /* line 130, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .fs-table-responsive td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    text-align: left;
+  }
+  /* line 138, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .fs-table-responsive td:before {
+    content: attr(data-title-text);
+  }
+  /* line 142, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .fs-table-responsive, .fs-table-responsive thead, .fs-table-responsive tbody, .fs-table-responsive th, .fs-table-responsive td, .fs-table-responsive tr {
+    display: block;
+  }
+}
+/* line 152, ../../bower_components/fishjs/scss/fish/_table.scss */
+.filter:before,
+.filter:after {
+  display: table;
+  content: " ";
+}
+
+/* line 157, ../../bower_components/fishjs/scss/fish/_table.scss */
+.filter:after {
+  clear: both;
+}
+
+/* line 161, ../../bower_components/fishjs/scss/fish/_table.scss */
+.filter > .filter-cell {
+  float: left;
+  box-sizing: border-box;
+}
+
+/* line 166, ../../bower_components/fishjs/scss/fish/_table.scss */
+.filter-horizontal > .filter-cell {
+  padding: 0 2px;
+}
+
+/* line 170, ../../bower_components/fishjs/scss/fish/_table.scss */
+.filter-horizontal > .filter-cell:first-child {
+  padding-left: 0;
+}
+
+/* line 175, ../../bower_components/fishjs/scss/fish/_table.scss */
+.filter-horizontal > .filter-cell:last-child, .filter-horizontal > .filter-cell.last {
+  padding-right: 0;
+}
+
+/* line 180, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s12 {
+  width: 100%;
+}
+
+/* line 183, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s11 {
+  width: 91.66666666666666%;
+}
+
+/* line 186, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s10 {
+  width: 83.33333333333334%;
+}
+
+/* line 189, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s9 {
+  width: 75%;
+}
+
+/* line 192, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s8 {
+  width: 66.66666666666666%;
+}
+
+/* line 195, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s7 {
+  width: 58.333333333333336%;
+}
+
+/* line 198, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s6 {
+  width: 50%;
+}
+
+/* line 201, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s5 {
+  width: 41.66666666666667%;
+}
+
+/* line 204, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s4 {
+  width: 33.33333333333333%;
+}
+
+/* line 207, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s3 {
+  width: 25%;
+}
+
+/* line 210, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s2 {
+  width: 16.666666666666664%;
+}
+
+/* line 213, ../../bower_components/fishjs/scss/fish/_table.scss */
+.s1 {
+  width: 8.333333333333332%;
+}
+
+@media all and (max-width: 468px) {
+  /* line 218, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .s12, .s11, .s10, .s9, .s8, .s7, .s6, .s5, .s4, .s3, .s2, .s1 {
+    width: 100%;
+  }
+
+  /* line 221, ../../bower_components/fishjs/scss/fish/_table.scss */
+  .filter > .filter-cell {
+    padding: 0px;
+  }
+}

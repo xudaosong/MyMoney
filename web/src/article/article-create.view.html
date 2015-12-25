@@ -1,144 +1,103 @@
 <div style="margin:20px;">
-<form class="form-horizontal" name="vm.my_form" novalidate>
-     <div class="form-group">
-        <label class="col-sm-1 control-label required" for="title">标题</label>
-
-        <div class="col-sm-11 has-feedback"
-             ng-class="{'has-success': vm.check(vm.my_form.title,true),'has-error':vm.check(vm.my_form.title,false)}">
-            <input class="form-control" type="text" id="title" name="title" rows="10" placeholder="标题" ng-model="vm.data.title" required></input>
-            <span class="form-control-feedback fa"
-                  ng-if="vm.interacted(vm.my_form.title)"
-                  ng-class="{'fa-check':vm.my_form.title.$valid,'fa-remove':vm.my_form.title.$invalid}"></span>
-
-            <div class="error-messages" ng-if="vm.interacted(vm.my_form.title)"
-                 ng-messages="vm.my_form.title.$error">
-                <div ng-message="required">请输入标题</div>
+    <form class="form-horizontal" name="vm.my_form" novalidate>
+        <div class="form-group">
+            <label class="col-sm-1 control-label required" for="title">标题</label>
+            <div class="col-sm-11 has-feedback" ng-class="{'has-success': vm.check(vm.my_form.title,true),'has-error':vm.check(vm.my_form.title,false)}">
+                <input class="form-control" type="text" id="title" name="title" rows="10" placeholder="标题" ng-model="vm.data.title" required></input>
+                <span class="form-control-feedback fa" ng-if="vm.interacted(vm.my_form.title)" ng-class="{'fa-check':vm.my_form.title.$valid,'fa-remove':vm.my_form.title.$invalid}"></span>
+                <div class="error-messages" ng-if="vm.interacted(vm.my_form.title)" ng-messages="vm.my_form.title.$error">
+                    <div ng-message="required">请输入标题</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-1 control-label required" for="category">类别</label>
-    
-        <div class="col-sm-11 has-feedback"
-             ng-class="{'has-success': vm.check(vm.my_form.category,true),'has-error':vm.check(vm.my_form.category,false)}">
-            <input class="form-control" type="text" id="category" name="category" placeholder="类别" 
-                    ng-model="vm.data.category" 
-                    required
-                    data-min-length="0" 
-                    data-auto-select = "true"
-                    data-animation = "fs-flip-x"
-                    fs-typeahead
-                    fs-options = "category for category in vm.categories"></input>
-            <span class="form-control-feedback fa"
-                  ng-if="vm.interacted(vm.my_form.category)"
-                  ng-class="{'fa-check':vm.my_form.category.$valid,'fa-remove':vm.my_form.category.$invalid}"></span>
-    
-            <div class="error-messages" ng-if="vm.interacted(vm.my_form.category)"
-                 ng-messages="vm.my_form.category.$error">
-                <div ng-message="required">请输入类别</div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label required" for="category">类别</label>
+            <div class="col-sm-11 has-feedback" ng-class="{'has-success': vm.check(vm.my_form.category,true),'has-error':vm.check(vm.my_form.category,false)}">
+                <fs-typeahead id="category" name="category" ng-model="vm.data.category" theme="bootstrap" required>
+                    <fs-typeahead-match placeholder="类别">{{$select.selected}}</fs-typeahead-match>
+                    <fs-typeahead-choices repeat="category in vm.categories | filter: $select.search">
+                        <div ng-bind-html="category | highlight: $select.search"></div>
+                    </fs-typeahead-choices>
+                </fs-typeahead>
+                <!--  <input class="form-control" type="text" id="category" name="category" placeholder="类别" ng-model="vm.data.category" required data-min-length="0" data-auto-select="true" data-animation="fs-flip-x" fs-typeahead fs-options="category for category in vm.categories"></input> -->
+                <span class="form-control-feedback fa" ng-if="vm.interacted(vm.my_form.category)" ng-class="{'fa-check':vm.my_form.category.$valid,'fa-remove':vm.my_form.category.$invalid}"></span>
+                <div class="error-messages" ng-if="vm.interacted(vm.my_form.category)" ng-messages="vm.my_form.category.$error">
+                    <div ng-message="required">请输入类别</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-1 control-label required" for="source">来源</label>
-    
-        <div class="col-sm-11 has-feedback"
-             ng-class="{'has-success': vm.check(vm.my_form.source,true),'has-error':vm.check(vm.my_form.source,false)}">
-            <input class="form-control" type="text" id="source" name="source" placeholder="来源" 
-                    ng-model="vm.data.source" 
-                    required
-                    data-min-length="0" 
-                    data-auto-select = "true"
-                    data-animation = "fs-flip-x"
-                    fs-typeahead
-                    fs-options = "source for source in vm.sources"></input>
-            <span class="form-control-feedback fa"
-                  ng-if="vm.interacted(vm.my_form.source)"
-                  ng-class="{'fa-check':vm.my_form.source.$valid,'fa-remove':vm.my_form.source.$invalid}"></span>
-    
-            <div class="error-messages" ng-if="vm.interacted(vm.my_form.source)"
-                 ng-messages="vm.my_form.source.$error">
-                <div ng-message="required">请输入类别</div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label required" for="source">来源</label>
+            <div class="col-sm-11 has-feedback" ng-class="{'has-success': vm.check(vm.my_form.source,true),'has-error':vm.check(vm.my_form.source,false)}">
+                <fs-typeahead id="source" name="source" ng-model="vm.data.source" theme="bootstrap" required>
+                    <fs-typeahead-match placeholder="来源">{{$select.selected}}</fs-typeahead-match>
+                    <fs-typeahead-choices repeat="source in vm.sources | filter: $select.search">
+                        <div ng-bind-html="source | highlight: $select.search"></div>
+                    </fs-typeahead-choices>
+                </fs-typeahead>
+                <!--  <input class="form-control" type="text" id="source" name="source" placeholder="来源" ng-model="vm.data.source" required data-min-length="0" data-auto-select="true" data-animation="fs-flip-x" fs-typeahead fs-options="source for source in vm.sources"></input>-->
+                <span class="form-control-feedback fa" ng-if="vm.interacted(vm.my_form.source)" ng-class="{'fa-check':vm.my_form.source.$valid,'fa-remove':vm.my_form.source.$invalid}"></span>
+                <div class="error-messages" ng-if="vm.interacted(vm.my_form.source)" ng-messages="vm.my_form.source.$error">
+                    <div ng-message="required">请输入来源</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-1 control-label required" for="author">作者</label>
-
-        <div class="col-sm-11 has-feedback"
-             ng-class="{'has-success': vm.check(vm.my_form.author,true),'has-error':vm.check(vm.my_form.author,false)}">
-            <input class="form-control" type="text" id="author" name="author" rows="10" placeholder="作者" ng-model="vm.data.author" required
-                    data-min-length="0" 
-                    data-auto-select = "true"
-                    data-animation = "fs-flip-x"
-                    fs-typeahead
-                    fs-options = "author for author in vm.authors"></textarea>
-            <span class="form-control-feedback fa"
-                  ng-if="vm.interacted(vm.my_form.author)"
-                  ng-class="{'fa-check':vm.my_form.author.$valid,'fa-remove':vm.my_form.author.$invalid}"></span>
-
-            <div class="error-messages" ng-if="vm.interacted(vm.my_form.author)"
-                 ng-messages="vm.my_form.author.$error">
-                <div ng-message="required">请输入作者</div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label required" for="author">作者</label>
+            <div class="col-sm-11 has-feedback" ng-class="{'has-success': vm.check(vm.my_form.author,true),'has-error':vm.check(vm.my_form.author,false)}">
+                <fs-typeahead id="author" name="author" ng-model="vm.data.author" theme="bootstrap" required>
+                    <fs-typeahead-match placeholder="类别">{{$select.selected}}</fs-typeahead-match>
+                    <fs-typeahead-choices repeat="author in vm.authors | filter: $select.search">
+                        <div ng-bind-html="author | highlight: $select.search"></div>
+                    </fs-typeahead-choices>
+                </fs-typeahead>
+                <!-- <input class="form-control" type="text" id="author" name="author" rows="10" placeholder="作者" ng-model="vm.data.author" required data-min-length="0" data-auto-select="true" data-animation="fs-flip-x" fs-typeahead fs-options="author for author in vm.authors"> -->
+                <span class="form-control-feedback fa" ng-if="vm.interacted(vm.my_form.author)" ng-class="{'fa-check':vm.my_form.author.$valid,'fa-remove':vm.my_form.author.$invalid}"></span>
+                <div class="error-messages" ng-if="vm.interacted(vm.my_form.author)" ng-messages="vm.my_form.author.$error">
+                    <div ng-message="required">请输入作者</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-1 col-sm-11">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" ng-model="vm.data.isGood"
-                           ng-checked="vm.data.isGood">
-                    是精华
-                </label>
+        <div class="form-group">
+            <div class="col-md-offset-1 col-sm-11">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="vm.data.isGood" ng-checked="vm.data.isGood"> 是精华
+                    </label>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-1 control-label" for="created">创建时间</label>
-
-        <div class="col-sm-11">
-            <input class="form-control" id="created" type="text" placeholder="创建时间"
-                   ng-model="vm.data.created"
-                   fs-datepicker
-                   data-date-format="yyyy-MM-dd HH:mm:ss"
-                   data-autoclose="1">
-        </div>
-    </div>
-    <div class="form-group" ng-if="!vm.data._id">
-        <label class="col-sm-1 control-label" for="source">源文章</label>
-
-        <div class="col-sm-11">
-            <textarea class="form-control" id="source" name="source" rows="2" placeholder="源文章" ng-model="vm.source"></textarea>
-        </div>
-    </div>
-     <div class="form-group">
-        <label class="col-sm-1 control-label required" for="content">内容</label>
-
-        <div class="col-sm-11 has-feedback"
-             ng-class="{'has-success': vm.check(vm.my_form.content,true),'has-error':vm.check(vm.my_form.content,false)}">
-             <text-angular id="content" name="content" ng-model="vm.data.content" required></text-angular>
-            <span class="form-control-feedback fa"
-                  ng-if="vm.interacted(vm.my_form.content)"
-                  ng-class="{'fa-check':vm.my_form.content.$valid,'fa-remove':vm.my_form.content.$invalid}"></span>
-
-            <div class="error-messages" ng-if="vm.interacted(vm.my_form.content)"
-                 ng-messages="vm.my_form.content.$error">
-                <div ng-message="required">请输入内容</div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label" for="created">创建时间</label>
+            <div class="col-sm-11">
+                <input class="form-control" id="created" type="text" placeholder="创建时间" ng-model="vm.data.created" fs-datepicker data-date-format="yyyy-MM-dd HH:mm:ss" data-autoclose="1">
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-1 col-sm-11 alert alert-danger" role="alert"
-             ng-if="vm.message.length>0">
-            <i class="fa fa-warning"></i>{{vm.message}}
+        <div class="form-group" ng-if="!vm.data._id">
+            <label class="col-sm-1 control-label" for="origin">源文章</label>
+            <div class="col-sm-11">
+                <textarea class="form-control" id="origin" name="origin" rows="2" placeholder="源文章" ng-model="vm.origin"></textarea>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group" style="text-align: center;">
-        <button type="button" class="btn btn-primary" ng-click="vm.save(false)" busy-class="disabled">保存并继续</button>
-        <button type="button" class="btn btn-primary" ng-click="vm.save(true)" busy-class="disabled">保存并返回</button>
-    </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label required" for="content">内容</label>
+            <div class="col-sm-11 has-feedback" ng-class="{'has-success': vm.check(vm.my_form.content,true),'has-error':vm.check(vm.my_form.content,false)}">
+                <text-angular id="content" name="content" ng-model="vm.data.content" required></text-angular>
+                <span class="form-control-feedback fa" ng-if="vm.interacted(vm.my_form.content)" ng-class="{'fa-check':vm.my_form.content.$valid,'fa-remove':vm.my_form.content.$invalid}"></span>
+                <div class="error-messages" ng-if="vm.interacted(vm.my_form.content)" ng-messages="vm.my_form.content.$error">
+                    <div ng-message="required">请输入内容</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-11 alert alert-danger" role="alert" ng-if="vm.message.length>0">
+                <i class="fa fa-warning"></i>{{vm.message}}
+            </div>
+        </div>
+        <div class="form-group" style="text-align: center;">
+            <button type="button" class="btn btn-primary" ng-click="vm.save(false)" busy-class="disabled">保存并继续</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.save(true)" busy-class="disabled">保存并返回</button>
+        </div>
 </div>
 </form>
 </div>

@@ -1,5 +1,5 @@
-(function () {
-    'use strict';
-    angular
-        .module('money.common', ['ui.router']);
+(function() {
+	'use strict';
+	angular
+		.module('money.common', ['ui.router', 'textAngular']);
 })();
