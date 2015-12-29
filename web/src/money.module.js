@@ -15,6 +15,7 @@
             'money.signup',
             'money.home',
             'money.voiceBroadcast',
+            'money.checklist',
             'money.article'
         ]);
 })();

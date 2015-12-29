@@ -145,7 +145,7 @@ exports.delete = function (req, res) {
 
 exports.requiresLogin = function (req, res, next) {
     if (!req.isAuthenticated()) {
-        res.status(401).send({
+        return res.status(401).send({
             message: '请先登录'
         });
     }

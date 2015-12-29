@@ -53,6 +53,7 @@ module.exports = function (db) {
     require('../routes/voice-broadcast.server.routes')(app);
     require('../routes/article.server.routes')(app);
     require('../routes/file-upload.server.routes')(app);
+    require('../routes/checklist.server.routes')(app);
 
     if (process.env.NODE_ENV === 'development') {
         app.use(express.static('../../'));

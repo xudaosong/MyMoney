@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular
-        .module('money')
+        .module('money.article')
         .controller('ArticleDetailController', ArticleDetailController);
 
     ArticleDetailController.$inject = ['$scope', 'Restangular', '$state', '$stateParams'];
