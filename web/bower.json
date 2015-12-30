@@ -29,6 +29,8 @@
     "textAngular": "~1.4.6",
     "angular-resource": "~1.4.7",
     "restangular": "~1.5.1",
-    "bootstrap-sass": "~3.3.5"
+    "bootstrap-sass": "~3.3.5",
+    "angular-formly": "~7.3.9",
+    "angular-formly-templates-bootstrap": "~6.2.0"
   }
 }

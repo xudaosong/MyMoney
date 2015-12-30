@@ -1,18 +1,21 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var ChecklistSchema = new Schema({
-    content: {
-        type: String,
-        default: '',
-        trim: true,
-        required: '请输入Checklist内容'
-    },
-    group:{
+    title: {
         type: String,
         trim: true,
-        default: '请输入分组'
+        required: '请输入Checklist标题'
     },
-    author:{
+    group: {
+        type: String,
+        trim: true,
+        required: '请输入分组'
+    },
+    sort: {
+        type: Number,
+        default: 0
+    },
+    author: {
         type: String,
         default: '',
         trim: true
