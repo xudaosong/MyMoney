@@ -239,7 +239,7 @@ module.exports = function (grunt) {
                     }
                 },
                 files: [{
-                    src: ['<%= yeoman.src %>/*/*.html'],
+                    src: ['<%= yeoman.src %>/**/*.*.html'],
                     dest: '.tmp/web/money.views.js'
                 }]
             }
