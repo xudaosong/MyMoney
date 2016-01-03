@@ -38,5 +38,35 @@
             </button>
         </div>
     </div>
-    <fs-table-express data-table-convert="vm.tableConvert"/>
+    <!-- <fs-table-express data-table-convert="vm.tableConvert"/> -->
+    <table fs-table-dynamic="vm.tableParams with vm.cols" class="table table-condensed table-bordered table-hover table-group">
+        <colgroup>
+          <col />
+          <col width="100px" />
+          <col width="120px" />
+        </colgroup>
+        <tr class="fs-table-group" ng-repeat-start="group in $groups">
+            <td colspan="3" class="text-left">
+                <a href="javascript:;" ng-click="group.$hideRows = !group.$hideRows">
+                    <span class="fa" ng-class="{ 'fa-chevron-right': group.$hideRows, 'fa-chevron-down': !group.$hideRows }"></span>
+                    <strong>{{ group.value }}</strong>
+                </a>
+            </td>
+        </tr>
+        <tr ng-hide="group.$hideRows" ng-repeat="row in group.data" ng-repeat-end>
+            <td ng-repeat="col in $columns" ng-switch="col.field" ng-class="col.cellClass">
+                <input ng-switch-when="selector" type="checkbox" ng-model="checkboxes.items[row.courseid]" />
+                <div ng-switch-when="operation" class="operation">
+                    <button ng-repeat="button in col.buttons" class="btn btn-primary btn-xs" ng-class="button.css" ng-click="button.onClick(row)">
+                        <i class="fa" ng-if="button.icon" ng-class="button.icon"></i>{{button.text}}
+                    </button>
+                </div>
+                <div ng-switch-default>
+                    <div ng-if="!!col.getValue" ng-bind="col.getValue(this,row)"></div>
+                    <div ng-if="!!col.render" ng-bind-html="col.render(row,this)"></div>
+                    <div ng-if="!col.getValue && !col.render">{{row[col.field]}}</div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>

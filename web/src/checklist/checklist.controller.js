@@ -4,34 +4,49 @@
         .module('money.checklist')
         .controller('ChecklistController', ChecklistController);
 
-    ChecklistController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', 'FsTableConvert'];
+    ChecklistController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', "$interpolate", 'FsTableParams'];
 
     /* @ngInject */
-    function ChecklistController($scope, Restangular, $modal, dialog, FsTableConvert) {
+    function ChecklistController($scope, Restangular, $modal, dialog, $interpolate, FsTableParams) {
         /* jshint validthis: true */
         var vm = this,
             modal = null,
-            checklist = Restangular.all('checklist'),
-            config = {
-                getData: getList,
-                cols: [{
-                    name: 'title',
-                    title: '标题'
-                }, {
-                    name: 'group',
-                    title: '分组'
-                }, {
-                    name: 'author',
-                    title: '作者'
-                }, {
-                    name: 'operation',
-                    title: '操作',
-                    buttons: [{
-                        text: '删除',
-                        onClick: remove
-                    }]
-                }]
-            };
+            checklist = Restangular.all('checklist');
+
+        vm.cols = [{
+            field: 'title',
+            title: '标题',
+            groupable: 'title',
+            cellClass: 'text-left'
+        }, {
+            field: 'group',
+            title: '分组',
+            show: false,
+            groupable: 'group'
+        }, {
+            field: 'author',
+            title: '作者',
+            groupable: 'author'
+        }, {
+            field: 'operation',
+            title: '操作',
+            buttons: [{
+                text: '删除',
+                css: 'btn-danger',
+                icon: 'fa-trash-o',
+                onClick: remove
+            }, {
+                text: '修改',
+                icon: 'fa-pencil-square-o',
+                onClick: showDialog
+            }]
+        }];
+        vm.tableParams = new FsTableParams({
+            group: 'group'
+        }, {
+            getData: getList,
+            counts: []
+        });
 
         vm.authors = ["王宁", "王晓"];
         vm.options = {
@@ -42,17 +57,17 @@
         };
         vm.categories = ["股票技术"];
         vm.authors = ["王宁", "王晓"];
-        vm.tableConvert = new FsTableConvert(config);
-        vm.getList = getList;
-        vm.remove = remove;
+        // vm.tableConvert = new FsTableConvert(config);
+        // vm.getList = getList;
+        // vm.remove = remove;
         vm.removeChecked = removeChecked;
-        vm.showDialog = showDialog;
+        // vm.showDialog = showDialog;
 
         ////////////////
 
         function getList(tableParams) {
             return checklist.getList(vm.options).then(function(res) {
-                tableParams.total(res.total);
+                // tableParams.total(res.total);
                 return res;
             });
         }

@@ -16,11 +16,14 @@
         ///////////////////////////
 
         function factory(config) {
-            var vm = this, hasSelected = false, initParams = {};
+            var vm = this, hasSelected = false, initParams = {
+                group:'group'
+            };
 
             var setting = angular.copy(defaultConfig),
                 element = null,
                 $scope = null;
+
 
             if (config.getData) {
                 setting.getData = config.getData;

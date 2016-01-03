@@ -49,7 +49,7 @@ html, body {
   z-index: 10;
 }
 
-/* line 10, ../scss/money/_base.scss */
+/* line 9, ../scss/money/_base.scss */
 #footer-container {
   color: #808080;
   background-color: #f2f2f2;
@@ -58,7 +58,7 @@ html, body {
   padding-top: 10px;
 }
 
-/* line 18, ../scss/money/_base.scss */
+/* line 17, ../scss/money/_base.scss */
 #sidebar-container {
   border: 1px solid #ccc;
   border-width: 0 1px 0 0;
@@ -224,11 +224,12 @@ form label.required:after {
 }
 
 /* line 2, ../scss/money/_table.scss */
-.table th, .table td {
+.table th,
+.table td {
   text-align: center;
   vertical-align: inherit;
 }
-/* line 7, ../scss/money/_table.scss */
+/* line 8, ../scss/money/_table.scss */
 .table thead tr {
   color: #707070;
   font-weight: normal;
@@ -236,9 +237,18 @@ form label.required:after {
   background-repeat: repeat-x;
   background-image: linear-gradient(to bottom, #f8f8f8 0, #ececec 100%);
 }
-/* line 15, ../scss/money/_table.scss */
+/* line 16, ../scss/money/_table.scss */
 .table .hasEssential {
   color: red;
+}
+/* line 19, ../scss/money/_table.scss */
+.table .operation button + button {
+  margin-left: 5px;
+}
+
+/* line 25, ../scss/money/_table.scss */
+.table-group .text-left {
+  text-align: left;
 }
 
 /* line 2, ../scss/money/_toolbar.scss */
