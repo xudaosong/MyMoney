@@ -4,20 +4,82 @@
         .module('money.checklist')
         .controller('ChecklistController', ChecklistController);
 
-    ChecklistController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', "$interpolate", 'FsTableParams'];
+    ChecklistController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', "$interpolate", 'FsTableParams','$sce'];
 
     /* @ngInject */
-    function ChecklistController($scope, Restangular, $modal, dialog, $interpolate, FsTableParams) {
+    function ChecklistController($scope, Restangular, $modal, dialog, $interpolate, FsTableParams,$sce) {
         /* jshint validthis: true */
         var vm = this,
             modal = null,
             checklist = Restangular.all('checklist');
+        vm.fields = [{
+            className:'row',
+            fieldGroup:[{
+                className:'col-xs-6',
+                type: 'select',
+                key: 'group',
+                defaultValue: '买入',
+                templateOptions: {
+                    label: '分组',
+                    options: [{
+                        name: '买入',
+                        value: '买入'
+                    }, {
+                        name: '卖出',
+                        value: '卖出'
+                    }, {
+                        name: '选股',
+                        value: '选股'
+                    }]
+                }
+            },{
+                className:'col-xs-6',
+                type: 'select',
+                key: 'author',
+                defaultValue: '许道松',
+                templateOptions: {
+                    label: '作者',
+                    options: [{
+                        name: '许道松',
+                        value: '许道松'
+                    }, {
+                        name: '王宁',
+                        value: '王宁'
+                    }, {
+                        name: '王晓',
+                        value: '王晓'
+                    }]
+                }
+            }]
+        }, {
+            type: 'textarea',
+            key: 'title',
+            templateOptions: {
+                required: true,
+                rows: 2,
+                label: '标题',
+                placeholder: '标题'
+            },
+            validation: {
+                messages: {
+                    required: '"请输入" + to.label'
+                }
+            }
+        }, {
+            type: 'richEditor',
+            key: 'content',
+            templateOptions: {
+                label: '内容'
+            }
+        }];
 
         vm.cols = [{
             field: 'title',
             title: '标题',
             groupable: 'title',
-            cellClass: 'text-left'
+            cellClass: 'text-left',
+            getValue: interpolatedValue,
+            interpolateExpr: $interpolate('<a href="#!/checklist/{{row[\'_id\'] }}">{{row["title"]}}</a>')
         }, {
             field: 'group',
             title: '分组',
@@ -50,21 +112,25 @@
 
         vm.authors = ["王宁", "王晓"];
         vm.options = {
-            startDate: null,
-            endDate: null,
-            sort: null,
+            author:null,
             keywords: null
         };
         vm.categories = ["股票技术"];
         vm.authors = ["王宁", "王晓"];
         // vm.tableConvert = new FsTableConvert(config);
         // vm.getList = getList;
-        // vm.remove = remove;
+        vm.remove = remove;
         vm.removeChecked = removeChecked;
-        // vm.showDialog = showDialog;
+        vm.showDialog = showDialog;
+        vm.save = save;
 
         ////////////////
 
+       function interpolatedValue($scope, row) {
+          return this.interpolateExpr({
+            row: row
+          });
+        }
         function getList(tableParams) {
             return checklist.getList(vm.options).then(function(res) {
                 // tableParams.total(res.total);
@@ -74,10 +140,10 @@
 
 
         function remove(item) {
-            dialog.confirm('确定删除该文章？', function() {
+            dialog.confirm('确定删除该Checklist？', function() {
                 item.remove().then(function(res) {
-                    dialog.alert('文章删除成功');
-                    vm.tableConvert.reload();
+                    dialog.alert('Checklist删除成功');
+                    vm.tableParams.reload();
                 });
             });
         }
@@ -105,7 +171,6 @@
         }
 
         function showDialog(data) {
-            vm.submitted = false;
             var title = 'Checklist创建';
             if (!!data) {
                 title = 'Checklist编辑';
@@ -116,8 +181,8 @@
             modal = $modal({
                 title: title,
                 scope: $scope,
-                controller: 'ChecklistCreateController',
-                controllerAs: 'vm',
+                // controller: 'ChecklistCreateController',
+                // controllerAs: 'vm',
                 templateUrl: 'checklist/checklist-create.view.html',
                 show: true,
                 animation: 'fs-rotate'
@@ -125,8 +190,8 @@
         }
 
         function save() {
-            // if (vm.form.$invalid)
-            //     return;
+            if (vm.form.$invalid)
+                return;
             var promise;
             if (!!vm.data._id) {
                 promise = vm.data.put();
@@ -134,7 +199,8 @@
                 promise = checklist.post(vm.data);
             }
             promise.then(function() {
-                $scope.$hide();
+                vm.tableParams.reload();
+                modal.hide();
             }, function(response) {
                 if (response.status === 404) {
                     vm.message = '网络错误，请稍候再试！';
@@ -146,4 +212,5 @@
             });
         }
     }
+
 })();

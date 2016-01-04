@@ -170,27 +170,27 @@ html, body {
 }
 
 /* line 4, ../scss/money/_forms.scss */
-form.form-horizontal .has-feedback .form-control-feedback {
+form.default.form-horizontal .has-feedback .form-control-feedback {
   top: 8px;
 }
 /* line 9, ../scss/money/_forms.scss */
-form .fa {
+form.default .fa {
   font-size: 16px;
 }
 /* line 12, ../scss/money/_forms.scss */
-form i.fa-warning {
+form.default i.fa-warning {
   margin-right: 5px;
 }
 /* line 15, ../scss/money/_forms.scss */
-form .alert {
+form.default .alert {
   margin-bottom: 0;
 }
 /* line 19, ../scss/money/_forms.scss */
-form .has-feedback .form-control-feedback {
+form.default .has-feedback .form-control-feedback {
   top: 32px;
 }
 /* line 23, ../scss/money/_forms.scss */
-form .error-messages.ng-active {
+form.default .error-messages.ng-active {
   background-color: #f2dede;
   border-color: #ebccd1;
   color: #a94442;
@@ -200,7 +200,7 @@ form .error-messages.ng-active {
   position: relative;
 }
 /* line 32, ../scss/money/_forms.scss */
-form .error-messages.ng-active:after {
+form.default .error-messages.ng-active:after {
   position: absolute;
   top: -10px;
   content: "";
@@ -210,12 +210,65 @@ form .error-messages.ng-active:after {
   border-width: 5px;
 }
 /* line 41, ../scss/money/_forms.scss */
-form label.required:after {
+form.default label.required:after {
   position: absolute;
   content: "*";
   color: red;
   padding-left: 3px;
   top: 10px;
+}
+
+/* line 51, ../scss/money/_forms.scss */
+form.formly .form-group {
+  margin-bottom: 18px;
+}
+/* line 54, ../scss/money/_forms.scss */
+form.formly .fa {
+  font-size: 16px;
+}
+/* line 58, ../scss/money/_forms.scss */
+form.formly .has-feedback .form-control-feedback {
+  top: 32px;
+}
+/* line 62, ../scss/money/_forms.scss */
+form.formly .row {
+  display: block;
+}
+/* line 65, ../scss/money/_forms.scss */
+form.formly label.control-label {
+  color: #000;
+}
+/* line 68, ../scss/money/_forms.scss */
+form.formly label.required:after {
+  position: absolute;
+  content: "*";
+  color: red;
+  padding-left: 3px;
+  top: 3px;
+}
+/* line 75, ../scss/money/_forms.scss */
+form.formly .error-messages {
+  position: relative;
+  transition: .2s linear all;
+  opacity: 0;
+  top: -10px;
+}
+/* line 80, ../scss/money/_forms.scss */
+form.formly .error-messages.ng-active {
+  opacity: 1;
+  top: 0;
+}
+/* line 84, ../scss/money/_forms.scss */
+form.formly .error-messages.ng-leave.ng-leave-active {
+  opacity: 0;
+  top: -10px;
+}
+/* line 88, ../scss/money/_forms.scss */
+form.formly .error-messages .some-message {
+  color: #a94442;
+  position: absolute;
+  font-size: .8em;
+  width: 100%;
 }
 
 /* line 1, ../scss/money/_modals.scss */

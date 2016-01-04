@@ -91,10 +91,10 @@ exports.read = function(req, res) {
 
 exports.update = function(req, res) {
     var checklist = req.checklist;
-    checklist.content = req.body.content;
+    checklist.title = req.body.title;
     checklist.group = req.body.group;
-    checklist.arthor = req.body.arthor;
-    checklist.created = req.body.created;
+    checklist.author = req.body.author;
+    checklist.content = req.body.content;
     checklist.save(function(err) {
         if (err) {
             res.status(400).send({

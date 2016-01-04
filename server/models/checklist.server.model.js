@@ -6,6 +6,11 @@ var ChecklistSchema = new Schema({
         trim: true,
         required: '请输入Checklist标题'
     },
+    content: {
+        type: String,
+        trim: true,
+        default: ''
+    },
     group: {
         type: String,
         trim: true,

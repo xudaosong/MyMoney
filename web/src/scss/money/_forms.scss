@@ -1,4 +1,4 @@
-form {
+form.default {
   &.form-horizontal{
     .has-feedback {
       .form-control-feedback {
@@ -44,5 +44,52 @@ form {
     color:red;
     padding-left:3px;
     top:10px;
+  }
+}
+
+form.formly{
+  .form-group{
+    margin-bottom:18px;
+  }
+  .fa {
+    font-size: 16px;
+  }
+  .has-feedback {
+    .form-control-feedback {
+      top: 32px;
+    }
+  }
+  .row{
+    display: block;
+  }
+  label.control-label{
+    color:#000;
+  }
+  label.required:after{
+    position: absolute;
+    content:"*";
+    color:red;
+    padding-left:3px;
+    top:3px;
+  }
+  .error-messages {
+    position: relative;
+    transition: .2s linear all;
+    opacity: 0;
+    top:-10px;
+    &.ng-active{
+      opacity: 1;
+      top:0;
+    }
+    &.ng-leave.ng-leave-active{
+      opacity: 0;
+      top:-10px;
+    }
+    .some-message{
+      color: #a94442;
+      position: absolute;
+      font-size:.8em;
+      width:100%;
+    }
   }
 }

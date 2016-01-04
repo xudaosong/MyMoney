@@ -21,6 +21,21 @@
                     label: 'Checklist'
                 }
             }
+        }, {
+            state: 'checklist.detail',
+            config: {
+                url: '/{id}',
+                views: {
+                    '@': {
+                        templateUrl: 'checklist/checklist-detail.view.html',
+                        controller: 'ChecklistDetailController',
+                        controllerAs: 'vm'
+                    }
+                },
+                fsBreadcrumb: {
+                    label: '查看Checklist'
+                }
+            }
         }];
     }
 })();
