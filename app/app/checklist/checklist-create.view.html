@@ -1,0 +1,20 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="formly" name="vm.form" novalidate ng-submit="vm.save()">
+                <div class="modal-header" ng-show="title">
+                    <button type="button" class="close" ng-click="$hide()">&times;</button>
+                    <h4 class="modal-title" ng-bind-html="title"></h4>
+                </div>
+                <div class="modal-body">
+                    <formly-form form="vm.form" model="vm.data" fields="vm.fields">
+                    </formly-form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="$hide()">取消</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
