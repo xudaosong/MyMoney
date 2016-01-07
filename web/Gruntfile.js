@@ -1,21 +1,20 @@
 'use strict';
 
-module.exports = function (grunt) {
-
+module.exports = function(grunt) {
     // 注入业务文件时，重新定义路径
-    var injector_transform = function (filepath) {
+    var injectorTransform = function(filepath) {
         if (filepath.indexOf('browser_upgrade') > 0 || filepath.indexOf('php-session') > 0)
             return;
-        filepath = filepath.replace('.tmp/', '../.tmp/');
+        filepath = filepath.replace('.temp/', '../.temp/');
         return '<script src="' + filepath + '"></script>'
     };
     // 获取需要注入的业务文件
-    var injector_getFiles = function (dir) {
+    var injectorGetFiles = function(dir) {
         var files = {};
         var dirfull = dir + '/';
-        grunt.file.recurse(dirfull, function (abspath, rootdir, subdir, filename) {
+        grunt.file.recurse(dirfull, function(abspath, rootdir, subdir, filename) {
             if (subdir === undefined && grunt.file.match('*.html', filename)) {
-                files[dirfull + filename] = [dirfull + '*.module.js', dirfull + '*.js', dirfull + '**/*.module.js', dirfull + '**/*.js', '.tmp/web/*.views.js'];
+                files[dirfull + filename] = [dirfull + '*.module.js', dirfull + '*.js', dirfull + '**/*.module.js', dirfull + '**/*.js', '!src/bower_components/**'];
             }
         });
         return files;
@@ -35,10 +34,8 @@ module.exports = function (grunt) {
 
 
     grunt.initConfig({
-
         // 配置文件
         yeoman: appConfig,
-
 
         // 代码检查
         jshint: {
@@ -63,7 +60,7 @@ module.exports = function (grunt) {
                 files: [{
                     dot: true,
                     src: [
-                        '.tmp',
+                        '.temp',
                         '<%= yeoman.dist %>'
                     ]
                 }]
@@ -100,9 +97,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '.tmp/css/',
+                    cwd: '.temp/css/',
                     src: '{,*/}*.css',
-                    dest: '.tmp/css/'
+                    dest: '.temp/css/'
                 }]
             }
         },
@@ -158,19 +155,6 @@ module.exports = function (grunt) {
             options: {
                 assetsDirs: ['<%= yeoman.dist %>/js', '<%= yeoman.dist %>/css', '<%= yeoman.dist %>/images']
             }
-            //css: ['<%= yeoman.dist %>/css/{,}*.css'],
-            //options: {
-            //    blockReplacements: {
-            //        css: function (block) {
-            //            return 'asdf';
-            //            console.log(block);
-            //            return '<link rel="stylesheet" href="/web' + block.dest + '">';
-            //        },
-            //        js: function (block) {
-            //            return '<script src="/web' + block.dest + '"></script>';
-            //        }
-            //    }
-            //}
         },
 
         // 压缩图片
@@ -209,9 +193,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '.tmp/concat/js',
+                    cwd: '.temp/concat/js',
                     src: '*.js',
-                    dest: '.tmp/concat/js'
+                    dest: '.temp/concat/js'
                 }]
             }
         },
@@ -234,13 +218,13 @@ module.exports = function (grunt) {
             views: {
                 options: {
                     module: 'money.views',
-                    rename: function (moduleName) {
+                    rename: function(moduleName) {
                         return moduleName.replace('src/', '');
                     }
                 },
                 files: [{
-                    src: ['<%= yeoman.src %>/**/*.*.html'],
-                    dest: '.tmp/web/money.views.js'
+                    src: ['<%= yeoman.src %>/**/*.*.html', '!src/bower_components/**'],
+                    dest: 'src/money.views.js'
                 }]
             }
         },
@@ -253,21 +237,21 @@ module.exports = function (grunt) {
         },
         watch: {
             css: {
-                files: ['src/scss/**/*.scss'],
+                files: ['src/scss/**/*.scss', '!src/bower_components/**'],
                 tasks: ['compass'],
                 options: {
                     livereload: true
                 }
             },
             html: {
-                files: ['src/**/*.html'],
-                tasks: ['html2js'],
+                files: ['src/**/*.html', '!src/bower_components/**'],
+                tasks: [],
                 options: {
                     livereload: true
                 }
             },
             js: {
-                files: ['src/*.js', 'src/**/*.js'],
+                files: ['src/*.js', 'src/**/*.js', '!src/bower_components/**'],
                 tasks: [],
                 options: {
                     livereload: true
@@ -280,23 +264,26 @@ module.exports = function (grunt) {
                 addRootSlash: false,
                 lineEnding: grunt.util.linefeed,
                 ignorePath: ['<%= yeoman.src %>/'],
-                transform: injector_transform
+                transform: injectorTransform
             },
             localDependencies: {
-                files: (injector_getFiles('src'))
+                files: (injectorGetFiles('src'))
             }
             //js: {
             //    options: {
             //        ignorePath: ['<%= yeoman.src %>/'],
             //        starttag: '<!-- injector:js -->',
             //        endtag: '<!-- endinjector -->',
-            //        transform: injector_transform
+            //        transform: injectorTransform
             //    },
-            //    files: (injector_getFiles('src'))
+            //    files: (injectorGetFiles('src'))
             //}
         }
     });
 
+    grunt.registerTask('money.views', function() {
+        grunt.file.write('src/money.views.js', 'angular.module(\'money.views\', []);');
+    });
 
     grunt.registerTask('build', [
         'clean:dist',
@@ -314,7 +301,8 @@ module.exports = function (grunt) {
         'usemin',
         'cachebreaker',
         'htmlmin',
-        'imagemin'
+        'imagemin',
+        'money.views'
     ]);
 
     grunt.registerTask('default', [

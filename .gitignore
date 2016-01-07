@@ -8,3 +8,4 @@
 /server/*.bat
 /resources
 /resources-dev
+/web/src/bower_components
