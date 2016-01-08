@@ -12,6 +12,7 @@
         var vm = this,
             modal = null,
             checklist = Restangular.all('checklist');
+        vm.list = checklist.getList().$object;
 
     }
 

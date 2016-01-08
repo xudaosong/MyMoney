@@ -8,7 +8,7 @@
 
     function config(RestangularProvider) {
         //=== RestangularProvider
-        RestangularProvider.setBaseUrl('/api');
+        RestangularProvider.setBaseUrl('http://api.money.dev/api');
         RestangularProvider.setRestangularFields({
             id: "_id"
         });

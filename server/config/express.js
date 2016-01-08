@@ -9,6 +9,7 @@ var config = require('./config'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     session = require('express-session'),
+    cors = require('cors'),
     MongoStore = require('connect-mongo')(session),
     flash = require('connect-flash'),
     passport = require('passport');
@@ -29,6 +30,7 @@ module.exports = function (db) {
     }));
     app.use(bodyParser.json());
     app.use(methodOverride());
+    app.use(cors());
 
     var mongoStore = new MongoStore({
         db: db.connection.name
