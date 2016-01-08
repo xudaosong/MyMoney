@@ -1,5 +1,4 @@
-var user = require('../controllers/users.server.controller'),
-    voiceBroadcast = require('../controllers/voice-broadcast.server.controller');
+var voiceBroadcast = require('../controllers/voice-broadcast.server.controller');
 
 module.exports = function (app) {
     app.route('/api/voiceBroadcast')

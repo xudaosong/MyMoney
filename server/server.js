@@ -8,9 +8,9 @@ var db = mongoose();
 var app = express(db);
 var passport = new passport();
 
-app.listen(63342); 
+app.listen(3000); 
 
 module.exports = app;
 
-console.log('Server running at http://localhost:63342/');
+console.log('Server running at http://127.0.0.1:3000/');
 

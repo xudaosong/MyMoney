@@ -4,10 +4,10 @@
         .module('money.checklist')
         .controller('ChecklistController', ChecklistController);
 
-    ChecklistController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', "$interpolate", 'FsTableParams','$sce'];
+    ChecklistController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', "$interpolate", 'FsTableParams','$sce','config'];
 
     /* @ngInject */
-    function ChecklistController($scope, Restangular, $modal, dialog, $interpolate, FsTableParams,$sce) {
+    function ChecklistController($scope, Restangular, $modal, dialog, $interpolate, FsTableParams,$sce,config) {
         /* jshint validthis: true */
         var vm = this,
             modal = null,

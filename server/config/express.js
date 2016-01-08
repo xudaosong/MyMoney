@@ -48,8 +48,8 @@ module.exports = function (db) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    require('../routes/index.server.routes')(app);
-    require('../routes/users.server.routes')(app);
+    // require('../routes/index.server.routes')(app);
+    require('../routes/authentication.server.routes')(app);
     require('../routes/voice-broadcast.server.routes')(app);
     require('../routes/article.server.routes')(app);
     require('../routes/file-upload.server.routes')(app);

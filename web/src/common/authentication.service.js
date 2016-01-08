@@ -4,12 +4,12 @@
         .module('money.common')
         .factory('authentication', authentication);
 
-    authentication.$inject = ['$window'];
+    authentication.$inject = [];
 
     /* @ngInject */
-    function authentication($window) {
+    function authentication() {
         var service = {
-            user: $window.user,
+            user: null,
             isLogin: isLogin
         };
         return service;

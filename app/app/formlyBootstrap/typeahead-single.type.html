@@ -1,8 +1,0 @@
-<fs-typeahead data-ng-model="model[options.key]" data-required="{{to.required}}" data-disabled="{{to.disabled}}"
-              theme="bootstrap">
-    <fs-typeahead-match placeholder="{{to.placeholder}}" data-allow-clear="false">{{$select.selected[to.labelProp]}}
-    </fs-typeahead-match>
-    <fs-typeahead-choices data-repeat="{{to.ngOptions}}">
-        <div ng-bind-html="option[to.labelProp] | highlight: $select.search"></div>
-    </fs-typeahead-choices>
-</fs-typeahead>
