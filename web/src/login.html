@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <title>我的钱</title>
     <!-- build:css css/base.min.css -->
     <link rel="stylesheet" href="css/base.css">
@@ -19,20 +20,7 @@
 <div id="main-container">
     <header id="header-container" money-header>
     </header>
-    <div id="main-content-container">
-            <form class="layout-middle container" action="/signin" method="post" novalidate>
-                <div class="form-group">
-                    <label for="username">用户名</label>
-                    <input name="username" type="text" class="form-control" id="username" placeholder="用户名">
-                </div>
-                <div class="form-group">
-                    <label for="password">密码</label>
-                    <input name="password" type="password" class="form-control" id="password" placeholder="密码">
-                </div>
-                <div class="form-group">
-                    <button class="form-control btn btn-primary" type="submit">登录</button>
-                </div>
-            </form>
+    <div id="main-content-container" money-login>
     </div>
     <footer id="place-footer-container"></footer>
 </div>
@@ -57,12 +45,10 @@
 <script src="bower_components/textAngular/dist/textAngular.js"></script>
 <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
 <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/lodash/lodash.js"></script>
 <script src="bower_components/restangular/dist/restangular.js"></script>
 <script src="bower_components/api-check/dist/api-check.js"></script>
 <script src="bower_components/angular-formly/dist/formly.js"></script>
-<script src="bower_components/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -79,6 +65,7 @@
 <script src="formlyBootstrap/formlyBootstrap.module.js"></script>
 <script src="header/header.module.js"></script>
 <script src="home/home.module.js"></script>
+<script src="login/login.module.js"></script>
 <script src="sidebar/sidebar.module.js"></script>
 <script src="signup/signup.module.js"></script>
 <script src="voice-broadcast/voice-broadcast.module.js"></script>
@@ -93,6 +80,7 @@
 <script src="common/angular-locale_zh-cn.js"></script>
 <script src="common/authentication.service.js"></script>
 <script src="common/common.config.js"></script>
+<script src="common/config.service.js"></script>
 <script src="common/router-helper.provider.js"></script>
 <script src="common/table/tableConvert.service.js"></script>
 <script src="common/table/tableExpress.directive.js"></script>
@@ -103,6 +91,8 @@
 <script src="header/header.directive.js"></script>
 <script src="home/home.controller.js"></script>
 <script src="home/home.route.js"></script>
+<script src="login/login.controller.js"></script>
+<script src="login/login.directive.js"></script>
 <script src="sidebar/sidebar.controller.js"></script>
 <script src="sidebar/sidebar.directive.js"></script>
 <script src="signup/signup.directive.js"></script>

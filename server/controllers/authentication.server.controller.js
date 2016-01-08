@@ -23,34 +23,25 @@ var getErrorMessage = function (err) {
     return message;
 };
 exports.login = function (req, res, next) {
-    if(req.user){
-        return res.json({
-            code:200,
-            user:req.user
-        })
-    }
-    // passport.authenticate('local', function (err, user, info) {
-    //     if (err) { return next(err); }
-    //     if (!user) {
-    //         return res.status(400).send({
-    //             code: 400,
-    //             message: info.message
-    //         });
-    //     }
-    //     req.logIn(user, function (err) {
-    //         if (err) { return next(err); }
-    //         return res.json({
-    //             code: 200,
-    //             user: user
-    //         });
-    //     });
-    // })(req, res, next);
+    passport.authenticate('local', function (err, user, info) {
+        if (err) { return next(err); }
+        if (!user) {
+            return res.status(401).send({
+                code: 401,
+                message: info.message
+            });
+        }
+        req.logIn(user, function (err) {
+            if (err) { return next(err); }
+            return res.send();
+        });
+    })(req, res, next);
     // return res.json({
     //     code: 200
     // });
 };
 // 使用User模型来创建新用户
-exports.register = function (req, res, next) {
+exports.signup = function (req, res, next) {
     if (!req.user) {
         var user = new User(req.body);
         var message = null;
@@ -84,24 +75,13 @@ exports.register = function (req, res, next) {
 exports.logout = function (req, res, next) {
     if (req.user) {
         req.logout(); // 使用passport里的logout方法进行用户退出
-        return res.json({
-            code: 200
-        });
+        return res.redirect('/');
     }
 };
-
-// note: 我们没有编写signin()方法，因为passport提供了一个专门的身份验证方法，可以直接用于定义路由。
-
-/*
-
-
 // 用于展现views/signin.ejs登录页面
-exports.renderSignin = function (req, res, next) {
+exports.renderLogin = function (req, res, next) {
     if (!req.user) {// 登录成功后，passport会在session中存储user
-        res.render('signin', {
-            title: '用户登录',
-            messages: req.flash('error') || req.flash('info')
-        });
+        res.render('login');
     } else {
         return res.redirect('/');
     }
@@ -109,14 +89,17 @@ exports.renderSignin = function (req, res, next) {
 // 用于展现view/signup.ejs注册页面
 exports.renderSignup = function (req, res, next) {
     if (!req.user) { // 登录成功后，passport会在session中存储user
-        res.render('signup', {
-            title: '用户注册',
-            messages: req.flash('error') // 从flash中读取错误消息
-        });
+        res.render('signup');
     } else {
         return res.redirect('/');
     }
 };
+// note: 我们没有编写signin()方法，因为passport提供了一个专门的身份验证方法，可以直接用于定义路由。
+
+/*
+
+
+
 
 exports.create = function (req, res, next) {
     var user = new User(req.body);

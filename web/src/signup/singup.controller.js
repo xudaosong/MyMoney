@@ -3,10 +3,11 @@
     angular
         .module('money.signup')
         .controller('SignupController', SignupController);
-    SignupController.$inject = ['$scope', 'signup'];
+    SignupController.$inject = ['$scope', 'Restangular'];
     /* @ngInject */
-    function SignupController($scope, signup) {
-        var vm = this;
+    function SignupController($scope, Restangular) {
+        var vm = this,
+            signup = Restangular.all('signup');
         vm.data = {};
         vm.signupSubmit = signupSubmit;
         vm.interacted = interacted;
@@ -20,10 +21,10 @@
             vm.submitted = true;
             if (vm.signup_form.$invalid)
                 return;
-            signup.create(vm.data).then(function () {
-                window.location.href = "/signin";
-            }, function (data) {
-                vm.message = data.data.message;
+            signup.post(vm.data).then(function () {
+                window.location.href = "/login";
+            }, function (res) {
+                vm.message = res.data.message;
             });
             return false;
         }

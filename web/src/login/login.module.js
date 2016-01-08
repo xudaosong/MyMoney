@@ -2,5 +2,8 @@
     'use strict';
 
     angular
-        .module('money.login', ['restangular']);
+        .module('money.login', [
+        	'restangular', 
+        	'money.common'
+        ]);
 })();

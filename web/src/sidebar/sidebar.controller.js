@@ -10,21 +10,17 @@
         /* jshint validthis: true */
         var vm = this;
         vm.panes = [{
-            title: '文章管理',
+            title: '财富人生',
             items: [{
                 title: '直播室',
                 href: 'voiceBroadcast'
             }, {
                 title: '文章',
                 href: 'article'
-            }]
-        },{
-            title: 'Checklist',
-            items: [{
+            },{
                 title: 'Checklist',
                 href: 'checklist'
             }]
         }];
-
     }
 })();
