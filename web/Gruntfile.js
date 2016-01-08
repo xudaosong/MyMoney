@@ -64,6 +64,15 @@ module.exports = function(grunt) {
                         '<%= yeoman.dist %>'
                     ]
                 }]
+            },
+            temp:{
+                files: [{
+                    dot: true,
+                    src: [
+                        '.temp',
+                        '.tmp'
+                    ]
+                }]
             }
         },
 
@@ -302,7 +311,8 @@ module.exports = function(grunt) {
         'cachebreaker',
         'htmlmin',
         'imagemin',
-        'money.views'
+        'money.views',
+        'clean:temp'
     ]);
 
     grunt.registerTask('default', [
