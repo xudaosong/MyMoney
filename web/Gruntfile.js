@@ -60,7 +60,6 @@ module.exports = function(grunt) {
                 files: [{
                     dot: true,
                     src: [
-                        '.temp',
                         '<%= yeoman.dist %>'
                     ]
                 }]
@@ -69,8 +68,8 @@ module.exports = function(grunt) {
                 files: [{
                     dot: true,
                     src: [
-                        '.temp',
-                        '.tmp'
+                        '.sass-cache',
+                        '.temp'
                     ]
                 }]
             }
@@ -91,7 +90,7 @@ module.exports = function(grunt) {
                 }, {
                     expand: true,
                     dot: true,
-                    cwd: 'bower_components/font-awesome/fonts',
+                    cwd: 'src/bower_components/font-awesome/fonts',
                     dest: '<%= yeoman.dist %>/fonts',
                     src: ['**']
                 }]
@@ -152,6 +151,7 @@ module.exports = function(grunt) {
         useminPrepare: {
             html: ['<%= yeoman.src %>/*.html'],
             options: {
+                staging: '.temp',
                 dest: '<%= yeoman.dist %>'
             }
         },

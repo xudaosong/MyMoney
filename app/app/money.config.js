@@ -8,7 +8,7 @@
 
     function config(RestangularProvider) {
         //=== RestangularProvider
-        RestangularProvider.setBaseUrl('http://localhost:63342/api');
+        RestangularProvider.setBaseUrl('/api');
         RestangularProvider.setRestangularFields({
             id: "_id"
         });
