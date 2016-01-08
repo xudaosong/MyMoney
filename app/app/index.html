@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <!-- build:css css/vendor.min.css -->
+    <link rel="stylesheet" href="css/base.css" />
+    <!-- endbuild -->
+
+    <!-- build:css css/money.min.css -->
+    <link href="css/money.css" rel="stylesheet">
+    <!-- endbuild -->
+
+    <!-- build:js js/vendor.min.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/ionic/release/js/ionic.js"></script>
+    <script src="bower_components/ionic/release/js/ionic-angular.js"></script>
+    <script src="bower_components/ngCordova/dist/ng-cordova.js"></script>
+    <script src="bower_components/api-check/dist/api-check.js"></script>
+    <script src="bower_components/angular-formly/dist/formly.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/restangular/dist/restangular.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- build:js js/myMoney.min.js -->
+
+    <!-- injector:js -->
+    <script src="money.module.js"></script>
+    <script src="money.app.js"></script>
+    <script src="money.config.js"></script>
+    <script src="money.constant.js"></script>
+    <script src="money.views.js"></script>
+    <script src="checklist/checklist.module.js"></script>
+    <script src="common/common.module.js"></script>
+    <script src="formlyBootstrap/formlyBootstrap.module.js"></script>
+    <script src="login/login.module.js"></script>
+    <script src="checklist/checklist-create.controller.js"></script>
+    <script src="checklist/checklist-detail.controller.js"></script>
+    <script src="checklist/checklist.controller.js"></script>
+    <script src="checklist/checklist.route.js"></script>
+    <script src="common/angular-locale_zh-cn.js"></script>
+    <script src="common/authentication.service.js"></script>
+    <script src="common/common.config.js"></script>
+    <script src="common/config.service.js"></script>
+    <script src="common/router-helper.provider.js"></script>
+    <script src="common/table/tableConvert.service.js"></script>
+    <script src="common/table/tableExpress.directive.js"></script>
+    <script src="formlyBootstrap/formlyBootstrap.config.js"></script>
+    <script src="formlyBootstrap/fsRichEditorPatch.directive.js"></script>
+    <script src="login/login.controller.js"></script>
+    <script src="login/login.route.js"></script>
+    <script src="wrap/wrap.route.js"></script>
+    <!-- endinjector -->
+    
+    <!-- endbuild -->
+  </head>
+  <body ng-app="money">
+    <ion-nav-view></ion-nav-view>
+  </body>
+</html>

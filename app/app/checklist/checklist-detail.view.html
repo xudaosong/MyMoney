@@ -1,0 +1,11 @@
+ <article class="article container-fluid" ng-init="vm.activate()">
+  <header>
+    <h3>{{::vm.data.title}}</h3>
+    <div>
+    <time pubdate>{{::vm.data.created | date:'yyyy-MM-dd'}}</time>
+    <author class="author">{{::vm.data.author}}</author>
+    <span class="author">{{::vm.data.group}}</span>
+    </div>
+  </header>
+  <div ng-bind-html="::vm.data.content"></div>
+</article>

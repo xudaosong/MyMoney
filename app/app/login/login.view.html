@@ -1,0 +1,27 @@
+<ion-view view-title="登录" class="loginScreen">
+  <ion-content>
+    <form id="ml-login" ng-submit="vm.doLogin(vm.user)" novalidate>
+      <div class="introHeading">
+        <a class="logo"><i class="ion-social-yen"></i></a>
+        <h1 style="color: #fff;text-align: center;"><strong>我的钱</strong></h1>
+      </div>
+      <button class="submit" type="submit"><i class="ion-locked"></i></button>
+      <i class="ion-email inputUserIcon"></i>
+      <input type="text" class="user" placeholder="用户名" ng-model="vm.user.username" />
+      <i class="ion-key inputPassIcon"></i>
+      <input type="password" class="pass" placeholder="密码" ng-model="vm.user.password" />
+      <div class="padding">
+        <div class="row">
+          <div class="col">
+            <a ui-sref="forgot-password" class="mlLinksBlue">忘记密码?</a>
+          </div>
+          <div class="col">
+            <p class="text-right">
+              <a ui-sref="register" class="mlLinksBlue">注册账号</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

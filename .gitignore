@@ -1,11 +1,4 @@
-/node_modules
-/web/bower_components
-/web/node_modules
-/web/.sass-cache
-/web/.tmp
 /.idea
-/server/node_modules
-/server/*.bat
 /resources
 /resources-dev
-/app
+

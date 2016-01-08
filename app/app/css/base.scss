@@ -1,0 +1,53 @@
+@charset "UTF-8";
+//==== ionic 1.2.4
+// Variables
+ @import "../bower_components/ionic/scss/ionicons/ionicons.scss";
+ @import "../bower_components/ionic/scss/mixins";
+ @import "base/ionic-variables";
+
+  // Base
+ @import "../bower_components/ionic/scss/reset";
+ @import "../bower_components/ionic/scss/scaffolding";
+ @import "../bower_components/ionic/scss/type";
+
+  // Components 
+ @import "../bower_components/ionic/scss/action-sheet";
+ @import "../bower_components/ionic/scss/backdrop";
+ @import "../bower_components/ionic/scss/bar";
+ @import "../bower_components/ionic/scss/tabs";
+ @import "../bower_components/ionic/scss/menu";
+ @import "../bower_components/ionic/scss/modal";
+ @import "../bower_components/ionic/scss/popover";
+ @import "../bower_components/ionic/scss/popup";
+ @import "../bower_components/ionic/scss/loading";
+ @import "../bower_components/ionic/scss/items";
+ @import "../bower_components/ionic/scss/list";
+ @import "../bower_components/ionic/scss/badge";
+ @import "../bower_components/ionic/scss/slide-box";
+ @import "../bower_components/ionic/scss/slides";
+ @import "../bower_components/ionic/scss/refresher";
+ @import "../bower_components/ionic/scss/spinner";
+
+  // Forms
+ @import "../bower_components/ionic/scss/form";
+ @import "../bower_components/ionic/scss/checkbox";
+ @import "../bower_components/ionic/scss/toggle";
+ @import "../bower_components/ionic/scss/radio";
+ @import "../bower_components/ionic/scss/range";
+ @import "../bower_components/ionic/scss/select";
+ @import "../bower_components/ionic/scss/progress";
+
+  // Buttons
+ @import "../bower_components/ionic/scss/button";
+ @import "../bower_components/ionic/scss/button-bar";
+
+  // Util
+ @import "../bower_components/ionic/scss/grid";
+ @import "../bower_components/ionic/scss/util";
+ @import "../bower_components/ionic/scss/platform";
+
+  // Animations
+ @import "../bower_components/ionic/scss/animations";
+ @import "../bower_components/ionic/scss/transitions";
+
+

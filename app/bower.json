@@ -1,0 +1,22 @@
+{
+  "name": "myMoney",
+  "version": "0.1.0",
+  "dependencies": {
+    "ionic": "v1.2.4",
+    "angular": "~1.4.8",
+    "angular-animate": "~1.4.8",
+    "angular-sanitize": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "ngCordova": "v0.1.23-alpha",
+    "angular-formly": "~7.3.9",
+    "restangular": "~1.5.1",
+    "font-awesome": "~4.5.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.8",
+    "angular-scenario": "~1.4.8"
+  },
+  "resolutions": {
+    "angular": ">= 1.4.8"
+  }
+}

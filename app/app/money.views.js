@@ -1,0 +1,1 @@
+angular.module('money.views', []);
