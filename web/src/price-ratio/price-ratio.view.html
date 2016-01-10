@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="toolbarContainer clearfix" fs-affix>
+        <div class="pull-left">
+            <form class="form-inline searchForm" novalidate ng-submit="vm.tableParams.reload()">
+                <div class="form-group">
+                    <label for="search_content">关键字</label>
+                    <input type="text" class="form-control" id="search_content" placeholder="内容关键字" ng-model="vm.options.keywords">
+                </div>
+                <div class="form-group">
+                    <label for="search_author">作者</label>
+                    <select class="form-control" name="search_author" id="search_author" ng-model="vm.options.author" ng-options="author for author in vm.authors">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <button type="submit" class="form-group btn btn-default">搜索</button>
+            </form>
+        </div>
+        <div class="btn-toolbar pull-right">
+            <a class="btn btn-primary btn-group" ng-click="vm.showDialog()">
+                <i class="fa fa-plus"></i> 新增
+            </a>
+        </div>
+    </div>
+    <table ng-table-dynamic="vm.tableParams with vm.cols" class="table table-bordered table-condensed table-hover editable-table" ng-form="vm.tableForm" disable-filter="vm.isAdding" vm-tracked-table="vm.tableTracker">
+        <tr ng-repeat="row in $data" ng-form="rowForm" vm-tracked-table-row="row">
+          <td ng-repeat="col in $columns" ng-class="rowForm[col.field].$dirty ? 'bg-warning' : ''" ng-form="{{col.field}}" vm-tracked-table-cell>
+            <span ng-if="col.dataType !== 'command' && !vm.isEditing" class="editable-text">{{row[col.field]}}</span>
+            <div ng-if="col.dataType !== 'command' && vm.isEditing" class="controls" ng-class="rowForm[col.field].$invalid && rowForm[col.field].$dirty ? 'has-error' : ''" ng-switch="col.dataType">
+              <input ng-switch-default type="text" name="{{col.field}}" ng-model="row[col.field]" class="editable-input form-control input-sm" required />
+              <input ng-switch-when="number" type="number" name="{{col.field}}" ng-model="row[col.field]" class="editable-input form-control input-sm" required />
+            </div>
+            <button ng-if="col.dataType === 'command'" class="btn btn-danger btn-sm" ng-click="vm.del(row)" ng-disabled="!vm.isEditing"><span class="fa fa-trash"></span></button>
+          </td>
+        </tr>
+      </table>
+</div>

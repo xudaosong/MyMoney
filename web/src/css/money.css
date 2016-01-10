@@ -385,7 +385,7 @@ form.formly .error-messages .some-message {
 
 /* line 7, ../scss/money/_article.scss */
 .article {
-  background-color: #FFF2D5;
+  background-color: #c7edcc;
   font-size: 16px;
   line-height: 25px;
 }
@@ -404,7 +404,7 @@ form.formly .error-messages .some-message {
 
 /* line 22, ../scss/money/_article.scss */
 section.articles {
-  background: #FFF2D5;
+  background: #c7edcc;
 }
 /* line 24, ../scss/money/_article.scss */
 section.articles article {

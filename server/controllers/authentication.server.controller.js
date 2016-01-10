@@ -94,6 +94,15 @@ exports.renderSignup = function (req, res, next) {
         return res.redirect('/');
     }
 };
+// 需要登录后才行进行下一步
+exports.requiresLogin = function (req, res, next) {
+    if (!req.isAuthenticated()) {
+        return res.status(401).send({
+            message: '请先登录'
+        });
+    }
+    next();
+};
 // note: 我们没有编写signin()方法，因为passport提供了一个专门的身份验证方法，可以直接用于定义路由。
 
 /*
