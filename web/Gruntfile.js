@@ -126,8 +126,10 @@ module.exports = function(grunt) {
                     sassDir: '<%= yeoman.src %>/scss',
                     cssDir: '<%= yeoman.src %>/css',
                     imagesDir: '<%= yeoman.src %>/images',
+                    httpImagesPath: '/images',
                     httpPath: '/web/',
-                    force: true
+                    force: true,
+                    raw: 'Encoding.default_external = \'utf-8\'\n'
                 }
             }
         },

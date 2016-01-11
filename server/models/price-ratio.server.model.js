@@ -3,7 +3,7 @@
 */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-var ChecklistSchema = new Schema({
+var PriceRatioSchema = new Schema({
     code: {
         type: String,
         trim: true,
@@ -34,4 +34,4 @@ var ChecklistSchema = new Schema({
         type: Date
     }
 });
-mongoose.model('Checklist', ChecklistSchema);
+mongoose.model('PriceRatio', PriceRatioSchema);

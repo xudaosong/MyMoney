@@ -9,9 +9,6 @@ var spawn = process.platform === 'win32' ? require('win-spawn') : require('child
 module.exports = function (grunt) {
 // 注入业务文件时，重新定义路径
   var injectorTransform = function (filepath) {
-    if (filepath.indexOf('browser_upgrade') > 0 || filepath.indexOf('php-session') > 0) {
-      return;
-    }
     filepath = filepath.replace('.temp/', '../.temp/');
     return '<script src="' + filepath + '"></script>';
   };
@@ -42,7 +39,6 @@ module.exports = function (grunt) {
       scripts: 'js',
       styles: 'css',
       images: 'img',
-      test: 'test',
       dist: 'www'
     },
 
@@ -61,7 +57,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://dev.yoursite.com:10000/'
+            apiEndpoint: 'http://api.money.dev/'
           }
         }
       },
@@ -69,7 +65,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://api.yoursite.com/'
+            apiEndpoint: 'http://api.money.com/'
           }
         }
       }
@@ -79,46 +75,61 @@ module.exports = function (grunt) {
     watch: {
       bower: {
         files: ['bower.json'],
-        tasks: ['wiredep', 'newer:copy:app']
+        tasks: ['wiredep', 'newer:copy:app'],
+        options: {
+            livereload: true
+        }
       },
       html: {
-        files: ['<%= yeoman.app %>/**/*.html'],
-        tasks: ['html2js', 'newer:copy:app']
+        files: ['<%= yeoman.app %>/**/*.html', '!<%= yeoman.app %>/bower_components/**'],
+        tasks: ['newer:copy:app'],
+        options: {
+            livereload: true
+        }
       },
       js: {
-        files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js'],
-        tasks: ['newer:copy:app', 'newer:jshint:all']
+        files: ['<%= yeoman.app %>/**/*.js', '!<%= yeoman.app %>/bower_components/**'],
+        tasks: ['newer:copy:app'],
+        options: {
+            livereload: true
+        }
       },
       compass: {
         files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer', 'newer:copy:tmp']
+        tasks: ['compass:server', 'autoprefixer', 'newer:copy:tmp'],
+        options: {
+            livereload: true
+        }
       },
       gruntfile: {
         files: ['Gruntfile.js'],
-        tasks: ['ngconstant:development', 'newer:copy:app']
+        tasks: ['ngconstant:development', 'newer:copy:app'],
+        options: {
+            livereload: true
+        }
       }
     },
 
     // The actual grunt server settings
-    connect: {
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '192.168.248.64'
-      },
-      dist: {
-        options: {
-          base: '<%= yeoman.dist %>'
-        }
-      },
-      coverage: {
-        options: {
-          port: 9002,
-          open: true,
-          base: ['coverage']
-        }
-      }
-    },
+    // connect: {
+    //   options: {
+    //     port: 9000,
+    //     // Change this to '0.0.0.0' to access the server from outside.
+    //     hostname: '192.168.248.64'
+    //   },
+    //   dist: {
+    //     options: {
+    //       base: '<%= yeoman.dist %>'
+    //     }
+    //   },
+    //   coverage: {
+    //     options: {
+    //       port: 9002,
+    //       open: true,
+    //       base: ['coverage']
+    //     }
+    //   }
+    // },
 
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
@@ -128,14 +139,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js'
-      ],
-      test: {
-        options: {
-          jshintrc: 'test/.jshintrc'
-        },
-        src: ['test/unit/**/*.js']
-      }
+        '<%= yeoman.app %>/{,*/}*.js'
+      ]
     },
 
     // Empties folders to start fresh
@@ -150,7 +155,15 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.temp'
+      server: {
+        files: [{
+          dot: true,
+          src: [
+            '.sass-cache',
+            '.temp'
+          ]
+        }]
+      }
     },
 
     autoprefixer: {
@@ -199,7 +212,6 @@ module.exports = function (grunt) {
         cssDir: '.temp/<%= yeoman.styles %>',
         generatedImagesDir: '.temp/<%= yeoman.images %>/generated',
         imagesDir: '<%= yeoman.app %>/<%= yeoman.images %>',
-        javascriptsDir: '<%= yeoman.app %>/<%= yeoman.scripts %>',
         fontsDir: '<%= yeoman.app %>/<%= yeoman.styles %>/fonts',
         importPath: '<%= yeoman.app %>/bower_components',
         httpImagesPath: '/<%= yeoman.images %>',
@@ -269,7 +281,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'templates/**/*.html'],
+          src: ['*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -299,7 +311,7 @@ module.exports = function (grunt) {
                 }
             },
             files: [{
-                src: ['<%= yeoman.app %>/**/*.*.html'],
+                src: ['<%= yeoman.app %>/**/*.*.html', '!src/bower_components/**'],
                 dest: '<%= yeoman.app %>/money.views.js'
             }]
         }
@@ -331,18 +343,6 @@ module.exports = function (grunt) {
         dest: '.temp/<%= yeoman.styles %>/',
         src: '{,*/}*.css'
       },
-      fonts: {
-        expand: true,
-        cwd: 'app/bower_components/ionic/release/fonts/',
-        dest: '<%= yeoman.app %>/fonts/',
-        src: '*'
-      },
-      vendor: {
-        expand: true,
-        cwd: '<%= yeoman.app %>/vendor',
-        dest: '.temp/<%= yeoman.styles %>/',
-        src: '{,*/}*.css'
-      },
       app: {
         expand: true,
         cwd: '<%= yeoman.app %>',
@@ -370,93 +370,12 @@ module.exports = function (grunt) {
       },
       server: [
         'compass:server',
-        'copy:styles',
-        'copy:vendor',
-        'copy:fonts'
-      ],
-      test: [
-        'compass',
-        'copy:styles',
-        'copy:vendor',
-        'copy:fonts'
+        'copy:styles'
       ],
       dist: [
         'compass:dist',
-        'copy:styles',
-        'copy:vendor',
-        'copy:fonts'
+        'copy:styles'
       ]
-    },
-
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/<%= yeoman.styles %>/main.css': [
-    //         '.temp/<%= yeoman.styles %>/**/*.css',
-    //         '<%= yeoman.app %>/<%= yeoman.styles %>/**/*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/<%= yeoman.scripts %>/scripts.js': [
-    //         '<%= yeoman.dist %>/<%= yeoman.scripts %>/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
-
-    // Test settings
-    // These will override any config options in karma.conf.js if you create it.
-    karma: {
-      options: {
-        basePath: '',
-        frameworks: ['mocha', 'chai'],
-        files: [
-          '<%= yeoman.app %>/bower_components/angular/angular.js',
-          '<%= yeoman.app %>/bower_components/angular-mocks/angular-mocks.js',
-          '<%= yeoman.app %>/bower_components/angular-animate/angular-animate.js',
-          '<%= yeoman.app %>/bower_components/angular-sanitize/angular-sanitize.js',
-          '<%= yeoman.app %>/bower_components/angular-ui-router/release/angular-ui-router.js',
-          '<%= yeoman.app %>/bower_components/ionic/release/js/ionic.js',
-          '<%= yeoman.app %>/bower_components/ionic/release/js/ionic-angular.js',
-          '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js',
-          '<%= yeoman.test %>/mock/**/*.js',
-          '<%= yeoman.test %>/spec/**/*.js'
-        ],
-        autoWatch: false,
-        reporters: ['dots', 'coverage'],
-        port: 8080,
-        singleRun: false,
-        preprocessors: {
-          // Update this if you change the yeoman config path
-          '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js': ['coverage']
-        },
-        coverageReporter: {
-          reporters: [
-            {type: 'html', dir: 'coverage/'},
-            {type: 'text-summary'}
-          ]
-        }
-      },
-      unit: {
-        // Change this to 'Chrome', 'Firefox', etc. Note that you will need
-        // to install a karma launcher plugin for browsers other than Chrome.
-        browsers: ['PhantomJS'],
-        background: true
-      },
-      continuous: {
-        browsers: ['PhantomJS'],
-        singleRun: true
-      }
     },
 
     // ngAnnotate tries to make the code safe for minification automatically by
@@ -530,17 +449,6 @@ module.exports = function (grunt) {
     return grunt.task.run(['watch']);
   });
 
-  // Dynamically configure `karma` target of `watch` task so that
-  // we don't have to run the karma test server as part of `grunt serve`
-  grunt.registerTask('watch:karma', function () {
-    var karma = {
-      files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js', '<%= yeoman.test %>/spec/**/*.js'],
-      tasks: ['newer:jshint:test', 'karma:unit:run']
-    };
-    grunt.config.set('watch', karma);
-    return grunt.task.run(['watch']);
-  });
-
   // Wrap ionic-cli commands
   grunt.registerTask('ionic', function () {
     var done = this.async();
@@ -553,14 +461,9 @@ module.exports = function (grunt) {
     });
   });
 
-  grunt.registerTask('test', [
-    'wiredep',
-    'clean',
-    'concurrent:test',
-    'autoprefixer',
-    'karma:unit:start',
-    'watch:karma'
-  ]);
+  grunt.registerTask('money.views', function() {
+      grunt.file.write('app/money.views.js', 'angular.module(\'money.views\', []);');
+  });
 
   grunt.registerTask('serve', function (target) {
     if (target === 'compress') {
@@ -585,7 +488,7 @@ module.exports = function (grunt) {
   grunt.registerTask('init', [
     'clean',
     'ngconstant:development',
-    'html2js',
+    'money.views',
     'injector',
     'wiredep',
     'concurrent:server',
@@ -610,18 +513,12 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'money.views'
   ]);
 
-  grunt.registerTask('coverage',
-    ['karma:continuous',
-      'connect:coverage:keepalive'
-    ]);
-
   grunt.registerTask('default', [
-    'wiredep',
     'newer:jshint',
-    //'karma:continuous',
     'compress'
   ]);
 };
