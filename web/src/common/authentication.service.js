@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
     angular
         .module('money.common')
@@ -9,9 +9,13 @@
     /* @ngInject */
     function authentication($window) {
         var service = {
-            user: $window.user,
-            isLogin: isLogin
+            user: null,
+            isLogin: isLogin,
+            logout: logout
         };
+        if ($window.sessionStorage.user) {
+            service.user = angular.fromJson($window.sessionStorage.user);
+        }
         return service;
 
         ////////////////
@@ -19,5 +23,9 @@
             return !!service.user;
         }
 
+        function logout() {
+            delete $window.sessionStorage.user;
+            $window.location.href = '/';
+        }
     }
 })();

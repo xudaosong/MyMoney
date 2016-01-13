@@ -8,15 +8,28 @@ var config = require('./config'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
-    session = require('express-session'),
+    // cookieParser = require('cookie-parser'),
+    // session = require('express-session'),
     cors = require('cors'),
-    MongoStore = require('connect-mongo')(session),
+    // MongoStore = require('connect-mongo')(session),
     flash = require('connect-flash'),
-    passport = require('passport');
+    unless = require('express-unless'),
+    // passport = require('passport');
+    expressJwt = require('express-jwt'),
+    jwt = require('jsonwebtoken');
 
 module.exports = function (db) {
     var app = express();
     var server = http.createServer(app);
+    // var whitelist = ['http://app.money.dev']; // Acceptable domain names. ie: https://www.example.com
+    // var corsOptions = {
+    //   credentials: true,
+    //   origin: function(origin, callback){
+    //     var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+    //     callback(null, originIsWhitelisted);
+    //     // callback(null, true); uncomment this and comment the above to allow all
+    //   }
+    // };
 //    var io = socketio.listen(server);
 
     if (process.env.NODE_ENV === 'development') {
@@ -24,33 +37,53 @@ module.exports = function (db) {
     } else if (process.env.NODE_ENV === 'production') {
         app.use(compress());
     }
-
+    
     app.use(bodyParser.urlencoded({
         extended: true
     }));
     app.use(bodyParser.json());
     app.use(methodOverride());
-    app.use(cors());
 
-    var mongoStore = new MongoStore({
-        db: db.connection.name
+    // var jwtCheck = expressJwt({
+    //     secret: config.sessionSecret
+    // });
+    var jwtCheck = expressJwt({secret: 'secret'}).unless( {path: 
+        [
+            '/api/login',
+            '/api/signup',
+            '/api/logout'
+        ]
     });
-    app.use(session({
-        saveUninitialized: true,
-        resave: true,
-        secret: config.sessionSecret,
-        store: mongoStore
-    }));
+    // app.use(jwtCheck);
+    app.use('/api', jwtCheck);
+    // app.use(utils.middleware().unless({path: '/api/login' }));
+    // var mongoStore = new MongoStore({
+    //     db: db.connection.name
+    // });
+    // app.use(cookieParser());
+    // app.use(session({
+    //     key:'money.sid',
+    //     saveUninitialized: true,
+    //     resave: true,
+    //     secret: config.sessionSecret,
+    //     store: mongoStore, 
+    //     cookie: { 
+    //         path: '/',
+    //         domain: '.money.dev',
+    //         maxAge: 1000 * 60 * 24
+    //     }
+    // }));
+    app.use(cors());
     app.set('views', config.static);
     app.engine('.html', ejs.__express);
     app.set('view engine', 'html');
     //app.set('view engine', 'ejs');
 
     app.use(flash());
-    app.use(passport.initialize());
-    app.use(passport.session());
+    // app.use(passport.initialize());
+    // app.use(passport.session());
 
-    require('../routes/index.server.routes')(app);
+    // require('../routes/index.server.routes')(app);
     require('../routes/authentication.server.routes')(app);
     require('../routes/voice-broadcast.server.routes')(app);
     require('../routes/article.server.routes')(app);

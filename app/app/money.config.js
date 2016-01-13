@@ -9,6 +9,9 @@
     function config(RestangularProvider) {
         //=== RestangularProvider
         RestangularProvider.setBaseUrl('http://api.money.dev/api');
+        if(!!window.sessionStorage.token){
+            RestangularProvider.setDefaultHeaders({Authorization: "Bearer " + window.sessionStorage.token});
+        }
         RestangularProvider.setRestangularFields({
             id: "_id"
         });

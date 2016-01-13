@@ -1,12 +1,11 @@
-var authentication = require('../controllers/authentication.server.controller.js'),
-    passport = require('passport');
-module.exports = function (app) {
-    app.route('/signup').get(authentication.renderSignup);
+var authentication = require('../controllers/authentication.server.controller.js');
+module.exports = function(app) {
     app.route('/api/signup').post(authentication.signup);
     // 在路由中注册passport.authenticate()方法进行身份验证。
-    app.route('/login').get(authentication.renderLogin);
-    app.route('/api/login').post(/*passport.authenticate('local'), */authentication.login);
-    app.route('/logout').get(authentication.logout);
+    // app.route('/login').get(authentication.renderLogin);
+    app.route('/api/login').post(authentication.login);
+    // app.route('/api/logout').get(authentication.logout);
+
     //    app.route('/users').post(users.create).get(users.list);
     //    app.route('/users/:userId').get(users.read).put(users.update).delete(users.delete);
     //    app.param('userId', users.userByID)

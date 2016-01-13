@@ -5,8 +5,8 @@
     </a>
 </div>
 <div class="header-menu pull-right notlogin"  ng-if="!vm.authentication.isLogin()">
-    <a href="/login">登录</a>
-    <a href="/signup">注册</a>
+    <a ui-sref="login">登录</a>
+    <a ui-sref="signup">注册</a>
 </div>
 <div class="header-menu pull-right" ng-if="vm.authentication.isLogin()" data-animation="fs-flip-x" data-placement="bottom-right" data-trigger="click" fs-dropdown="vm.dropdown">
     <a href="javascript:;" class="dropdown-toggle">

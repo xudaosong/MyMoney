@@ -2,7 +2,7 @@ var checklist = require('../controllers/checklist.server.controller');
 
 module.exports = function (app) {
     app.route('/api/checklist')
-        .get(checklist.requiresLogin, checklist.list)
+        .get(checklist.requiresLogin,checklist.list)
         .post(checklist.requiresLogin, checklist.create);
     app.route('/api/checklist/:checklistId')
         .get(checklist.requiresLogin, checklist.checklistById, checklist.read)

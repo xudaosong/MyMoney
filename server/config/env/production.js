@@ -1,5 +1,5 @@
 module.exports = {
-    sessionSecret: 'productSessionSecret',
+    secret: 'productSessionSecret',
     db: 'mongodb://localhost/mymoney',
     static:'../web/dist',
     port:'6000',

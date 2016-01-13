@@ -8,7 +8,13 @@
 
     function config(RestangularProvider, $dropdownProvider, $datepickerProvider, $breadcrumbProvider, fsPaginationConfig) {
         //=== RestangularProvider
-        RestangularProvider.setBaseUrl('/api');
+        RestangularProvider.setBaseUrl('http://api.money.dev/api');
+        if(!!window.sessionStorage.user){
+            var user = angular.fromJson(window.sessionStorage.user);
+            RestangularProvider.setDefaultHeaders({Authorization: "Bearer " + user.token});
+        } else {
+            window.location.href="#!/login"
+        }
         RestangularProvider.setRestangularFields({
             id: "_id"
         });

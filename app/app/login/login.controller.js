@@ -4,10 +4,10 @@
         .module('money.login')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', 'Restangular','$state'];
+    LoginController.$inject = ['$scope', 'Restangular','$state','$window'];
 
     /* @ngInject */
-    function LoginController($scope, Restangular, $state) {
+    function LoginController($scope, Restangular, $state,$window) {
         /* jshint validthis: true */
         var vm = this,
             login = Restangular.all('login');
@@ -15,8 +15,10 @@
        ////////////////////////////
        
        function doLogin (user){ 
-           login.post(user).then(function(){
-               $state.go('tabs.checklist')
+           login.post(user).then(function(res){
+              $window.sessionStorage.token = res.token;
+              Restangular.setDefaultHeaders({Authorization: "Bearer "+ res.token});
+              $state.go('tabs.checklist');
            },function(res){
                alert(res.msg);
            });

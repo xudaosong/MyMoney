@@ -14,7 +14,7 @@
         vm.authentication = authentication;
         vm.dropdown = [
             {text: '<i class="fa fa-pencil-square-o"></i>&nbsp;个人信息修改', href: '#info'},
-            {text: '<i class="fa fa-sign-out"></i>&nbsp;退出', href: '/logout'}
+            {text: '<i class="fa fa-sign-out"></i>&nbsp;退出', click: 'vm.authentication.logout()'}
         ];
     }
 })();

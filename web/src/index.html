@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,11 +17,14 @@
     <link rel="stylesheet" href="css/money.css">
     <!-- endbuild -->
 </head>
+
 <body ng-app="money">
-    <div id="main-container">
+    <div id="main-container" ng-controller="MoneyController as vm">
         <header id="header-container" money-header>
         </header>
-        <div id="main-content-container">
+        <div id="main-content-container" ui-view ng-if="!vm.hasWrap()">
+        </div>
+        <div id="main-content-container" ng-if="vm.hasWrap()">
             <div id="sidebar-container" money-sidebar>
             </div>
             <div id="content-container">
@@ -31,10 +35,10 @@
         <footer id="place-footer-container"></footer>
     </div>
     <footer id="footer-container">
-        <p>Copyright ©2015-2020 www.money.com All rights reserved</p>
+        <p> Copyright ©2015-2020 www.money.com All rights reserved</p>
     </footer>
     <script type="text/javascript">
-    window.user = <%- user || 'null' %>;
+    // window.user = <%- user || 'null' %>;
     </script>
     <!-- build:js js/base.min.js -->
     <!-- bower:js -->
@@ -64,6 +68,7 @@
     <!-- injector:js -->
     <script src="money.module.js"></script>
     <script src="money.config.js"></script>
+    <script src="money.controller.js"></script>
     <script src="money.views.js"></script>
     <script src="money.web.js"></script>
     <script src="article/article.module.js"></script>
@@ -102,11 +107,13 @@
     <script src="home/home.route.js"></script>
     <script src="login/login.controller.js"></script>
     <script src="login/login.directive.js"></script>
+    <script src="login/login.route.js"></script>
     <script src="price-ratio/price-ratio.controller.js"></script>
     <script src="price-ratio/price-ratio.route.js"></script>
     <script src="sidebar/sidebar.controller.js"></script>
     <script src="sidebar/sidebar.directive.js"></script>
     <script src="signup/signup.directive.js"></script>
+    <script src="signup/signup.route.js"></script>
     <script src="signup/signup.server.js"></script>
     <script src="signup/singup.controller.js"></script>
     <script src="voice-broadcast/voice-broadcast.controller.js"></script>
