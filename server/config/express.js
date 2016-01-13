@@ -47,7 +47,7 @@ module.exports = function (db) {
     // var jwtCheck = expressJwt({
     //     secret: config.sessionSecret
     // });
-    var jwtCheck = expressJwt({secret: 'secret'}).unless( {path: 
+    var jwtCheck = expressJwt({secret: config.secret}).unless( {path: 
         [
             '/api/login',
             '/api/signup',
