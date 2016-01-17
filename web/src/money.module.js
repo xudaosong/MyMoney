@@ -8,6 +8,7 @@
             'ui.router',
             'fish',
             'money.views',
+            'money.constant',
             'money.login',
             'money.header',
             'money.dialog',

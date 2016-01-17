@@ -4,16 +4,18 @@
         .module('money')
         .config(config);
 
-    config.$inject = ['RestangularProvider', '$dropdownProvider', '$datepickerProvider', '$breadcrumbProvider', 'fsPaginationConfig'];
+    config.$inject = ['RestangularProvider', '$dropdownProvider', '$datepickerProvider', '$breadcrumbProvider', 'fsPaginationConfig', 'ENV'];
 
-    function config(RestangularProvider, $dropdownProvider, $datepickerProvider, $breadcrumbProvider, fsPaginationConfig) {
+    function config(RestangularProvider, $dropdownProvider, $datepickerProvider, $breadcrumbProvider, fsPaginationConfig, ENV) {
         //=== RestangularProvider
-        RestangularProvider.setBaseUrl('http://api.money.dev/api');
-        if(!!window.sessionStorage.user){
+        RestangularProvider.setBaseUrl(ENV.apiEndpoint + '/api');
+        if (!!window.sessionStorage.user) {
             var user = angular.fromJson(window.sessionStorage.user);
-            RestangularProvider.setDefaultHeaders({Authorization: "Bearer " + user.token});
+            RestangularProvider.setDefaultHeaders({
+                Authorization: "Bearer " + user.token
+            });
         } else {
-            window.location.href="#!/login"
+            window.location.href = "#!/login"
         }
         RestangularProvider.setRestangularFields({
             id: "_id"

@@ -64,7 +64,7 @@ module.exports = function(grunt) {
                     ]
                 }]
             },
-            temp:{
+            temp: {
                 files: [{
                     dot: true,
                     src: [
@@ -96,7 +96,30 @@ module.exports = function(grunt) {
                 }]
             }
         },
-
+        ngconstant: {
+            options: {
+                space: '  ',
+                wrap: '"use strict";\n\n {%= __ngModule %}',
+                name: 'money.constant',
+                dest: 'src/money.constant.js'
+            },
+            development: {
+                constants: {
+                    ENV: {
+                        name: 'development',
+                        apiEndpoint: 'http://api.money.dev'
+                    }
+                }
+            },
+            production: {
+                constants: {
+                    ENV: {
+                        name: 'production',
+                        apiEndpoint: 'http://api.money.com'
+                    }
+                }
+            }
+        },
         // 解析CSS文件并且添加浏览器前缀到CSS规则里
         autoprefixer: {
             options: {
@@ -298,6 +321,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'ngconstant:production',
         'html2js',
         'wiredep',
         'injector',
@@ -314,7 +338,8 @@ module.exports = function(grunt) {
         'htmlmin',
         'imagemin',
         'money.views',
-        'clean:temp'
+        'clean:temp',
+        'ngconstant:development'
     ]);
 
     grunt.registerTask('default', [

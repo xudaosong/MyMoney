@@ -61,6 +61,7 @@ exports.list = function(req, res) {
                 "created": -1
             })
             .skip((req.query.page - 1) * req.query.limit).limit(req.query.limit)
+            .select('-content -creator')
             .exec(function(err, article) {
                 if (err) {
                     return res.status(400).send({
