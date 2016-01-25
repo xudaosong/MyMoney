@@ -16,7 +16,7 @@
         ////////////////
         function activate() {
             article.get($stateParams.id).then(function(res) {
-                res.content = res.content.replace(/\/upload\//g, ENV.apiEndpoint + '/upload/');
+                // res.content = res.content.replace(/"\/upload\//g, '"' + ENV.apiEndpoint + '/upload/');
                 vm.data = res;
             });
         }

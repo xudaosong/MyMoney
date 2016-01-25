@@ -11,13 +11,13 @@
 
     }
 
-    textAngularExtend.$inject = ['taRegisterTool', '$delegate', '$modal', 'taToolFunctions', 'taSelection'];
+    textAngularExtend.$inject = ['taRegisterTool', '$delegate', '$modal', 'taToolFunctions', 'taSelection', 'ENV', 'authentication'];
 
-    function textAngularExtend(taRegisterTool, $delegate, $modal, taToolFunctions, taSelection) {
+    function textAngularExtend(taRegisterTool, $delegate, $modal, taToolFunctions, taSelection, ENV, authentication) {
         taRegisterTool('fsInsertImage', {
             iconclass: "fa fa-picture-o",
             tooltiptext: '插入图片',
-            action:  function($deferred) {
+            action: function($deferred) {
                 var textAngular = this;
                 var savedSelection = rangy.saveSelection();
                 var modalInstance = $modal({
@@ -36,7 +36,10 @@
                             angular.forEach(files, function(file) {
                                 if (!file.$error) {
                                     file.upload = Upload.upload({
-                                        url: '/api/upload',
+                                        headers: {
+                                            'Authorization': 'Bearer ' + authentication.user.token
+                                        },
+                                        url: ENV.apiEndpoint + '/api/upload',
                                         file: file
                                     });
                                     file.upload.then(function(response) {

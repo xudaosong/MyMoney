@@ -4,17 +4,17 @@
         .module('money.common')
         .factory('authentication', authentication);
 
-    authentication.$inject = ['$window'];
+    authentication.$inject = [];
 
     /* @ngInject */
-    function authentication($window) {
+    function authentication() {
         var service = {
             user: null,
             isLogin: isLogin,
             logout: logout
         };
-        if ($window.sessionStorage.user) {
-            service.user = angular.fromJson($window.sessionStorage.user);
+        if (window.sessionStorage.user) {
+            service.user = angular.fromJson(window.sessionStorage.user);
         }
         return service;
 
@@ -24,8 +24,8 @@
         }
 
         function logout() {
-            delete $window.sessionStorage.user;
-            $window.location.href = '/';
+            delete window.sessionStorage.user;
+            window.location.href = '/';
         }
     }
 })();

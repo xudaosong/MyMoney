@@ -18,7 +18,7 @@ function rename(file, dest, user, callback) {
             callback({
                 success: true,
                 file: {
-                    src: '/upload' + dest + filename,
+                    src: config.staticUrl + '/upload' + dest + filename,
                     name: filename,
                     size: file.size,
                     type: file.type,
