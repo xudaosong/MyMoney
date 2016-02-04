@@ -92,7 +92,8 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
     var checklist = req.checklist;
     checklist.title = req.body.title;
-    checklist.group = req.body.group;
+    checklist.trend = req.body.trend;
+    checklist.operation = req.body.operation;
     checklist.author = req.body.author;
     checklist.content = req.body.content;
     checklist.save(function(err) {
@@ -128,15 +129,6 @@ exports.delete = function(req, res) {
             }
         });
     }
-};
-
-exports.requiresLogin = function(req, res, next) {
-    if (!req.isAuthenticated()) {
-        return res.status(401).send({
-            message: '请先登录'
-        });
-    }
-    next();
 };
 
 exports.hasAuthorization = function(req, res, next) {

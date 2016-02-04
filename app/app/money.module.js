@@ -8,7 +8,8 @@
       //'ngMessages',
       //'ui.router',
       //'fish',
-      //'money.views',
+      'money.constant',
+      'money.views',
       //'money.header',
       //'money.dialog',
       //'money.sidebar',
@@ -16,7 +17,7 @@
       'money.common',
       'money.login',
       //'money.signup',
-      //'money.home',
+      'money.home',
       //'money.voiceBroadcast',
       //'money.article',
       'money.checklist'

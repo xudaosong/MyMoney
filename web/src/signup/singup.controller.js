@@ -1,11 +1,11 @@
-(function () {
+(function() {
     'use strict';
     angular
         .module('money.signup')
         .controller('SignupController', SignupController);
-    SignupController.$inject = ['$scope', 'Restangular'];
+    SignupController.$inject = ['$scope', 'Restangular', '$state'];
     /* @ngInject */
-    function SignupController($scope, Restangular) {
+    function SignupController($scope, Restangular, $state) {
         var vm = this,
             signup = Restangular.all('signup');
         vm.data = {};
@@ -21,9 +21,9 @@
             vm.submitted = true;
             if (vm.signup_form.$invalid)
                 return;
-            signup.post(vm.data).then(function () {
-                window.location.href = "/login";
-            }, function (res) {
+            signup.post(vm.data).then(function() {
+                $state.go('login');
+            }, function(res) {
                 vm.message = res.data.message;
             });
             return false;

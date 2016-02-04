@@ -1,0 +1,16 @@
+.home {
+    .item {
+        background: $backgrount-color;
+        color: $color;
+        text-align: center;
+        .icon {
+            font-size: 6em;
+        }
+        &+.item {
+            margin-left: 5px;
+        }
+    }
+    .row + .row {
+        margin-top: 0;
+    }
+}

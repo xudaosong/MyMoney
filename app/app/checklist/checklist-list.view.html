@@ -1,56 +1,42 @@
-<div class="container-fluid">
-    <div class="toolbarContainer clearfix" fs-affix>
-        <div class="pull-left">
-            <form class="form-inline searchForm" novalidate ng-submit="vm.tableParams.reload()">
-                <div class="form-group">
-                    <label for="search_content">关键字</label>
-                    <input type="text" class="form-control" id="search_content" placeholder="内容关键字" ng-model="vm.options.keywords">
-                </div>
-                <div class="form-group">
-                    <label for="search_author">作者</label>
-                    <select class="form-control" name="search_author" id="search_author" ng-model="vm.options.author" ng-options="author for author in vm.authors">
-                        <option value="">全部</option>
-                    </select>
-                </div>
-                <button type="submit" class="form-group btn btn-default">搜索</button>
-            </form>
-        </div>
-        <div class="btn-toolbar pull-right">
-            <a class="btn btn-primary btn-group" ng-click="vm.showDialog()">
-                <i class="fa fa-plus"></i> 新增
+<ion-view class="checklist" data-view-title="Checklist">
+    <ion-nav-buttons side="secondary">
+        <select>
+            <option selected>所有</option>
+            <option>买入</option>
+            <option>卖出</option>
+        </select>
+    </ion-nav-buttons>
+    <ion-content overflow-scroll="true">
+        <ion-list>
+            <ion-item ng-repeat="item in vm.list">
+                <span class="item-content">{{item.title}}</span>
+                <span class="item-note">
+                  {{item.operation}}
+                </span>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <script id="checklist/operation.html" type="text/ng-template">
+        <ion-popover-view>
+            <ion-content>
+                <div class="list">
+                    <a class="item" href="http://learn.ionicframework.com/" target="_blank">
+              Learn Ionic
             </a>
-        </div>
-    </div>
-    {{vm.checklist}}
-    <!-- <fs-table-express data-table-convert="vm.tableConvert"/> -->
-    <table fs-table-dynamic="vm.tableParams with vm.cols" class="table table-condensed table-bordered table-hover table-group">
-        <colgroup>
-          <col />
-          <col width="100px" />
-          <col width="120px" />
-        </colgroup>
-        <tr class="fs-table-group" ng-repeat-start="group in $groups">
-            <td colspan="3" class="text-left">
-                <a href="javascript:;" ng-click="group.$hideRows = !group.$hideRows">
-                    <span class="fa" ng-class="{ 'fa-chevron-right': group.$hideRows, 'fa-chevron-down': !group.$hideRows }"></span>
-                    <strong>{{ group.value }}</strong>
-                </a>
-            </td>
-        </tr>
-        <tr ng-hide="group.$hideRows" ng-repeat="row in group.data" ng-repeat-end>
-            <td ng-repeat="col in $columns" ng-switch="col.field" ng-class="col.cellClass">
-                <input ng-switch-when="selector" type="checkbox" ng-model="checkboxes.items[row.courseid]" />
-                <div ng-switch-when="operation" class="operation">
-                    <button ng-repeat="button in col.buttons" class="btn btn-primary btn-xs" ng-class="button.css" ng-click="button.onClick(row)">
-                        <i class="fa" ng-if="button.icon" ng-class="button.icon"></i>{{button.text}}
-                    </button>
+                    <a class="item" href="http://ionicframework.com/docs/" target="_blank">
+              Documentation
+            </a>
+                    <a class="item" href="http://showcase.ionicframework.com/" target="_blank">
+              Showcase
+            </a>
+                    <a class="item" href="http://ionicframework.com/submit-issue/" target="_blank">
+              Submit an Issue
+            </a>
+                    <a class="item" hrefW="https://github.com/driftyco/ionic" target="_blank">
+              Github Repo
+            </a>
                 </div>
-                <div ng-switch-default>
-                    <div ng-if="!!col.getValue" ng-bind-html="col.getValue(this,row)"></div>
-                    <div ng-if="!!col.render" ng-bind-html="col.render(row,this)"></div>
-                    <div ng-if="!col.getValue && !col.render">{{row[col.field]}}</div>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
+            </ion-content>
+        </ion-popover-view>
+    </script>
+</ion-view>

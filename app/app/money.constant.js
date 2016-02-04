@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
  angular.module('money.constant', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://api.money.dev/'})
+.constant('ENV', {name:'development',apiEndpoint:'http://192.168.248.64:9000'})
 
 ;

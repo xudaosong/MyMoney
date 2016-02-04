@@ -16,11 +16,11 @@
        
        function doLogin (user){ 
            login.post(user).then(function(res){
-              $window.sessionStorage.token = res.token;
-              Restangular.setDefaultHeaders({Authorization: "Bearer "+ res.token});
-              $state.go('tabs.checklist');
+              $window.localStorage.token = res.token;
+              Restangular.setDefaultHeaders({Authorization: 'Bearer '+ res.token});
+              $state.go('home');
            },function(res){
-               alert(res.msg);
+               $window.alert(res.msg);
            });
        }
 

@@ -11,10 +11,15 @@ var ChecklistSchema = new Schema({
         trim: true,
         default: ''
     },
-    group: {
+    trend: {
         type: String,
         trim: true,
-        required: '请输入分组'
+        required: '请输入趋势'
+    },
+    operation: {
+        type: String,
+        trim: true,
+        required: '请输入操作'
     },
     sort: {
         type: Number,

@@ -15,12 +15,30 @@
         vm.fields = [{
             className:'row',
             fieldGroup:[{
-                className:'col-xs-6',
+                className:'col-xs-4',
                 type: 'select',
-                key: 'group',
+                key: 'trend',
+                defaultValue: '牛市',
+                templateOptions: {
+                    label: '操作',
+                    options: [{
+                        name: '牛市',
+                        value: '牛市'
+                    }, {
+                        name: '熊市',
+                        value: '熊市'
+                    }, {
+                        name: '猴市',
+                        value: '猴市'
+                    }]
+                }
+            },{
+                className:'col-xs-4',
+                type: 'select',
+                key: 'operation',
                 defaultValue: '买入',
                 templateOptions: {
-                    label: '分组',
+                    label: '操作',
                     options: [{
                         name: '买入',
                         value: '买入'
@@ -33,10 +51,10 @@
                     }]
                 }
             },{
-                className:'col-xs-6',
+                className:'col-xs-4',
                 type: 'select',
                 key: 'author',
-                defaultValue: '许道松',
+                defaultValue: '王宁',
                 templateOptions: {
                     label: '作者',
                     options: [{
@@ -81,16 +99,20 @@
             getValue: interpolatedValue,
             interpolateExpr: $interpolate('<a href="#!/checklist/{{row[\'_id\'] }}">{{row["title"]}}</a>')
         }, {
-            field: 'group',
-            title: '分组',
+            field: 'trend',
+            title: '趋势',
             show: false,
-            groupable: 'group'
+            groupable: 'trend'
+        }, {
+            field: 'operation',
+            title: '操作',
+            groupable: 'operation'
         }, {
             field: 'author',
             title: '作者',
             groupable: 'author'
         }, {
-            field: 'operation',
+            field: 'operate',
             title: '操作',
             buttons: [{
                 text: '删除',
@@ -104,7 +126,7 @@
             }]
         }];
         vm.tableParams = new FsTableParams({
-            group: 'group'
+            group: 'trend'
         }, {
             getData: getList,
             counts: []

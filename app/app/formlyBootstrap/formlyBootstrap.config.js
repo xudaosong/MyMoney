@@ -1,37 +1,36 @@
-(function () {
+(function() {
     'use strict';
 
-     angular
+    angular
         .module('fish.formlyBootstrap').constant('fsFormlyBootstrapApiCheck', apiCheck({
-        output: {
-            prefix: 'angular-formly-bootstrap'
-        }
-    }));
+            output: {
+                prefix: 'angular-formly-bootstrap'
+            }
+        }));
 
 
-     angular
+    angular
         .module('fish.formlyBootstrap').config(config);
 
     config.$inject = ['formlyConfigProvider'];
+
     function config(formlyConfigProvider) {
-        formlyConfigProvider.setWrapper([
-            {
-                name: 'bootstrapLabel',
-                templateUrl: 'formlyBootstrap/label.wrapper.html',
-                apiCheck: function (check) {
-                    return {
-                        templateOptions: {
-                            label: check.string,
-                            required: check.bool.optional,
-                            labelSrOnly: check.bool.optional
-                        }
-                    };
-                }
-            }, {
-                name: 'bootstrapValidationStates',
-                templateUrl: 'formlyBootstrap/validation-states.wrapper.html'
+        formlyConfigProvider.setWrapper([{
+            name: 'bootstrapLabel',
+            templateUrl: 'formlyBootstrap/label.wrapper.html',
+            apiCheck: function(check) {
+                return {
+                    templateOptions: {
+                        label: check.string,
+                        required: check.bool.optional,
+                        labelSrOnly: check.bool.optional
+                    }
+                };
             }
-        ]);
+        }, {
+            name: 'bootstrapValidationStates',
+            templateUrl: 'formlyBootstrap/validation-states.wrapper.html'
+        }]);
 
         formlyConfigProvider.setType({
             name: 'input',
@@ -39,7 +38,7 @@
             wrapper: ['bootstrapLabel', 'bootstrapValidationStates']
         });
 
-        formlyConfigProvider.setType({ 
+        formlyConfigProvider.setType({
             name: 'richEditor',
             templateUrl: 'formlyBootstrap/richEditor.type.html',
             wrapper: ['bootstrapLabel', 'bootstrapValidationStates']
@@ -51,11 +50,15 @@
             wrapper: ['bootstrapLabel', 'bootstrapValidationStates'],
             defaultOptions: {
                 ngModelAttrs: {
-                    rows: {attribute: 'rows'},
-                    cols: {attribute: 'cols'}
+                    rows: {
+                        attribute: 'rows'
+                    },
+                    cols: {
+                        attribute: 'cols'
+                    }
                 }
             },
-            apiCheck: function (check) {
+            apiCheck: function(check) {
                 return {
                     templateOptions: {
                         rows: check.number.optional,
@@ -71,7 +74,7 @@
             defaultOptions: {
                 noFormControl: false
             },
-            apiCheck: function (check) {
+            apiCheck: function(check) {
                 return {
                     templateOptions: {
                         options: check.arrayOf(check.object),
@@ -85,7 +88,7 @@
             name: 'checkbox',
             templateUrl: 'formlyBootstrap/checkbox.type.html',
             wrapper: ['bootstrapValidationStates'],
-            apiCheck: function (check) {
+            apiCheck: function(check) {
                 return {
                     templateOptions: {
                         label: check.string
@@ -97,7 +100,7 @@
             name: 'mutliCheckbox',
             templateUrl: 'formlyBootstrap/multiCheckbox.type.html',
             wrapper: ['bootstrapLabel', 'bootstrapValidationStates'],
-            apiCheck: function (check) {
+            apiCheck: function(check) {
                 return {
                     templateOptions: {
                         options: check.arrayOf(check.object),
@@ -115,7 +118,7 @@
                     }
                 }
             },
-            controller: /* @ngInject */ function ($scope) {
+            controller: /* @ngInject */ function($scope) {
                 var to = $scope.to;
                 var opts = $scope.options;
                 $scope.multiCheckbox = {
@@ -146,8 +149,8 @@
 
                     if ($scope.to.required) {
                         valid = angular.isArray($scope.model[opts.key]) &&
-                        $scope.model[opts.key].length > 0 &&
-                        expressionValue;
+                            $scope.model[opts.key].length > 0 &&
+                            expressionValue;
 
                         $scope.fc.$setValidity('required', valid);
                     }
@@ -155,7 +158,7 @@
 
                 function setModel() {
                     $scope.model[opts.key] = [];
-                    angular.forEach($scope.multiCheckbox.checked, function (checkbox, index) {
+                    angular.forEach($scope.multiCheckbox.checked, function(checkbox, index) {
                         if (checkbox) {
                             $scope.model[opts.key].push(to.options[index][to.valueProp || 'value']);
                         }
@@ -167,15 +170,15 @@
                 }
 
                 if (opts.expressionProperties && opts.expressionProperties['templateOptions.required']) {
-                    $scope.$watch(function () {
+                    $scope.$watch(function() {
                         return $scope.to.required;
-                    }, function (newValue) {
+                    }, function(newValue) {
                         checkValidity(newValue);
                     });
                 }
 
                 if ($scope.to.required) {
-                    var unwatchFormControl = $scope.$watch('fc', function (newValue) {
+                    var unwatchFormControl = $scope.$watch('fc', function(newValue) {
                         if (!newValue) {
                             return;
                         }
@@ -192,7 +195,8 @@
             wrapper: ['bootstrapLabel', 'bootstrapValidationStates'],
             defaultOptions: function defaultOptions(options) {
                 /* jshint maxlen:195 */
-                var ngOptions = options.templateOptions.ngOptions || 'option[to.valueProp || \'value\'] as option[to.labelProp || \'name\'] group by option[to.groupProp || \'group\'] for option in to.options';
+                var ngOptions = options.templateOptions.ngOptions ||
+                    'option[to.valueProp || \'value\'] as option[to.labelProp || \'name\'] group by option[to.groupProp || \'group\'] for option in to.options';
                 return {
                     ngModelAttrs: _defineProperty({}, ngOptions, {
                         value: options.templateOptions.optionsAttr || 'ng-options'
@@ -231,7 +235,12 @@
 
     function _defineProperty(obj, key, value) {
         if (key in obj) {
-            Object.defineProperty(obj, key, {value: value, enumerable: true, configurable: true, writable: true});
+            Object.defineProperty(obj, key, {
+                value: value,
+                enumerable: true,
+                configurable: true,
+                writable: true
+            });
         } else {
             obj[key] = value;
         }

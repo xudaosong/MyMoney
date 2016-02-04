@@ -1,0 +1,13 @@
+<ion-view class="home" view-title="我的钱" hide-back-button="true">
+    <ion-nav-buttons side="primary">
+        <a class="button icon ion-social-yen logo" ui-sref="login"></a>
+    </ion-nav-buttons>
+    <ion-content data-scroll="false">
+        <div class="row" ng-repeat="row in vm.list | chunkBy: 2">
+            <a class="col item" ng-repeat="item in row" ui-sref="{{::item.href}}">
+                <div class="icon" ng-class="item.icon"></div>
+                <div>{{::item.name}}</div>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

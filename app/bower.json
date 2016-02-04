@@ -9,7 +9,8 @@
     "angular-ui-router": "~0.2.15",
     "ngCordova": "v0.1.23-alpha",
     "angular-formly": "~7.3.9",
-    "restangular": "~1.5.1"
+    "restangular": "~1.5.1",
+    "angular-filter": "~0.5.8"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.8",
