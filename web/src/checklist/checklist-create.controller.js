@@ -66,8 +66,9 @@
         /////////////////////////
 
         function save() {
-            if (vm.form.$invalid)
+            if (vm.form.$invalid) {
                 return;
+            }
             var promise;
             if (!!vm.data._id) {
                 promise = vm.data.put();

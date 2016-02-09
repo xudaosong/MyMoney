@@ -15,11 +15,11 @@
 
     function textAngularExtend(taRegisterTool, $delegate, $modal, taToolFunctions, taSelection, ENV, authentication) {
         taRegisterTool('fsInsertImage', {
-            iconclass: "fa fa-picture-o",
+            iconclass: 'fa fa-picture-o',
             tooltiptext: '插入图片',
             action: function($deferred) {
                 var textAngular = this;
-                var savedSelection = rangy.saveSelection();
+                var savedSelection = window.rangy.saveSelection();
                 var modalInstance = $modal({
                     templateUrl: 'common/insertImage.tpl.html',
                     show: true,
@@ -47,8 +47,9 @@
                                             file.result = response.data.file;
                                         });
                                     }, function(response) {
-                                        if (response.status > 0)
+                                        if (response.status > 0) {
                                             $scope.errorMsg = response.status + ': ' + response.data;
+                                        }
                                     });
                                     file.upload.progress(function(evt) {
                                         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
@@ -58,11 +59,11 @@
                         };
                         $scope.submit = function() {
                             if ($scope.data.imageForm.$valid) {
-                                rangy.restoreSelection(savedSelection);
+                                window.rangy.restoreSelection(savedSelection);
                                 textAngular.$editor().wrapSelection('insertImage', $scope.data.imageUrl);
                             }
                             angular.forEach($scope.data.imageFiles, function(file) {
-                                rangy.restoreSelection(savedSelection);
+                                window.rangy.restoreSelection(savedSelection);
                                 textAngular.$editor().wrapSelection('insertImage', file.result.src);
                             });
 
@@ -83,12 +84,12 @@
 
 
         taRegisterTool('important', {
-            iconclass: "fa fa-bell",
+            iconclass: 'fa fa-bell',
             action: function() {
                 var selectionElement = taSelection.getSelectionElement();
                 if (angular.element(selectionElement).hasClass('important')) {
                     if (selectionElement.tagName === 'SPAN') {
-                        angular.element(selectionElement).find("span.rangySelectionBoundary").unwrap();
+                        angular.element(selectionElement).find('span.rangySelectionBoundary').unwrap();
                     } else {
                         angular.element(selectionElement).removeClass('important');
                     }

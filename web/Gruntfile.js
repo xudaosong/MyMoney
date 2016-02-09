@@ -3,10 +3,11 @@
 module.exports = function(grunt) {
     // 注入业务文件时，重新定义路径
     var injectorTransform = function(filepath) {
-        if (filepath.indexOf('browser_upgrade') > 0 || filepath.indexOf('php-session') > 0)
+        if (filepath.indexOf('browser_upgrade') > 0 || filepath.indexOf('php-session') > 0) {
             return;
+        }
         filepath = filepath.replace('.temp/', '../.temp/');
-        return '<script src="' + filepath + '"></script>'
+        return '<script src="' + filepath + '"></script>';
     };
     // 获取需要注入的业务文件
     var injectorGetFiles = function(dir) {
@@ -99,7 +100,7 @@ module.exports = function(grunt) {
         ngconstant: {
             options: {
                 space: '  ',
-                wrap: '"use strict";\n\n {%= __ngModule %}',
+                wrap: '\'use strict\';\n\n {%= __ngModule %}',
                 name: 'money.constant',
                 dest: 'src/money.constant.js'
             },

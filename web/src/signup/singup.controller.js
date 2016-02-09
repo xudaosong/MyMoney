@@ -19,8 +19,9 @@
 
         function signupSubmit() {
             vm.submitted = true;
-            if (vm.signup_form.$invalid)
+            if (vm.signupForm.$invalid) {
                 return;
+            }
             signup.post(vm.data).then(function() {
                 $state.go('login');
             }, function(res) {
@@ -40,5 +41,5 @@
         function isError(field) {
             return interacted(field) && field.$invalid;
         }
-    };
+    }
 })();

@@ -5,7 +5,7 @@
         .module('fish.formlyBootstrap')
         .directive('fsRichEditorPatch', fsRichEditorPatch);
 
-    fsRichEditorPatch.$inject = ["textAngularManager"];
+    fsRichEditorPatch.$inject = ['textAngularManager'];
     
     function fsRichEditorPatch(textAngularManager) {
         var directive = {

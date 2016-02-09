@@ -11,9 +11,9 @@
         /* jshint validthis: true */
         var vm = this,
             article = Restangular.all('article');
-        vm.categories = ["股票技术"];
-        vm.authors = ["王宁", "王晓"];
-        vm.sources = ["和讯直播室","微信公众号","网易博客"]
+        vm.categories = ['股票技术'];
+        vm.authors = ['王宁', '王晓'];
+        vm.sources = ['和讯直播室', '微信公众号', '网易博客'];
         vm.origin = '';
         vm.submitted = false;
         vm.data = {};
@@ -30,14 +30,17 @@
                 });
             }
             $scope.$watch('vm.origin', function(newValue) {
-                if (!!newValue) autoParse();
+                if (!!newValue) {
+                    autoParse();
+                }
             });
         }
 
         function save(isReturn) {
             vm.submitted = true;
-            if (vm.my_form.$invalid)
+            if (vm.myForm.$invalid) {
                 return;
+            }
             var promise;
             if (!!vm.data._id) {
                 promise = vm.data.put();
@@ -55,8 +58,8 @@
                         source: vm.data.source
                     };
                     vm.submitted = false;
-                    vm.my_form.$setPristine();
-                    vm.my_form.$setUntouched();
+                    vm.myForm.$setPristine();
+                    vm.myForm.$setUntouched();
                 }
             }, function(response) {
                 if (response.status === 404) {
@@ -68,8 +71,9 @@
         }
 
         function interacted(field) {
-            if (!field)
+            if (!field) {
                 return false;
+            }
             return vm.submitted || field.$dirty;
         }
 
@@ -96,10 +100,11 @@
         function parse(type) {
             var items = vm.origin.split('\n');
             angular.forEach(items, function(item, i) {
-                var item = item.trim();
-                if (item.length === 0)
+                item = item.trim();
+                if (item.length === 0) {
                     return false;
-                items[i] = "<p>" + item + "</p>";
+                }
+                items[i] = '<p>' + item + '</p>';
             });
             return items.join('');
             // var rows = article.find('div.lylist>dl>dd>');
@@ -107,50 +112,50 @@
             //     rows = article.find('div.lylist .MsoNormal');
             // }
 
-            switch (type) {
-                case 1:
-                    rows = article.find(".lylist dd").text().split('\n')
-                    break;
-                case 2:
-                    rows = article.find('div.lylist .MsoNormal');
-                    break;
-                case 3:
-                    rows = article.find('div.lylist>dl>dd p');
-                    break;
-            }
-            var year = article.find("div.name").text();
-            year = year.substr(year.indexOf('发表于') + 3, 5);
-            angular.forEach(rows, function(row) {
-                var text = angular.element(row).text().replace('·', '').replace('·', '').trim();
-                if (text === '') return false;
-                if (text.indexOf(':') > 0 && text.indexOf('-') > 0 && !!Date.parse(year + text)) {
-                    item && data.push(item);
-                    item = {
-                        content: '',
-                        isEssential: false
-                    };
-                    item.created = new Date(year + text);
-                } else {
-                    if (!item) return false;
-                    if (angular.element(row).hasClass('sign')) return false;
-                    item.content += angular.element(row).html().split('<br>').map(function(content) {
-                        var text = angular.element('<div>' + content + '</div>').text();
-                        if (text.indexOf(':') > 0 && text.indexOf('-') > 0 && !!Date.parse(year + text.trim())) {
-                            item && data.push(item);
-                            item = {
-                                content: '',
-                                isEssential: false
-                            };
-                            item.created = new Date(year + text.trim());
-                            return;
-                        }
-                        return '<p>' + angular.element('<div>' + content + '</div>').text() + '</p>';
-                    }).join('');
-                }
-            });
-            item && data.push(item);
-            vm.parseData = data;
-            return data;
+            // switch (type) {
+            //     case 1:
+            //         rows = article.find('.lylist dd').text().split('\n');
+            //         break;
+            //     case 2:
+            //         rows = article.find('div.lylist .MsoNormal');
+            //         break;
+            //     case 3:
+            //         rows = article.find('div.lylist>dl>dd p');
+            //         break;
+            // }
+            // var year = article.find('div.name').text();
+            // year = year.substr(year.indexOf('发表于') + 3, 5);
+            // angular.forEach(rows, function(row) {
+            //     var text = angular.element(row).text().replace('·', '').replace('·', '').trim();
+            //     if (text === '') return false;
+            //     if (text.indexOf(':') > 0 && text.indexOf('-') > 0 && !!Date.parse(year + text)) {
+            //         item && data.push(item);
+            //         item = {
+            //             content: '',
+            //             isEssential: false
+            //         };
+            //         item.created = new Date(year + text);
+            //     } else {
+            //         if (!item) return false;
+            //         if (angular.element(row).hasClass('sign')) return false;
+            //         item.content += angular.element(row).html().split('<br>').map(function(content) {
+            //             var text = angular.element('<div>' + content + '</div>').text();
+            //             if (text.indexOf(':') > 0 && text.indexOf('-') > 0 && !!Date.parse(year + text.trim())) {
+            //                 item && data.push(item);
+            //                 item = {
+            //                     content: '',
+            //                     isEssential: false
+            //                 };
+            //                 item.created = new Date(year + text.trim());
+            //                 return;
+            //             }
+            //             return '<p>' + angular.element('<div>' + content + '</div>').text() + '</p>';
+            //         }).join('');
+            //     }
+            // });
+            // item && data.push(item);
+            // vm.parseData = data;
+            // return data;
         }
     }
 })();

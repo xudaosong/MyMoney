@@ -16,7 +16,7 @@
 
         function hasWrap() {
         	if($state.is('login') || $state.is('signup')){
-        		return false
+        		return false;
         	}
         	return true;
         }

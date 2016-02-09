@@ -39,12 +39,16 @@
         ////////////////
         function activate() {
             $scope.$watch('vm.htmlContent', function(newValue) {
-                if (!!newValue) autoParse();
+                if (!!newValue) {
+                    autoParse();
+                }
             });
         }
 
         function getList() {
-            if (vm.options.isEssential === '') vm.options.isEssential = null;
+            if (vm.options.isEssential === '') {
+                vm.options.isEssential = null;
+            }
             voiceBroadcast.getList(vm.options).then(function(res) {
                 vm.list = res;
             });
@@ -52,8 +56,9 @@
 
         function save() {
             vm.submitted = true;
-            if (vm.my_form.$invalid)
+            if (vm.myForm.$invalid) {
                 return;
+            }
             var promise;
             if (!!vm.data._id) {
                 promise = vm.data.put();
@@ -124,8 +129,9 @@
         }
 
         function interacted(field) {
-            if (!field)
+            if (!field) {
                 return false;
+            }
             return vm.submitted || field.$dirty;
         }
 
@@ -146,7 +152,7 @@
             angular.forEach(vm.list, function(item) {
                 item.checked = checked;
             });
-        };
+        }
 
         function autoParse() {
             var data = parse(1);
@@ -175,25 +181,35 @@
                     rows = article.find('div.lylist>dl>dd p');
                     break;
             }
-            var year = article.find("div.name").text();
+            var year = article.find('div.name').text();
             year = year.substr(year.indexOf('发表于') + 3, 5);
             angular.forEach(rows, function(row) {
                 var text = angular.element(row).text().replace('·', '').replace('·', '').trim();
-                if (text === '') return false;
+                if (text === '') {
+                    return false;
+                }
                 if (text.indexOf(':') > 0 && text.indexOf('-') > 0 && !!Date.parse(year + text)) {
-                    item && data.push(item);
+                    if (item) {
+                        data.push(item);
+                    }
                     item = {
                         content: '',
                         isEssential: false
                     };
                     item.created = new Date(year + text);
                 } else {
-                    if (!item) return false;
-                    if (angular.element(row).hasClass('sign')) return false;
+                    if (!item) {
+                        return false;
+                    }
+                    if (angular.element(row).hasClass('sign')) {
+                        return false;
+                    }
                     item.content += angular.element(row).html().split('<br>').map(function(content) {
                         var text = angular.element('<div>' + content + '</div>').text();
                         if (text.indexOf(':') > 0 && text.indexOf('-') > 0 && !!Date.parse(year + text.trim())) {
-                            item && data.push(item);
+                            if (item) {
+                                data.push(item);
+                            }
                             item = {
                                 content: '',
                                 isEssential: false
@@ -205,7 +221,9 @@
                     }).join('');
                 }
             });
-            item && data.push(item);
+            if (item) {
+                data.push(item);
+            }
             vm.parseData = data;
             return data;
         }

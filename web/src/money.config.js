@@ -12,17 +12,17 @@
         if (!!window.sessionStorage.user) {
             var user = angular.fromJson(window.sessionStorage.user);
             RestangularProvider.setDefaultHeaders({
-                Authorization: "Bearer " + user.token
+                Authorization: 'Bearer ' + user.token
             });
         } else {
-            window.location.href = "#!/login"
+            window.location.href = '#!/login';
         }
         RestangularProvider.setRestangularFields({
-            id: "_id"
+            id: '_id'
         });
         RestangularProvider.addResponseInterceptor(function(data, operation) {
             var extractedData;
-            if (operation === "getList") {
+            if (operation === 'getList') {
                 extractedData = data.data;
                 extractedData.total = data.total;
             } else {
@@ -35,10 +35,10 @@
             html: true
         });
         //==== fsPaginationConfig
-        fsPaginationConfig.previousText = "上一页";
-        fsPaginationConfig.nextText = "下一页";
-        fsPaginationConfig.firstText = "首页";
-        fsPaginationConfig.lastText = "尾页";
+        fsPaginationConfig.previousText = '上一页';
+        fsPaginationConfig.nextText = '下一页';
+        fsPaginationConfig.firstText = '首页';
+        fsPaginationConfig.lastText = '尾页';
         fsPaginationConfig.maxSize = 7;
         //==== $datepickerProvider
         angular.extend($datepickerProvider.defaults, {

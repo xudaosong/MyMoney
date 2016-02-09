@@ -4,24 +4,27 @@
         .module('money.checklist')
         .controller('ChecklistController', ChecklistController);
 
-    ChecklistController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', "$interpolate", 'FsTableParams','$sce','config'];
+    ChecklistController.$inject = ['$scope', 'Restangular', '$modal', 'dialog', '$interpolate', 'FsTableParams', '$sce', 'config'];
 
     /* @ngInject */
-    function ChecklistController($scope, Restangular, $modal, dialog, $interpolate, FsTableParams,$sce,config) {
+    function ChecklistController($scope, Restangular, $modal, dialog, $interpolate, FsTableParams, $sce, config) {
         /* jshint validthis: true */
         var vm = this,
             modal = null,
             checklist = Restangular.all('checklist');
         vm.fields = [{
-            className:'row',
-            fieldGroup:[{
-                className:'col-xs-4',
+            className: 'row',
+            fieldGroup: [{
+                className: 'col-xs-4',
                 type: 'select',
                 key: 'trend',
-                defaultValue: '牛市',
+                defaultValue: '不限',
                 templateOptions: {
                     label: '操作',
                     options: [{
+                        name: '不限',
+                        value: '不限'
+                    }, {
                         name: '牛市',
                         value: '牛市'
                     }, {
@@ -32,14 +35,17 @@
                         value: '猴市'
                     }]
                 }
-            },{
-                className:'col-xs-4',
+            }, {
+                className: 'col-xs-4',
                 type: 'select',
                 key: 'operation',
-                defaultValue: '买入',
+                defaultValue: '不限',
                 templateOptions: {
                     label: '操作',
                     options: [{
+                        name: '不限',
+                        value: '不限'
+                    }, {
                         name: '买入',
                         value: '买入'
                     }, {
@@ -50,8 +56,8 @@
                         value: '选股'
                     }]
                 }
-            },{
-                className:'col-xs-4',
+            }, {
+                className: 'col-xs-4',
                 type: 'select',
                 key: 'author',
                 defaultValue: '王宁',
@@ -132,13 +138,13 @@
             counts: []
         });
 
-        vm.authors = ["王宁", "王晓"];
+        vm.authors = ['王宁', '王晓'];
         vm.options = {
-            author:null,
+            author: null,
             keywords: null
         };
-        vm.categories = ["股票技术"];
-        vm.authors = ["王宁", "王晓"];
+        vm.categories = ['股票技术'];
+        vm.authors = ['王宁', '王晓'];
         // vm.tableConvert = new FsTableConvert(config);
         // vm.getList = getList;
         vm.remove = remove;
@@ -148,11 +154,12 @@
 
         ////////////////
 
-       function interpolatedValue($scope, row) {
-          return this.interpolateExpr({
-            row: row
-          });
+        function interpolatedValue($scope, row) {
+            return this.interpolateExpr({
+                row: row
+            });
         }
+
         function getList(tableParams) {
             return checklist.getList(vm.options).then(function(res) {
                 // tableParams.total(res.total);
@@ -212,8 +219,9 @@
         }
 
         function save() {
-            if (vm.form.$invalid)
+            if (vm.form.$invalid) {
                 return;
+            }
             var promise;
             if (!!vm.data._id) {
                 promise = vm.data.put();

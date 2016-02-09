@@ -27,36 +27,36 @@
         ////////////////
 
         function getList() {
-            if (vm.options.isEssential === '') vm.options.isEssential = null;
+            if (vm.options.isEssential === '') {vm.options.isEssential = null;}
             article.getList(vm.options).then(function(res) {
                 vm.list = res;
             });
         }
 
-        function save(isReturn) {
-            vm.submitted = true;
-            if (vm.my_form.$invalid)
-                return;
-            var promise;
-            if (!!vm.data._id) {
-                promise = vm.data.put();
-            } else {
-                promise = article.post(vm.data);
-            }
-            return promise.then(function() {
-                if (isReturn) {
-                    $state.go('article');
-                } else {
-                    vm.data = {};
-                }
-            }, function(response) {
-                if (response.status === 404) {
-                    vm.message = '网络错误，请稍候再试！';
-                } else {
-                    vm.message = response.data.message;
-                }
-            });
-        }
+        // function save(isReturn) {
+        //     vm.submitted = true;
+        //     if (vm.my_form.$invalid)
+        //         return;
+        //     var promise;
+        //     if (!!vm.data._id) {
+        //         promise = vm.data.put();
+        //     } else {
+        //         promise = article.post(vm.data);
+        //     }
+        //     return promise.then(function() {
+        //         if (isReturn) {
+        //             $state.go('article');
+        //         } else {
+        //             vm.data = {};
+        //         }
+        //     }, function(response) {
+        //         if (response.status === 404) {
+        //             vm.message = '网络错误，请稍候再试！';
+        //         } else {
+        //             vm.message = response.data.message;
+        //         }
+        //     });
+        // }
 
         function remove(item) {
             dialog.confirm('确定删除该文章？', function() {
@@ -93,6 +93,6 @@
             angular.forEach(vm.list, function(item) {
                 item.checked = checked;
             });
-        };
+        }
     }
 })();

@@ -16,12 +16,12 @@
                 authentication.user = res;
                 $window.sessionStorage.user = angular.toJson(res);
                 Restangular.setDefaultHeaders({
-                    Authorization: "Bearer " + res.token
+                    Authorization: 'Bearer ' + res.token
                 });
                 $state.go('home');
             }, function(res) {
-                alert(res.data.message);
+                window.alert(res.data.message);
             });
         }
-    };
+    }
 })();

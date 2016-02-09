@@ -1,6 +1,6 @@
-<form class="container signup" name="vm.signup_form" ng-submit="vm.signupSubmit()" novalidate>
+<form class="container signup" name="vm.signupForm" ng-submit="vm.signupSubmit()" novalidate>
     <div class="form-group has-feedback"
-         ng-class="{'has-success':vm.isSuccess(vm.signup_form.username),'has-error':vm.isError(vm.signup_form.username)}">
+         ng-class="{'has-success':vm.isSuccess(vm.signupForm.username),'has-error':vm.isError(vm.signupForm.username)}">
         <label for="username">用户名:</label>
         <input class="form-control"
                type="text"
@@ -11,70 +11,70 @@
                ng-model-options="{ updateOn: 'blur' }"
                ng-minlength="2"
                ng-maxlength="10"
-               ng-class="{'form-control-success':vm.isSuccess(vm.signup_form.username),'form-control-error':vm.isError(vm.signup_form.username)}"
+               ng-class="{'form-control-success':vm.isSuccess(vm.signupForm.username),'form-control-error':vm.isError(vm.signupForm.username)}"
                required/>
         <span class="form-control-feedback fa"
-              ng-if="vm.interacted(vm.signup_form.username)"
-              ng-class="{'fa-check':vm.signup_form.username.$valid,'fa-remove':vm.signup_form.username.$invalid}"></span>
-        <div class="error-messages" ng-if="vm.interacted(vm.signup_form.username)"
-             ng-messages="vm.signup_form.username.$error">
+              ng-if="vm.interacted(vm.signupForm.username)"
+              ng-class="{'fa-check':vm.signupForm.username.$valid,'fa-remove':vm.signupForm.username.$invalid}"></span>
+        <div class="error-messages" ng-if="vm.interacted(vm.signupForm.username)"
+             ng-messages="vm.signupForm.username.$error">
             <div ng-message="required">请输入用户名</div>
             <div ng-message="minlength || maxlength">用户名必须在2~10个字之间</div>
             <div ng-message="fsRealnameValidation">用户名必须是中英文字符</div>
         </div>
     </div>
     <div class="form-group has-feedback"
-         ng-class="{'has-success':vm.isSuccess(vm.signup_form.email),'has-error':vm.isError(vm.signup_form.email)}">
+         ng-class="{'has-success':vm.isSuccess(vm.signupForm.email),'has-error':vm.isError(vm.signupForm.email)}">
         <label for="email">邮箱:</label>
         <input class="form-control"
                id="email"
                type="email"
                name="email"
                placeholder="请输入邮箱"
-               ng-class="{'form-control-success':vm.isSuccess(vm.signup_form.email),'form-control-error':vm.isError(vm.signup_form.email)}"
+               ng-class="{'form-control-success':vm.isSuccess(vm.signupForm.email),'form-control-error':vm.isError(vm.signupForm.email)}"
                ng-model="vm.data.email"
                ng-model-options="{ updateOn: 'blur' }"
                fs-email-validation
                required/>
         <span class="form-control-feedback fa"
-              ng-if="vm.interacted(vm.signup_form.email)"
-              ng-class="{'fa-check':vm.signup_form.email.$valid,'fa-remove':vm.signup_form.email.$invalid}"></span>
-        <div class="error-messages" ng-if="vm.interacted(vm.signup_form.email)" ng-messages="vm.signup_form.email.$error">
+              ng-if="vm.interacted(vm.signupForm.email)"
+              ng-class="{'fa-check':vm.signupForm.email.$valid,'fa-remove':vm.signupForm.email.$invalid}"></span>
+        <div class="error-messages" ng-if="vm.interacted(vm.signupForm.email)" ng-messages="vm.signupForm.email.$error">
             <div ng-message="required">请输入邮箱</div>
             <div ng-message="fsEmailValidation">请输入正确的邮箱</div>
         </div>
     </div>
     <div class="form-group has-feedback"
-         ng-class="{'has-success':vm.isSuccess(vm.signup_form.password),'has-error':vm.isError(vm.signup_form.password)}">
+         ng-class="{'has-success':vm.isSuccess(vm.signupForm.password),'has-error':vm.isError(vm.signupForm.password)}">
         <label for="password">密码:</label>
         <input class="form-control"
                type="password"
                name="password"
                id="password"
                placeholder="请输入密码"
-               ng-class="{'form-control-success':vm.isSuccess(vm.signup_form.password),'form-control-error':vm.isError(vm.signup_form.password)}"
+               ng-class="{'form-control-success':vm.isSuccess(vm.signupForm.password),'form-control-error':vm.isError(vm.signupForm.password)}"
                ng-model="vm.data.password"
                ng-model-options="{ updateOn: 'blur' }"
                ng-minlength="6"
                ng-maxlength="12"
                required/>
         <span class="form-control-feedback fa"
-              ng-if="vm.interacted(vm.signup_form.password)"
-              ng-class="{'fa-check':vm.signup_form.password.$valid,'fa-remove':vm.signup_form.password.$invalid}"></span>
-        <div class="error-messages" ng-if="vm.interacted(vm.signup_form.password)"
-             ng-messages="vm.signup_form.password.$error">
+              ng-if="vm.interacted(vm.signupForm.password)"
+              ng-class="{'fa-check':vm.signupForm.password.$valid,'fa-remove':vm.signupForm.password.$invalid}"></span>
+        <div class="error-messages" ng-if="vm.interacted(vm.signupForm.password)"
+             ng-messages="vm.signupForm.password.$error">
             <ng-messages-include src="password-messages"></ng-messages-include>
         </div>
     </div>
     <div class="form-group has-feedback"
-         ng-class="{'has-success':vm.isSuccess(vm.signup_form.confirm_password),'has-error':vm.isError(vm.signup_form.confirm_password)}">
+         ng-class="{'has-success':vm.isSuccess(vm.signupForm.confirm_password),'has-error':vm.isError(vm.signupForm.confirm_password)}">
         <label for="password">确认密码:</label>
         <input class="form-control"
                type="password"
                name="confirm_password"
                id="confirm_password"
                placeholder="请输入密码"
-               ng-class="{'form-control-success':vm.isSuccess(vm.signup_form.confirm_password),'form-control-error':vm.isError(vm.signup_form.confirm_password)}"
+               ng-class="{'form-control-success':vm.isSuccess(vm.signupForm.confirm_password),'form-control-error':vm.isError(vm.signupForm.confirm_password)}"
                ng-model="confirm_password"
                ng-model-options="{ updateOn: 'blur' }"
                required
@@ -82,11 +82,11 @@
                ng-maxlength="12"
                fs-match-validation="vm.data.password"/>
         <span class="form-control-feedback fa"
-              ng-if="vm.interacted(vm.signup_form.confirm_password)"
-              ng-class="{'fa-check':vm.signup_form.confirm_password.$valid,'fa-remove':vm.signup_form.confirm_password.$invalid}"></span>
+              ng-if="vm.interacted(vm.signupForm.confirm_password)"
+              ng-class="{'fa-check':vm.signupForm.confirm_password.$valid,'fa-remove':vm.signupForm.confirm_password.$invalid}"></span>
 
-        <div class="error-messages" ng-if="vm.interacted(vm.signup_form.confirm_password)"
-             ng-messages="vm.signup_form.confirm_password.$error">
+        <div class="error-messages" ng-if="vm.interacted(vm.signupForm.confirm_password)"
+             ng-messages="vm.signupForm.confirm_password.$error">
             <ng-messages-include src="password-messages"></ng-messages-include>
         </div>
     </div>
