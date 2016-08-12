@@ -19,6 +19,5 @@ export default class StockDetail extends Component {
         super(props);
     }
     render() {
-
     }
 }

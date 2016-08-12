@@ -7,15 +7,20 @@ import {
     ScrollView,
     Text,
     View,
+    WebView,
+    Dimensions
 } from 'react-native'
 
-import Loading from '../components/common/Loading';
-import Toolbar from '../components/common/Toolbar';
-import TabBar from '../components/common/TabBar';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
-import FriendCircle from './FriendCircle';
-import Vitasphere from './Vitasphere';
-import {statusBarShow} from '../actions/statusBar';
+import Loading from '../components/common/Loading'
+import Toolbar from '../components/common/Toolbar'
+import TabBar from '../components/common/TabBar'
+import StockList from '../components/StockList'
+import ScrollableTabView from 'react-native-scrollable-tab-view'
+import FriendCircle from './FriendCircle'
+import Vitasphere from './Vitasphere'
+import {statusBarShow} from '../actions/statusBar'
+
+import WebViewBridge from 'react-native-webview-bridge'
 
 const tabs = [{
     name:'交友圈',
@@ -38,7 +43,20 @@ const tabs = [{
     icon:  require('../img/personal.png'),
     iconActive:  require('../img/personal-active.png')
 }];
+const injectScript = `
+  (function () {
+                    if (WebViewBridge) {
 
+                      WebViewBridge.onMessage = function (message) {
+                        if (message === "hello from react-native") {
+                          WebViewBridge.send("got the message inside webview");
+                        }
+                      };
+
+                      WebViewBridge.send("hello from webview");
+                    }
+                  }());
+`
 export default class Main extends Component {
     componentDidMount(){
         const {statusBar,dispatch} = this.props;
@@ -46,13 +64,25 @@ export default class Main extends Component {
             dispatch(statusBarShow());
         }
     }
+    onBridgeMessage=(message)=>{
+        const { webviewbridge } = this.refs;
+        switch (message) {
+            case "hello from webview":
+                webviewbridge.sendToBridge("hello from react-native");
+                break;
+            case "got the message inside webview":
+                console.log("we have got a message from webview! yeah");
+                break;
+        }
+    }
     render() {
         const {navigator} = this.props;
+        let {height, width} = Dimensions.get('window')
         return (
             <View style={{flex:1}}>
                 <Toolbar title="萌萌"/>
                 <ScrollableTabView
-                    initialPage={1}
+                    initialPage={3}
                     tabBarPosition="bottom"
                     tabBarBackgroundColor="#f8f8f8"
                     renderTabBar={() => <TabBar/>}>
@@ -60,12 +90,17 @@ export default class Main extends Component {
                     </FriendCircle>
                     <Vitasphere tabLabel={tabs[1]} navigator={navigator}>
                     </Vitasphere>
-                    <View tabLabel={tabs[2]} style={{ flex: 1, backgroundColor: '#EEFF33', }}>
-                    </View>
-                    <View tabLabel={tabs[3]} style={{ flex: 1, backgroundColor: '#FF00FF', }}>
-                    </View>
-                    <View tabLabel={tabs[4]} style={{ flex: 1, backgroundColor: '#0000FF', }}>
-                    </View>
+                    <StockList tabLabel={tabs[2]} navigator={navigator}>
+                    </StockList>
+                    <WebViewBridge tabLabel={tabs[3]}
+                                   ref="webviewbridge"
+                                   style={{width:width}}
+                                   source={{uri: "http://www.baidu.com/"}}>
+                    </WebViewBridge>
+                    <WebView tabLabel={tabs[4]}
+                             style={{width:width}}
+                             source={{uri: "http://www.baidu.com/"}}>
+                    </WebView>
                 </ScrollableTabView>
             </View>
         );
