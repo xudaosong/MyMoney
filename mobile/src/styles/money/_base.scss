@@ -1,0 +1,17 @@
+.pager {
+  margin: 10px;
+  border: 1px rgb(224, 224, 224) solid;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: inherit;
+}
+
+.required:after {
+  content: " *";
+  color: red;
+}

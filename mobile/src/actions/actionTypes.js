@@ -1,6 +1,0 @@
-'use strict';
-
-export const FETCH_JOKE_LIST = 'FETCH_JOKE_LIST';
-export const RECEIVE_JOKE_LIST = 'RECEIVE_JOKE_LIST';
-export const STATUS_BAR_SHOW = 'STATUS_BAR_SHOW';
-export const STATUS_BAR_HIDDEN = 'STATUS_BAR_HIDDEN';

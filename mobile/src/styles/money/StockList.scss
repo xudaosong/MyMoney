@@ -1,0 +1,16 @@
+#StockList {
+  .item {
+    line-height: 1.5;
+    color: #333;
+    &:not(:first-child){
+      margin-top:1rem;
+    }
+    > span {
+      color: #999;
+    }
+    > span:not(:last-child) {
+      margin-right: 3rem;
+    }
+  }
+
+}

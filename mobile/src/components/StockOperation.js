@@ -1,75 +1,64 @@
-import React, {
-    Component,
-} from 'react'
-import {
-    StyleSheet,
-    View,
-    Text,
-    TextInput,
-} from 'react-native'
-import Toolbar from './common/Toolbar'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
+import React,{Component} from 'react'
+import AppBar from 'material-ui/AppBar'
+import {Tabs, Tab} from 'material-ui/Tabs'
+import IconButton from 'material-ui/IconButton'
+import NavigationBefore from 'material-ui/svg-icons/image/navigate-before'
+
+import StockOperationWatch from './StockOperationWatch'
+import StockOperationBuy from './StockOperationBuy'
+import StockOperationSale from './StockOperationSale'
 
 export default class StockOperation extends Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     render() {
-        const {navigator} = this.props;
         return (
-            <View style={styles.container}>
-                <Toolbar title="事件"/>
-                <ScrollableTabView style={{}}>
-                    <View tabLabel='事件上报' style={{flex:1,backgroundColor:'#dcdcdc'}}>
-                        <View
-                            style={styles.table}>
-                            <View style={styles.tr}>
-                                <Text style={styles.th}>
-                                    时间
-                                </Text>
-                                <TextInput style={styles.td} />
-                            </View>
-                            <View style={styles.tr}>
-                                <Text style={styles.th}>备注</Text>
-                                <TextInput style={styles.td} multiline={true}/>
-                            </View>
-                            <View style={styles.tr}>
-                                <Text style={styles.th}>时间</Text>
-                                <TextInput style={styles.td}/>
-                            </View>
-                        </View>
-                    </View>
-                    <View tabLabel='事件核查' style={{ flex: 1, backgroundColor: '#FF00FF', }}>
-                    </View>
-                    <View tabLabel='事件处置' style={{ flex: 1, backgroundColor: '#0000FF', }}>
-                    </View>
-                </ScrollableTabView>
-            </View>
+            <div id='StockOperation'>
+                <AppBar
+                    title={'闽发铝业操盘'}
+                    iconElementLeft={<IconButton style={{padding:0}} iconStyle={{width:48,height:48}} onTouchTap={()=>{ history.go(-1)}}><NavigationBefore /></IconButton>}
+                />
+                <Tabs>
+                    <Tab label='观察' style={styles.tab}>
+                        <StockOperationWatch/>
+                    </Tab>
+                    <Tab label='买入' style={styles.tab}>
+                        <StockOperationBuy/>
+                    </Tab>
+                    <Tab label='卖出' style={styles.tab}>
+                        <StockOperationSale/>
+                    </Tab>
+                </Tabs>
+
+            </div>
         )
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+const styles = {
+    tab: {
+        fontSize: 16
     },
-    table:{
-        marginTop:10,
-        paddingLeft:10,
-        paddingRight:10,
-        flexDirection:'column',
-        backgroundColor:'#fff'
+    input: {
+        width: '96%',
     },
-    tr: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    th: {
-        width: 60,
-        color: '#333'
-    },
-    td: {
-        flex: 1
-    }
-})
+}
+
+
+/*
+ <tr>
+ <th className='required'>股票名称</th>
+ <td>
+ <FormsyText style={styles.input}
+ name='name' hintText='股票名称' disabled={true}/>
+ </td>
+ </tr>
+ <tr>
+ <th className='required'>股票代码</th>
+ <td>
+ <FormsyText style={styles.input}
+ name='code' hintText='股票代码' disabled={true}/>
+ </td>
+ </tr>*/

@@ -1,198 +1,55 @@
-import React, {
-    Component,
-} from 'react'
-import {
-    StyleSheet,
-    Image,
-    View,
-    ListView,
-    Text,
-    TextInput,
-    Dimensions,
-    TouchableOpacity,
-    InteractionManager,
-    ActivityIndicator,
-    RefreshControl,
-    AsyncStorage,
-    WebView,
-} from 'react-native'
-
-import Loading from './common/Loading'
-import Toolbar from './common/Toolbar'
-import StockOperation from './StockOperation'
+import React,{Component} from 'react'
+import FlatButton from 'material-ui/FlatButton'
+import Divider from 'material-ui/Divider'
+import InfiniteScroll from 'react-infinite-scroller'
+import utils from '../common/utils'
+import Loading from '../common/Loading'
+import AppBar from 'material-ui/AppBar'
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 
 export default class StockList extends Component {
     constructor(props) {
         super(props)
-        const data = [
-            {
-                name: '金明精机',
-                code: '300218',
-                state: '观察中',
-                reason: '连续红量，涨停过顶，量价配合，位置低，位置低，位置低，位置低，位置低',
-                operations: [
-                    {
-                        date: '2016-08-06 12:35',
-                        type: '买入',
-                        amount: 10000,
-                        technology: ['龙出红海', '量价配合', '不肯去观音', '小市值'],
-                        remark: '突破20天线，明天看看是不是能站稳，整体上量价配合'
-                    }, {
-                        date: '2016-08-07 12:35',
-                        type: '看盘',
-                        amount: 0,
-                        technology: [],
-                        remark: '突破20天线，明天看看是不是能站稳，整体上量价配合'
-                    }, {
-                        date: '2016-08-08 12:35',
-                        type: '卖出',
-                        amount: 5000,
-                        technology: ['短线涨幅较大', '破20天线'],
-                        remark: '突破20天线，明天看看是不是能站稳，整体上量价配合'
-                    }
-                ]
-            }, {
-                name: '闽发铝业',
-                code: '002578',
-                state: '观察中',
-                reason: '连续红量，涨停过顶，量价配合，位置低，位置低，位置低，位置低，位置低',
-                operations: [
-                    {
-                        date: '2016-08-06 12:31',
-                        type: '买入',
-                        amount: 10000,
-                        technology: ['龙出红海', '量价配合', '不肯去观音', '小市值'],
-                        remark: '突破20天线，明天看看是不是能站稳，整体上量价配合'
-                    }, {
-                        date: '2016-08-06 12:32',
-                        type: '看盘',
-                        amount: 0,
-                        technology: [],
-                        remark: '突破20天线，明天看看是不是能站稳，整体上量价配合'
-                    }, {
-                        date: '2016-08-06 12:33',
-                        type: '卖出',
-                        amount: 5000,
-                        technology: ['短线涨幅较大', '破20天线'],
-                        remark: '突破20天线，明天看看是不是能站稳，整体上量价配合'
-                    }
-                ]
-            }, {
-                name: '闽发铝业',
-                code: '002578',
-                state: '观察中',
-                reason: '连续红量，涨停过顶，量价配合，位置低，位置低，位置低，位置低，位置低',
-                operations: [
-                    {
-                        date: '2016-08-06 12:31',
-                        type: '买入',
-                        amount: 10000,
-                        technology: ['龙出红海', '量价配合', '不肯去观音', '小市值'],
-                        remark: '突破20天线，明天看看是不是能站稳，整体上量价配合'
-                    }, {
-                        date: '2016-08-06 12:32',
-                        type: '看盘',
-                        amount: 0,
-                        technology: [],
-                        remark: '突破20天线，明天看看是不是能站稳，整体上量价配合'
-                    }, {
-                        date: '2016-08-06 12:33',
-                        type: '卖出',
-                        amount: 5000,
-                        technology: ['短线涨幅较大', '破20天线'],
-                        remark: '突破20天线，明天看看是不是能站稳，整体上量价配合'
-                    }
-                ]
-            }]
-        this.state = {
-            isLoaded: true,
-            text: '',
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2)=>row1 !== row2
-            }).cloneWithRows(data)
-        }
-        // this.setState({dataSource:this.state.dataSource.cloneWithRows(['row1','row2'])})
-
-    }
-
-    handleSave = ()=> {
-        const {navigator} = this.props;
-        navigator.push({
-            component: StockOperation,
-            name: 'StockOperation'
-        });
-        //AsyncStorage.setItem('@MySuperStore:key',JSON.stringify({
-        //    name:'asdf',
-        //    date:new Date()
-        //}));
-        //AsyncStorage.getItem('@MySuperStore:key',(error,result)=>{
-        //    alert(result)
-        //})
-    }
-
-    renderItem = (item)=> {
-        return (
-            <View
-                style={{flexDirection:'column',borderWidth:1,borderColor:'#ccc',marginTop:10,marginLeft:10,marginRight:10}}>
-                <View style={{flexDirection:'row'}}>
-                    <View style={{flex:1,flexDirection:'row'}}>
-                        <Text>名称：</Text>
-                        <Text>{item.name}</Text>
-                    </View>
-                    <View style={{flex:1,flexDirection:'row'}}>
-                        <Text>代码：</Text>
-                        <Text>{item.code}</Text>
-                    </View>
-                    <View style={{flex:1,flexDirection:'row'}}>
-                        <Text>状态：</Text>
-                        <Text>{item.state}</Text>
-                    </View>
-                </View>
-                <View>
-                    <Text>选股理由：</Text>
-                    <Text>{item.reason}</Text>
-                </View>
-                <View>
-                    <Text>近期操盘：</Text>
-                    {item.operations.map((operation)=> {
-                        return (
-                            <View key={operation.date}>
-                                <Text>{operation.date}-{operation.type}-{operation.amount}</Text>
-                                <Text>{operation.technology.join('、')}</Text>
-                                <Text>{operation.remark}</Text>
-                            </View>
-                        )
-                    })}
-                </View>
-                <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity style={{flex:1}} onPress={this.handleSave}>
-                        <Text style={{textAlign:'center'}}>操盘</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{flex:1}} onPress={this.handleSave}>
-                        <Text style={{textAlign:'center'}}>状态</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{flex:1}} onPress={this.handleSave}>
-                        <Text style={{textAlign:'center'}}>更多</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        )
     }
 
     render() {
-        const {navigator} = this.props;
         return (
-            <View style={{ flexDirection: 'column',flex:1,backgroundColor:'#fff',}}>
-                <ListView
-                    style={{marginBottom:10}}
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderItem}
-                    initialListSize={8}
+            <div id='StockList'>
+                <AppBar
+                    title="我的钱"
+                    showMenuIconButton={false}
                 />
-            </View>
-
+                <InfiniteScroll pageStart={0} hasMore={false} loader={<Loading/>}>
+                    <Card zDepth={0} className="pager" initiallyExpanded={true}>
+                        <CardHeader
+                            title='闽发铝业（002578）操作中'
+                            showExpandableButton={true}
+                        />
+                        <Divider/>
+                        <CardText expandable={true}>
+                            <div className='item'>选股理由：<span>要要要要淡为为虽烛烛要为欠中欠欠斧人欠我我</span></div>
+                            <div className='item'>持股数量：<span>10000</span>总盈亏：<span>5000</span></div>
+                            <div className='item'>总结：<span>要要要要淡为为虽烛烛要为欠中欠欠斧人欠我我</span></div>
+                            <div className='item'>近期操盘：</div>
+                            <div className='item'>2016-8-12 13:20（看盘）：<span>我为人人我人国人为人中人为保人为人中为为为为</span></div>
+                            <div className='item'>2016-8-12 13:20（看盘）：<span>我为人人我人国人为人中人为保人为人中为为为为</span></div>
+                            <div className='item'>2016-8-12 13:20（看盘）：<span>我为人人我人国人为人中人为保人为人中为为为为</span></div>
+                            <div className='item'>2016-8-12 13:20（看盘）：<span>我为人人我人国人为人中人为保人为人中为为为为</span></div>
+                        </CardText>
+                        <Divider/>
+                        <CardActions style={{textAlign:'right'}}>
+                            <FlatButton label='操盘' href='#/stock/operation' secondary={true}/>
+                            <FlatButton label='更多' secondary={true}/>
+                        </CardActions>
+                    </Card>
+                </InfiniteScroll>
+            </div>
         )
     }
+}
 
-//<Toolbar title="股票" navigator={navigator}/>
+const styles = {
+    tab: {
+        fontSize: 16
+    }
 }
