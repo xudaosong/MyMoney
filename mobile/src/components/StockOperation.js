@@ -8,27 +8,34 @@ import StockOperationWatch from './StockOperationWatch'
 import StockOperationBuy from './StockOperationBuy'
 import StockOperationSale from './StockOperationSale'
 
+import stock from '../common/stock'
+import {StockRecordTypeEnum} from '../common/enum'
+
 export default class StockOperation extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+          item:stock.get(this.props.params.id)
+        }
     }
 
     render() {
         return (
             <div id='StockOperation'>
                 <AppBar
-                    title={'闽发铝业操盘'}
-                    iconElementLeft={<IconButton style={{padding:0}} iconStyle={{width:48,height:48}} onTouchTap={()=>{ history.go(-1)}}><NavigationBefore /></IconButton>}
+                    titleStyle={{fontSize:20}}
+                    title={`${this.state.item.name}（${this.state.item.code}）操盘`}
+                    iconElementLeft={<IconButton style={{padding:0}} iconStyle={{width:36,height:36}} onTouchTap={()=>{ history.go(-1)}}><NavigationBefore /></IconButton>}
                 />
                 <Tabs>
                     <Tab label='观察' style={styles.tab}>
-                        <StockOperationWatch/>
+                        <StockOperationWatch {...this.props}/>
                     </Tab>
                     <Tab label='买入' style={styles.tab}>
-                        <StockOperationBuy/>
+                        <StockOperationBuy {...this.props}/>
                     </Tab>
                     <Tab label='卖出' style={styles.tab}>
-                        <StockOperationSale/>
+                        <StockOperationSale {...this.props}/>
                     </Tab>
                 </Tabs>
 

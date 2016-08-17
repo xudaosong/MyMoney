@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
+import stock from '../common/stock'
 import utils from '../common/utils'
 import { FormsyText } from '../formsy'
 
@@ -14,25 +15,12 @@ export default class StockOperationSale extends Component {
     }
 
     submitForm = (data)=> {
-        /* this.setState({disabledSubmit: true})
-         EventData.report({
-         'type_id': data.type,
-         'case_addr': data.address,
-         'report_time': data.date + ':00',//上报到秒级
-         'lon': '0',
-         'lat': '0',
-         'case_desc': data.description,
-         'imgs': this.state.photo,
-         'processed': this.state.processed ? 1 : 0,
-         'processed_result': this.state.processed ? this.refs.processResult.getValue() : '',
-         'processed_imgs': this.state.processed ? this.state.processPhoto : []
-         }).then((result)=> {
-         this.setState({disabledSubmit: false})
-         if (result === true) {
-         sys.toast({'message': '事件上报成功'})
-         window.location.reload()
-         }
-         })*/
+        data.type = 3
+        if(stock.record(this.props.params.id,data)){
+            alert('ok')
+        }else{
+            alert('fail')
+        }
     }
 
     handleShowDatePicker = (event)=> {
@@ -77,7 +65,7 @@ export default class StockOperationSale extends Component {
                         <th className='required'>卖出数量</th>
                         <td>
                             <FormsyText style={styles.input}
-                                        name='code' type='number' hintText='卖出数量' required
+                                        name='amount' type='number' hintText='卖出数量' required
                                         validations='isInt' validationErrors={{'isDefaultRequiredValue':'请输入卖出数量','isInt':'卖出数量必须是数字'}}/>
                         </td>
                     </tr>
@@ -85,7 +73,7 @@ export default class StockOperationSale extends Component {
                         <th className='required' style={{verticalAlign: 'top',paddingTop: 17}}>备注</th>
                         <td>
                             <FormsyText hintText='备注' style={styles.input} multiLine={true}
-                                        name='reason'
+                                        name='remark'
                                         validationErrors={{'isDefaultRequiredValue':'请输入备注'}} required/>
                         </td>
                     </tr>

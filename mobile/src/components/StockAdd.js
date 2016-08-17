@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import AppBar from 'material-ui/AppBar'
+import stock from '../common/stock'
 import utils from '../common/utils'
 import { FormsyText } from '../formsy'
 
@@ -11,34 +12,20 @@ export default class StockAdd extends Component {
             disabledSubmit: false,
             disabledLabel: '提交中，请稍候...'
         }
+        console.log(stock.list())
     }
 
     submitForm = (data)=> {
-        /* this.setState({disabledSubmit: true})
-        EventData.report({
-            'type_id': data.type,
-            'case_addr': data.address,
-            'report_time': data.date + ':00',//上报到秒级
-            'lon': '0',
-            'lat': '0',
-            'case_desc': data.description,
-            'imgs': this.state.photo,
-            'processed': this.state.processed ? 1 : 0,
-            'processed_result': this.state.processed ? this.refs.processResult.getValue() : '',
-            'processed_imgs': this.state.processed ? this.state.processPhoto : []
-        }).then((result)=> {
-            this.setState({disabledSubmit: false})
-            if (result === true) {
-                sys.toast({'message': '事件上报成功'})
-                window.location.reload()
-            }
-        })*/
+        if(stock.add(data)){
+            alert('ok')
+        }
     }
 
     render() {
         return (
             <div id='StockAdd'>
                 <AppBar
+                    titleStyle={{fontSize:20}}
                     title="股票新增"
                     showMenuIconButton={false}
                 />
@@ -51,7 +38,7 @@ export default class StockAdd extends Component {
                             <th className='required'>证券名称</th>
                             <td>
                                 <FormsyText style={styles.input}
-                                            name='name' type='number' hintText='证券名称' required
+                                            name='name' hintText='证券名称' required
                                             validationErrors={{'isDefaultRequiredValue':'请输入证券名称'}}/>
                             </td>
                         </tr>
@@ -59,8 +46,8 @@ export default class StockAdd extends Component {
                             <th className='required'>证券代码</th>
                             <td>
                                 <FormsyText style={styles.input}
-                                            name='code' type='number' hintText='证券代码' required
-                                            validations="isInt,isLength:6" validationErrors={{'isDefaultRequiredValue':'请输入证券代码','isInt':'证券代码只能是6位数字','isLength':'股票代码只能是6位数字'}}/>
+                                            name='code' hintText='证券代码' required
+                                            validations="isLength:6" validationErrors={{'isDefaultRequiredValue':'请输入证券代码','isLength':'股票代码只能是6位数字'}}/>
                             </td>
                         </tr>
                         <tr>
