@@ -1,3 +1,4 @@
+require('rk-toast/assets/index.less')
 require('./styles/money.scss')
 
 import React from 'react'
