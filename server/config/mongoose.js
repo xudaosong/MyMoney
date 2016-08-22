@@ -9,6 +9,7 @@ module.exports = function() {
 	require('../models/article.server.model');
 	require('../models/checklist.server.model');
 	require('../models/price-ratio.server.model');
+	require('../models/stock.server.model');
 
 	return db;
 };

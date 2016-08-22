@@ -14,12 +14,8 @@ var getErrorMessage = function(err) {
 
 exports.create = function (req, res, next) {
     if (util.isArray(req.body)) {
-        var stocks = [];
-        for (var i = 0; i < req.body.length; i++) {
-            stocks.push(new Stock(req.body[i]).toObject());
-        }
-
-        Stock.collection.insert(stocks, function (err) {
+        Stock.collection.drop();
+        Stock.collection.insert(req.body, function (err) {
             if (err) {
                 return res.status(400).send({
                     message: getErrorMessage(err)
