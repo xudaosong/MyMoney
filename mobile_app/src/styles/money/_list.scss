@@ -1,0 +1,21 @@
+table.list {
+  width: 97%;
+  margin: .5rem .5rem 0 .5rem;
+  border-collapse: collapse;
+  tbody {
+    tr {
+      th {
+        width: 8rem;
+        padding: .8rem;
+        font-weight: normal;
+        text-align: left;
+        color: #333;
+        vertical-align: top;
+      }
+      td {
+        color: #999;
+        padding: .8rem;
+      }
+    }
+  }
+}
