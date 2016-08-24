@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
+import Toast from 'rk-toast'
 import stock from '../common/stock'
 import utils from '../common/utils'
 import { FormsyText } from '../formsy'
@@ -17,9 +18,10 @@ export default class StockOperationBuy extends Component {
     submitForm = (data)=> {
         data.type = 2
         if(stock.record(this.props.params.id,data)){
-            alert('ok')
+            Toast.show('操盘保存成功',5)
+            history.go(-1)
         }else{
-            alert('fail')
+            alert('操盘保存失败',5)
         }
     }
 

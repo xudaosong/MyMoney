@@ -71,7 +71,7 @@ export default {
         return true
     },
     _syncGET(){
-        fetch(this.getUrl('api/stock'), {
+        return fetch(this.getUrl('api/stock'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -79,10 +79,10 @@ export default {
             },
         }).then((response)=> {
             if (response.ok) {
-               response.json().then((result)=>{
-                   console.log(result)
+               return response.json().then((result)=>{
                    data = result.data
                    this._sync()
+                   return true
                    //window.location.reload()
                })
             } else {
@@ -107,7 +107,7 @@ export default {
         })
     },
     _syncPOST(){
-        fetch(this.getUrl('api/stock'), {
+        return fetch(this.getUrl('api/stock'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -141,19 +141,19 @@ export default {
     syncPOST(){
         if (!currentUser) {
             this.login().then(()=> {
-                this._syncPOST()
+                return this._syncPOST()
             })
         } else {
-            this._syncPOST()
+            return this._syncPOST()
         }
     },
     syncGET(){
         if (!currentUser) {
             this.login().then(()=> {
-                this._syncGET()
+                return this._syncGET()
             })
         } else {
-            this._syncGET()
+            return this._syncGET()
         }
     },
     sync(){
@@ -179,7 +179,7 @@ export default {
             body: JSON.stringify({username: 'xuds', password: 'xds8504'})
         }).then(response=> {
             if (response.ok) {
-                response.json().then((user)=> {
+                return response.json().then((user)=> {
                     currentUser = user
                     window.sessionStorage.setItem('currentUser', JSON.stringify(user))
                     return user

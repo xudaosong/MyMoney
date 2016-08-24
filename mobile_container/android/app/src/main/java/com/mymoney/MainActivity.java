@@ -1,4 +1,4 @@
-package com.mymoney;
+package com.xudaosong.mymoney;
 
 import com.facebook.react.ReactActivity;
 

@@ -1,6 +1,9 @@
 import React,{Component} from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import Toast from 'rk-toast'
+import NavigationBefore from 'material-ui/svg-icons/image/navigate-before'
 import stock from '../common/stock'
 import utils from '../common/utils'
 import { FormsyText } from '../formsy'
@@ -12,12 +15,14 @@ export default class StockAdd extends Component {
             disabledSubmit: false,
             disabledLabel: '提交中，请稍候...'
         }
-        console.log(stock.list())
     }
 
     submitForm = (data)=> {
-        if(stock.add(data)){
-            alert('ok')
+        if(stock.add(data)) {
+            Toast.show('股票新增成功', 5)
+            history.go(-1)
+        }else{
+            Toast.show('股票新增失败', 5)
         }
     }
 
@@ -27,7 +32,7 @@ export default class StockAdd extends Component {
                 <AppBar
                     titleStyle={{fontSize:20}}
                     title="股票新增"
-                    showMenuIconButton={false}
+                    iconElementLeft={<IconButton style={{padding:7}} iconStyle={{width:36,height:36}} onTouchTap={()=>{ history.go(-1)}}><NavigationBefore /></IconButton>}
                 />
                 <Formsy.Form className='container-form'
                              ref='form'

@@ -87,7 +87,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.mymoney"
+        applicationId "com.xudaosong.mymoney"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1

@@ -1,4 +1,4 @@
-package com.mymoney;
+package com.xudaosong.mymoney;
 
 import android.app.Application;
 import android.util.Log;

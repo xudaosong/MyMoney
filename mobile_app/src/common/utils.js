@@ -1,8 +1,14 @@
 export default {
     dateFormat(date, format){
+        //if (format === undefined) {
+        //    format = date;
+        //    date = new Date();
+        //}
         if (format === undefined) {
-            format = date;
-            date = new Date();
+            format = 'yyyy-MM-dd hh:mm'
+        }
+        if(typeof date === 'string'){
+            date = new Date(date)
         }
         var map = {
             'M': date.getMonth() + 1, //月份

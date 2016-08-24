@@ -31,7 +31,7 @@ export default class StockDetail extends Component {
                         iconElementLeft={<IconButton style={{padding:0}} iconStyle={{width:36,height:36}} onTouchTap={()=>{ history.go(-1)}}><NavigationBefore /></IconButton>}
                     />
                 </Sticky>
-                <Card key={item.id} zDepth={0} className="pager" initiallyExpanded={true}>
+                <Card key={item.id} zDepth={0} className='pager' initiallyExpanded={true}>
                     <CardHeader
                         title={`${item.name}（${item.code}）${StockStateEnum[item.state]}`}
                         showExpandableButton={true}
@@ -39,15 +39,20 @@ export default class StockDetail extends Component {
                     <Divider/>
                     <CardText expandable={true}>
                         <div className='item'>选股理由：<span>{item.reason}</span></div>
-                        <div className='item'>持股数量：<span>{item.amount}</span>总盈亏：<span>{item.income}</span>
-                        </div>
-                        <div className='item'>总结：<span>{item.summary}</span></div>
+                        {item.state === '2' ?
+                            <div className='item'>持股数量：<span>{item.amount}</span></div> : ''}
+                        {item.state === '3' ?
+                            <div className='item'>总盈亏：<span>{item.income}</span></div> : ''}
+                        {item.state === '3' ?
+                            <div className='item'>总结：
+                                <pre>{item.summary}</pre>
+                            </div> : ''}
                         <div className='item'>近期操盘：</div>
-                        {item.records.map((record)=> {
+                        {_.sortBy(item.records, 'date').reverse().map((record)=> {
                             return (
                                 <div className='item'
-                                     key={_.uniqueId('dom')}>
-                                    {record.date}（{record.type === 1 ? StockRecordTypeEnum[record.type] : `${StockRecordTypeEnum[record.type]} - ${record.amount}`}）
+                                     key={_.uniqueId('dom_')}>
+                                    {utils.dateFormat(record.date)}（{record.type === 1 ? StockRecordTypeEnum[record.type] : `${StockRecordTypeEnum[record.type]} - ${record.amount}`}）
                                     <pre>{record.remark}</pre>
                                 </div>
                             )

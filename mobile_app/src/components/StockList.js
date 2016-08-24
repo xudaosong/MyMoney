@@ -5,6 +5,7 @@ import AppBar from 'material-ui/AppBar'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
+import NavigationBefore from 'material-ui/svg-icons/image/navigate-before'
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
 import Popover from 'material-ui/Popover'
@@ -26,7 +27,6 @@ export default class StockList extends Component {
             openState: false,
             openDialog: false,
         }
-        stock.syncGET()
     }
 
     handleStateOpen(event, item) {
@@ -98,8 +98,8 @@ export default class StockList extends Component {
                 <Sticky style={{zIndex:9999}}>
                     <AppBar
                         titleStyle={{fontSize:20}}
-                        title="我的钱"
-                        showMenuIconButton={false}
+                        title="股票操盘"
+                        iconElementLeft={<IconButton style={{padding:7}} iconStyle={{width:36,height:36}} onTouchTap={()=>{ history.go(-1)}}><NavigationBefore /></IconButton>}
                         iconElementRight={<IconButton style={{padding:6}} iconStyle={{width:36,height:36}} href='#/stock/add'><ContentAdd /></IconButton>}
                     />
                 </Sticky>
@@ -130,11 +130,11 @@ export default class StockList extends Component {
                                         <pre>{item.summary}</pre>
                                     </div> : ''}
                                     <div className='item'>近期操盘：</div>
-                                    {item.records.slice(0, 3).map((record)=> {
+                                    {_.sortBy(item.records,'date').reverse().slice(0, 3).map((record)=> {
                                         return (
                                             <div className='item'
                                                  key={_.uniqueId('dom_')}>
-                                                {record.date}（{record.type === 1 ? StockRecordTypeEnum[record.type] : `${StockRecordTypeEnum[record.type]} - ${record.amount}`}）
+                                                {utils.dateFormat(record.date)}（{record.type === 1 ? StockRecordTypeEnum[record.type] : `${StockRecordTypeEnum[record.type]} - ${record.amount}`}）
                                                 <pre>{record.remark}</pre>
                                             </div>
                                         )
@@ -170,7 +170,8 @@ export default class StockList extends Component {
                     open={this.state.openDialog}
                     onRequestClose={this.handleDialogClose}
                 >
-                    <TextField ref='summary' name='summary' multiLine={true} hintText='总结' defaultValue={this.state.currentItem && this.state.currentItem.summary}/>
+                    <TextField ref='summary' name='summary' multiLine={true} hintText='总结'
+                               defaultValue={this.state.currentItem && this.state.currentItem.summary}/>
                 </Dialog>
             </StickyContainer>
         )
