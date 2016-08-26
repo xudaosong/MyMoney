@@ -17,7 +17,9 @@ export default class StockOperationWatch extends Component {
 
     submitForm = (data)=> {
         data.type = 1
-        if(stock.record(this.props.params.id,data)){
+        console.log(stock.list())
+        debugger
+        if(stock.record(this.props.params.id,{date:data.date,remark:data.remark,type:1})){
             Toast.show('操盘保存成功',5)
             history.go(-1)
         }else{

@@ -4,9 +4,14 @@ import Toast from 'rk-toast'
 let config = require('config');
 
 let data = window.localStorage.getItem('stock') || []
+let stockTechnologyData = window.localStorage.getItem('stockTechnology') || []
 let currentUser = window.sessionStorage.getItem('currentUser') || null
+let setting = {}
 if (typeof data === 'string') {
     data = JSON.parse(data)
+}
+if (typeof stockTechnologyData === 'string') {
+    stockTechnologyData = JSON.parse(stockTechnologyData)
 }
 if (typeof currentUser === 'string') {
     currentUser = JSON.parse(currentUser)
@@ -29,6 +34,21 @@ let recordTemplate = {
     amount: 0,
     remark: '',
 }
+
+/*[
+    {
+        id: '0',
+        name: 'name',
+        category: ['category'],
+        description: 'remark'
+    },
+    {
+        id: '1',
+        name: 'name1',
+        category: ['category', 'category1'],
+        description: 'remark1'
+    }
+]*/
 export default {
     _sync(){
         window.localStorage.setItem('stock', JSON.stringify(data))
@@ -37,7 +57,7 @@ export default {
         return data
     },
     add(item){
-        let newItem = _.extend(itemTemplate, item)
+        let newItem = _.extend({},itemTemplate, item)
         newItem.id = data.length
         data.push(newItem)
         this._sync()
@@ -53,7 +73,7 @@ export default {
             item = this.get(item)
         }
         item.state = state
-        if (state === '3') {
+        if (state == 3) {
             item.summary = summary
         }
         this._sync()
@@ -63,10 +83,10 @@ export default {
         let item = this.get(id)
         if (!item)
             return false
-        if (record.type === '2') {// 如果是买入，则修改状态为操作中
-            item.state = '2'
+        if (record.type == 2) {// 如果是买入，则修改状态为操作中
+            item.state = 2
         }
-        item.records.push(_.extend(recordTemplate, record))
+        item.records.push(_.extend({},recordTemplate, record))
         this._sync()
         return true
     },
@@ -79,12 +99,11 @@ export default {
             },
         }).then((response)=> {
             if (response.ok) {
-               return response.json().then((result)=>{
-                   data = result.data
-                   this._sync()
-                   return true
-                   //window.location.reload()
-               })
+                return response.json().then((result)=> {
+                    data = result.data
+                    this._sync()
+                    return true
+                })
             } else {
                 switch (response.status) {
                     case 401:
@@ -140,7 +159,7 @@ export default {
     },
     syncPOST(){
         if (!currentUser) {
-            this.login().then(()=> {
+            return this.login().then(()=> {
                 return this._syncPOST()
             })
         } else {
@@ -149,7 +168,7 @@ export default {
     },
     syncGET(){
         if (!currentUser) {
-            this.login().then(()=> {
+            return this.login().then(()=> {
                 return this._syncGET()
             })
         } else {
@@ -168,7 +187,11 @@ export default {
         }
     },
     getUrl(resPath){
-        return `${config.default.apiHost}/${resPath}`
+        setting = window.localStorage.getItem('setting') || {}
+        if (typeof setting === 'string') {
+            setting = JSON.parse(setting)
+        }
+        return `http://${setting.serverAddress}/${resPath}`
     },
     login(){
         return fetch(this.getUrl('api/login'), {
@@ -176,7 +199,7 @@ export default {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
             },
-            body: JSON.stringify({username: 'xuds', password: 'xds8504'})
+            body: JSON.stringify({username: setting.account, password: setting.password})
         }).then(response=> {
             if (response.ok) {
                 return response.json().then((user)=> {
@@ -187,6 +210,27 @@ export default {
             } else {
                 return false
             }
+        })
+    },
+    _syncTechnology(){
+        window.localStorage.setItem('stockTechnology', JSON.stringify(stockTechnologyData))
+    },
+    addTechnology(item){
+        item.id = stockTechnologyData.length
+        stockTechnologyData.push(item)
+        this._syncTechnology()
+        return true
+    },
+    getTechnologyCategory(){
+        let categories = []
+        _.each(stockTechnologyData, (item)=> {
+            categories = categories.concat(item.category)
+        })
+        return _.uniq(categories)
+    },
+    getTechnology(category){
+        return _.filter(stockTechnologyData, (item)=> {
+            return item.category.indexOf(category) >= 0
         })
     },
 }

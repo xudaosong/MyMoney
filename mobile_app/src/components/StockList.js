@@ -50,7 +50,7 @@ export default class StockList extends Component {
 
     handleDialogSave = (event) => {
         event.preventDefault()
-        if (stock.changeState(this.state.currentItem, '3', this.refs.summary.getValue())) {
+        if (stock.changeState(this.state.currentItem, 3, this.refs.summary.getValue())) {
             this.setState({
                 openDialog: false,
                 data: stock.list(),
@@ -107,7 +107,7 @@ export default class StockList extends Component {
                     {this.state.data.map((item)=> {
                         return (
                             <Card style={{position:'relative'}} zDepth={0} key={item.id} className="pager"
-                                  initiallyExpanded={true}>
+                                  initiallyExpanded={false}>
                                 <CardHeader
                                     style={{padding:8}}
                                     title={
@@ -122,11 +122,11 @@ export default class StockList extends Component {
                                     <div className='item'>选股理由：
                                         <pre>{item.reason}</pre>
                                     </div>
-                                    {item.state === '2' ?
+                                    {item.state == 2 ?
                                         <div className='item'>持股数量：<span>{item.amount}</span></div> : ''}
-                                    {item.state === '3' ?
+                                    {item.state == 3 ?
                                         <div className='item'>总盈亏：<span>{item.income}</span></div> : ''}
-                                    {item.state === '3' ? <div className='item'>总结：
+                                    {item.state == 3 ? <div className='item'>总结：
                                         <pre>{item.summary}</pre>
                                     </div> : ''}
                                     <div className='item'>近期操盘：</div>

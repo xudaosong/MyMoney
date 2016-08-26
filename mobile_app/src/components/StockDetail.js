@@ -39,11 +39,11 @@ export default class StockDetail extends Component {
                     <Divider/>
                     <CardText expandable={true}>
                         <div className='item'>选股理由：<span>{item.reason}</span></div>
-                        {item.state === '2' ?
+                        {item.state == 2 ?
                             <div className='item'>持股数量：<span>{item.amount}</span></div> : ''}
-                        {item.state === '3' ?
+                        {item.state == 3 ?
                             <div className='item'>总盈亏：<span>{item.income}</span></div> : ''}
-                        {item.state === '3' ?
+                        {item.state == 3 ?
                             <div className='item'>总结：
                                 <pre>{item.summary}</pre>
                             </div> : ''}

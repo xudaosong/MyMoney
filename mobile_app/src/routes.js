@@ -12,8 +12,11 @@ import StockList from './components/StockList'
 import StockAdd from './components/StockAdd'
 import StockOperation from './components/StockOperation'
 import StockDetail from './components/StockDetail'
+import StockTechnology from './components/StockTechnology'
+import StockTechnologyAdd from './components/StockTechnologyAdd'
 import MainContainer from './components/MainContainer'
 import Home from './components/Home'
+import Setting from './components/Setting'
 
 import RedTheme from './common/redTheme'
 
@@ -26,6 +29,9 @@ const AppRouter = (
         <Route path="/stock/add" component={StockAdd}/>
         <Route path="/stock/operation/:id" component={StockOperation}/>
         <Route path="/stock/detail/:id" component={StockDetail}/>
+        <Route path="/stock/technology" component={StockTechnology}/>
+        <Route path="/stock/technology/add(/:id)" component={StockTechnologyAdd}/>
+        <Route path="/setting" component={Setting}/>
     </Router>
 )
 

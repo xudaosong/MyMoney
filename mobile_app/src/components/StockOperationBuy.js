@@ -47,7 +47,6 @@ export default class StockOperationBuy extends Component {
     render() {
         return (
             <Formsy.Form className='container-form'
-                         ref='form'
                          onValidSubmit={this.submitForm}>
                 <table className='form'>
                     <tbody>
