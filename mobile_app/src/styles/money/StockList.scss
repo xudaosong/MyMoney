@@ -5,20 +5,27 @@
     &:not(:first-child) {
       margin-top: 1rem;
     }
-    > span, > pre {
+    > span{
       color: #999;
       line-height: 1;
       margin-top: .5rem;
       margin-bottom: 2rem;
     }
-    pre{
-      word-wrap: break-word;
-      word-break: normal;
-    }
     > span:not(:last-child) {
       margin-right: 3rem;
     }
 
+    pre{
+      color: #999;
+      line-height: 1;
+      margin-top: .5rem;
+      margin-bottom: 0rem;
+      word-wrap: break-word;
+      word-break: normal;
+      &:last-child{
+        margin-bottom: 2rem;
+      }
+    }
   }
 
 }

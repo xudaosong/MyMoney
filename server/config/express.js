@@ -91,6 +91,8 @@ module.exports = function (db) {
     require('../routes/checklist.server.routes')(app);
     require('../routes/price-ratio.server.routes')(app);
     require('../routes/stock.server.routes')(app);
+    require('../routes/stock-technology.server.routes')(app);
+    require('../routes/sync.server.routes')(app);
 
     if (process.env.NODE_ENV === 'development') {
         app.use(express.static('../../'));

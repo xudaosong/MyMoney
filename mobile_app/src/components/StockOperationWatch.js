@@ -1,27 +1,31 @@
 import React,{Component} from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
+import Drawer from 'material-ui/Drawer'
 import Toast from 'rk-toast'
 import stock from '../common/stock'
 import utils from '../common/utils'
 import { FormsyText } from '../formsy'
+import StockTechnology from './StockTechnology'
+const ScreenWidth = window.screen.width
 
 export default class StockOperationWatch extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            technology: '',
+            showTechnology: false,
             eventTimeFormat: utils.dateFormat(new Date(), 'yyyy-MM-dd hh:mm'),
             disabledSubmit: false,
             disabledLabel: '提交中，请稍候...'
         }
     }
 
-    submitForm = (data)=> {
+    handleFormSubmit = (data)=> {
+        //console.log(data)
         data.type = 1
-        console.log(stock.list())
-        debugger
-        if(stock.record(this.props.params.id,{date:data.date,remark:data.remark,type:1})){
+        if(stock.addRecord(this.props.params.id,data)){
             Toast.show('操盘保存成功',5)
-            history.go(-1)
+            //history.go(-1)
         }else{
             alert('操盘保存失败',5)
         }
@@ -46,11 +50,28 @@ export default class StockOperationWatch extends Component {
         this.setState({eventTimeFormat: eventTimeFormat})
     }
 
+    handleShowTechnology = () => {
+        this.setState({showTechnology: true})
+    }
+
+    handleSelectedTechnology = (items) => {
+        this.setState({showTechnology: false, 'technology': items.join(',')})
+    }
+
+    renderTechnology() {
+        return (
+            <Drawer open={this.state.showTechnology} style={{zIndex:9999}} width={ScreenWidth}>
+                <StockTechnology isSelect={true} onSelected={this.handleSelectedTechnology}
+                                 value={this.state.technology}/>
+            </Drawer>
+        )
+    }
+
     render() {
         return (
             <Formsy.Form className='container-form'
                          ref='form'
-                         onValidSubmit={this.submitForm}>
+                         onValidSubmit={this.handleFormSubmit}>
                 <table className='form'>
                     <tbody>
                     <tr>
@@ -66,11 +87,17 @@ export default class StockOperationWatch extends Component {
                         </td>
                     </tr>
                     <tr>
-                        <th className='required' style={{verticalAlign: 'top',paddingTop: 17}}>备注</th>
+                        <th className='required'>符合技术</th>
                         <td>
-                            <FormsyText hintText='备注' style={styles.input} multiLine={true}
-                                        name='remark'
-                                        validationErrors={{'isDefaultRequiredValue':'请输入备注'}} required/>
+                            <FormsyText style={styles.input} value={this.state.technology}
+                                        name='technology' hintText='符合技术' onTouchTap={this.handleShowTechnology}
+                                        required validationErrors={{'isDefaultRequiredValue':'请选择符合的技术'}}/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style={{verticalAlign: 'top',paddingTop: 17}}>备注</th>
+                        <td>
+                            <FormsyText style={styles.input} hintText='备注' multiLine={true} name='remark'/>
                         </td>
                     </tr>
                     </tbody>
@@ -80,6 +107,7 @@ export default class StockOperationWatch extends Component {
                                   primary={true} fullWidth={true}
                                   formNoValidate={true} disabled={this.state.disabledSubmit}/>
                 </div>
+                {this.renderTechnology()}
             </Formsy.Form>
         )
     }
@@ -93,20 +121,3 @@ const styles = {
         width: '96%',
     },
 }
-
-
-/*
- <tr>
- <th className='required'>股票名称</th>
- <td>
- <FormsyText style={styles.input}
- name='name' hintText='股票名称' disabled={true}/>
- </td>
- </tr>
- <tr>
- <th className='required'>股票代码</th>
- <td>
- <FormsyText style={styles.input}
- name='code' hintText='股票代码' disabled={true}/>
- </td>
- </tr>*/

@@ -119,7 +119,10 @@ export default class StockList extends Component {
                                 />
                                 <Divider/>
                                 <CardText expandable={true}>
-                                    <div className='item'>选股理由：
+                                    <div className='item'>符合技术：
+                                        <pre>{item.technology}</pre>
+                                    </div>
+                                    <div className='item'>其它理由：
                                         <pre>{item.reason}</pre>
                                     </div>
                                     {item.state == 2 ?
@@ -135,6 +138,7 @@ export default class StockList extends Component {
                                             <div className='item'
                                                  key={_.uniqueId('dom_')}>
                                                 {utils.dateFormat(record.date)}（{record.type === 1 ? StockRecordTypeEnum[record.type] : `${StockRecordTypeEnum[record.type]} - ${record.amount}`}）
+                                                <pre>{record.technology}</pre>
                                                 <pre>{record.remark}</pre>
                                             </div>
                                         )

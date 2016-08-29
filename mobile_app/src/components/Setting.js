@@ -15,7 +15,7 @@ export default class Home extends Component {
         if (!setting) {
             setting = {serverAddress: '', account: '', password: ''}
         } else {
-            console.log(setting)
+            //console.log(setting)
             setting = JSON.parse(setting)
         }
         this.state = {

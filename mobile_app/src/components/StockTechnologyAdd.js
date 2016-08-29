@@ -13,13 +13,18 @@ import { FormsyText,FormsyCheckbox } from '../formsy'
 export default class StockTechnologyAdd extends Component {
     constructor(props) {
         super(props)
+        let data = null
+        if (typeof this.props.params.id !== 'undefined') {
+            data = stock.getTechnologyById(this.props.params.id)
+        }
         this.state = {
             category: stock.getTechnologyCategory(),
+            data: data,
             categoryError: false,
             disabledSubmit: false,
             disabledLabel: '提交中，请稍候...'
         }
-        console.log(this.state.category)
+        //console.log(this.state.category)
     }
 
     getSelectedCategory(data) {
@@ -42,11 +47,20 @@ export default class StockTechnologyAdd extends Component {
             data.description = ''
         }
         //console.log(data)
-        if (stock.addTechnology(data)) {
-            Toast.show('股票技术新增成功', 5)
-            history.go(-1)
+        if(this.state.data){
+            if (stock.editTechnology(this.state.data.id,data)) {
+                Toast.show('股票技术修改成功', 5)
+                history.go(-1)
+            } else {
+                Toast.show('股票技术修改失败', 5)
+            }
         } else {
-            Toast.show('股票技术新增失败', 5)
+            if (stock.addTechnology(data)) {
+                Toast.show('股票技术新增成功', 5)
+                history.go(-1)
+            } else {
+                Toast.show('股票技术新增失败', 5)
+            }
         }
     }
     handleFormError = (data)=> {
@@ -59,7 +73,7 @@ export default class StockTechnologyAdd extends Component {
             <div>
                 <AppBar
                     titleStyle={{fontSize:20}}
-                    title="股票技术新增"
+                    title={this.state.data ? '股票技术修改':'股票技术新增'}
                     iconElementLeft={<IconButton style={{padding:7}} iconStyle={{width:36,height:36}} onTouchTap={()=>{ history.go(-1)}}><NavigationBefore /></IconButton>}
                 />
                 <Formsy.Form className='container-form'
@@ -73,6 +87,7 @@ export default class StockTechnologyAdd extends Component {
                             <td>
                                 <FormsyText style={styles.input}
                                             name='name' hintText='技术名称' required
+                                            value={this.state.data && this.state.data.name}
                                             validationErrors={{'isDefaultRequiredValue':'请输入技术名称'}}/>
                             </td>
                         </tr>
@@ -80,7 +95,7 @@ export default class StockTechnologyAdd extends Component {
                             <th style={{verticalAlign:'top'}} className='required'>类别</th>
                             <td>
                                 {this.state.category.map((item)=> {
-                                    return (<FormsyCheckbox key={item} name={`category[${item}]`} label={item}/>)
+                                    return  (<FormsyCheckbox key={item} name={`category[${item}]`} label={item} defaultChecked={this.state.data ? this.state.data.category.indexOf(item)>=0: false}/>)
                                 })}
                                 <FormsyText style={styles.input}
                                             name='newCategory' hintText='新的类别'/>
@@ -91,7 +106,7 @@ export default class StockTechnologyAdd extends Component {
                         <tr>
                             <th className='multi-line'>描述</th>
                             <td>
-                                <FormsyText style={styles.input} name='description' hintText='描述' multiLine={true}/>
+                                <FormsyText style={styles.input} name='description' hintText='描述' multiLine={true} value={this.state.data && this.state.data.description}/>
                             </td>
                         </tr>
                         </tbody>

@@ -2,28 +2,49 @@ import React,{Component} from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
+import Drawer from 'material-ui/Drawer'
 import Toast from 'rk-toast'
 import NavigationBefore from 'material-ui/svg-icons/image/navigate-before'
+import { FormsyText } from '../formsy'
 import stock from '../common/stock'
 import utils from '../common/utils'
-import { FormsyText } from '../formsy'
-
+import StockTechnology from './StockTechnology'
+const ScreenWidth = window.screen.width
 export default class StockAdd extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            technology: '',
+            showTechnology: false,
             disabledSubmit: false,
             disabledLabel: '提交中，请稍候...'
         }
     }
 
     submitForm = (data)=> {
-        if(stock.add(data)) {
+        if (stock.add(data)) {
             Toast.show('股票新增成功', 5)
             history.go(-1)
-        }else{
+        } else {
             Toast.show('股票新增失败', 5)
         }
+    }
+
+    handleShowTechnology = () => {
+        this.setState({showTechnology: true})
+    }
+
+    handleSelectedTechnology = (items) => {
+        this.setState({showTechnology: false, 'technology': items.join(',')})
+    }
+
+    renderTechnology() {
+        return (
+            <Drawer open={this.state.showTechnology} style={{zIndex:9999}} width={ScreenWidth}>
+                <StockTechnology isSelect={true} onSelected={this.handleSelectedTechnology}
+                                 value={this.state.technology}/>
+            </Drawer>
+        )
     }
 
     render() {
@@ -52,15 +73,23 @@ export default class StockAdd extends Component {
                             <td>
                                 <FormsyText style={styles.input}
                                             name='code' hintText='证券代码' required
-                                            validations="isLength:6" validationErrors={{'isDefaultRequiredValue':'请输入证券代码','isLength':'股票代码只能是6位数字'}}/>
+                                            validations="isLength:6"
+                                            validationErrors={{'isDefaultRequiredValue':'请输入证券代码','isLength':'股票代码只能是6位数字'}}/>
                             </td>
                         </tr>
                         <tr>
-                            <th className='required multi-line'>选择理由</th>
+                            <th className='required'>符合技术</th>
                             <td>
-                                <FormsyText hintText='选股理由' style={styles.input} multiLine={true}
-                                            name='reason'
-                                            validationErrors={{'isDefaultRequiredValue':'请输入选择理由'}} required/>
+                                <FormsyText style={styles.input} value={this.state.technology}
+                                            name='technology' hintText='符合技术' onTouchTap={this.handleShowTechnology}
+                                            required validationErrors={{'isDefaultRequiredValue':'请选择符合的技术'}}/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className='required multi-line'>其它理由</th>
+                            <td>
+                                <FormsyText style={styles.input} hintText='选股理由' multiLine={true} name='reason'
+                                            validationErrors={{'isDefaultRequiredValue':'请输入其它理由'}} required/>
                             </td>
                         </tr>
                         </tbody>
@@ -71,7 +100,7 @@ export default class StockAdd extends Component {
                                       formNoValidate={true} disabled={this.state.disabledSubmit}/>
                     </div>
                 </Formsy.Form>
-
+                {this.renderTechnology()}
             </div>
         )
     }

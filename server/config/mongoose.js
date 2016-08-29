@@ -10,6 +10,7 @@ module.exports = function() {
 	require('../models/checklist.server.model');
 	require('../models/price-ratio.server.model');
 	require('../models/stock.server.model');
+	require('../models/stock-technology.server.model');
 
 	return db;
 };

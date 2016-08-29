@@ -18,6 +18,7 @@ export default class StockDetail extends Component {
         this.state = {
             item: stock.get(this.props.params.id)
         }
+        //console.log(this.state.item)
     }
 
     render() {
@@ -53,6 +54,7 @@ export default class StockDetail extends Component {
                                 <div className='item'
                                      key={_.uniqueId('dom_')}>
                                     {utils.dateFormat(record.date)}（{record.type === 1 ? StockRecordTypeEnum[record.type] : `${StockRecordTypeEnum[record.type]} - ${record.amount}`}）
+                                    <pre>{record.technology}</pre>
                                     <pre>{record.remark}</pre>
                                 </div>
                             )
