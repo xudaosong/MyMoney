@@ -97,7 +97,7 @@ export default class StockTechnology extends Component {
     renderHeader() {
         if (this.props.isSelect) {
             return (
-                <div style={{display:'flex',padding:5,backgroundColor:'#da301c'}}>
+                <div style={{display:'flex',padding:5,backgroundColor:'#da301c',minHeight:32}}>
                     {this.state.selectedCategory.map((item)=> {
                         return (
                             <Chip style={{marginRight:5}} key={item}
@@ -122,13 +122,14 @@ export default class StockTechnology extends Component {
     }
 
     render() {
+        let headerHeight =  this.props.isSelect ? 42:48
         return (
             <StickyContainer>
                 <Sticky style={{zIndex:9999,}}>
                     {this.renderHeader()}
                 </Sticky>
                 <div
-                    style={{width:100,backgroundColor:'#5096d2',minHeight:ScreenHeight-48,float:'left',overflowY:'auto',overflowX:'hidden'}}>
+                    style={{width:100,backgroundColor:'#5096d2',minHeight:ScreenHeight-headerHeight,float:'left',overflowY:'auto',overflowX:'hidden'}}>
                     <Menu style={{maxWidth:100}} listStyle={{paddingBottom:0,paddingTop:0}}
                           onItemTouchTap={this.handleTypeChange}>
                         {this.state.category.map(item => (
@@ -139,7 +140,7 @@ export default class StockTechnology extends Component {
                     </Menu>
                 </div>
                 <div
-                    style={{width:ScreenWidth-100,backgroundColor:'#f5f5f5',height:ScreenHeight-48,float:'left',overflowY:'auto',overflowX:'hidden'}}>
+                    style={{width:ScreenWidth-100,backgroundColor:'#f5f5f5',height:ScreenHeight-headerHeight,float:'left',overflowY:'auto',overflowX:'hidden'}}>
                     {this.state.data.map((item)=> {
                         return (
                             <Card style={{position:'relative'}}
