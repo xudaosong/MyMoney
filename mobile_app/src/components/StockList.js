@@ -3,9 +3,13 @@ import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import AppBar from 'material-ui/AppBar'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import IconButton from 'material-ui/IconButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import NavigationBefore from 'material-ui/svg-icons/image/navigate-before'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
+import ActionAssignment from 'material-ui/svg-icons/action/assignment'
+import ActionDone from 'material-ui/svg-icons/action/done'
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
 import Popover from 'material-ui/Popover'
@@ -24,8 +28,10 @@ export default class StockList extends Component {
         super(props)
         this.state = {
             data: stock.list(),
+            currentRecord: null,
             openState: false,
-            openDialog: false,
+            openSummaryDialog: false,
+            openCommentDialog: false,
         }
     }
 
@@ -45,18 +51,31 @@ export default class StockList extends Component {
     }
 
     handleDialogClose = () => {
-        this.setState({openDialog: false});
+        this.setState({openSummaryDialog: false, openCommentDialog: false});
     }
 
     handleDialogSave = (event) => {
         event.preventDefault()
-        if (stock.changeState(this.state.currentItem, 3, this.refs.summary.getValue())) {
-            this.setState({
-                openDialog: false,
-                data: stock.list(),
-            })
-        } else {
-            alert('fail')
+        if (this.state.openSummaryDialog) {
+            if (stock.changeState(this.state.currentItem, 3, {
+                    summary: this.refs.summary.getValue(),
+                    income: this.refs.income.getValue()
+                })) {
+                this.setState({
+                    openSummaryDialog: false,
+                    data: stock.list(),
+                })
+            }
+        } else if (this.state.openCommentDialog) {
+            if (stock.recordComment(this.state.currentRecord, {
+                    comment: this.refs.comment.getValue(),
+                    result: this.refs.result.state.selected
+                })) {
+                this.setState({
+                    openCommentDialog: false,
+                    data: stock.list(),
+                })
+            }
         }
     }
 
@@ -64,7 +83,7 @@ export default class StockList extends Component {
         event.preventDefault()
         if (menuItem.key === '3') { // 已完成状态
             this.setState({
-                openDialog: true,
+                openSummaryDialog: true,
                 openState: false,
             })
         } else {
@@ -73,10 +92,15 @@ export default class StockList extends Component {
                     openState: false,
                     data: stock.list(),
                 })
-            } else {
-                alert('fail')
             }
         }
+    }
+
+    handleShowCommentDialog = (record)=> {
+        this.setState({
+            openCommentDialog: true,
+            currentRecord: record,
+        })
     }
 
     render() {
@@ -107,7 +131,7 @@ export default class StockList extends Component {
                     {this.state.data.map((item)=> {
                         return (
                             <Card style={{position:'relative'}} zDepth={0} key={item.id} className="pager"
-                                  initiallyExpanded={false}>
+                                  initiallyExpanded={item.state == 1}>
                                 <CardHeader
                                     style={{padding:8}}
                                     title={
@@ -125,7 +149,7 @@ export default class StockList extends Component {
                                     <div className='item'>其它理由：
                                         <pre>{item.reason}</pre>
                                     </div>
-                                    {item.state == 2 ?
+                                    {item.state == 1 ?
                                         <div className='item'>持股数量：<span>{item.amount}</span></div> : ''}
                                     {item.state == 3 ?
                                         <div className='item'>总盈亏：<span>{item.income}</span></div> : ''}
@@ -133,13 +157,26 @@ export default class StockList extends Component {
                                         <pre>{item.summary}</pre>
                                     </div> : ''}
                                     <div className='item'>近期操盘：</div>
-                                    {_.sortBy(item.records,'date').reverse().slice(0, 3).map((record)=> {
+                                    {_.sortBy(item.records, 'date').reverse().slice(0, 3).map((record)=> {
                                         return (
                                             <div className='item'
                                                  key={_.uniqueId('dom_')}>
-                                                {utils.dateFormat(record.date)}（{record.type === 1 ? StockRecordTypeEnum[record.type] : `${StockRecordTypeEnum[record.type]} - ${record.amount}`}）
-                                                <pre>{record.technology}</pre>
+                                                <div style={{position:'relative'}}>
+                                                    {utils.dateFormat(record.date)}（{record.type === 1 ? StockRecordTypeEnum[record.type] : `${StockRecordTypeEnum[record.type]} - ${record.amount}`}）
+                                                    {(!record.result || record.result == 1) && <ActionAssignment
+                                                        style={{width:18,height:18,position:'absolute',top:2,color:'#4CAF50'}}
+                                                        onTouchTap={()=>this.handleShowCommentDialog(record)}/>}
+                                                    {record.result == 2 && <ActionDone
+                                                        style={{width:18,height:18,position:'absolute',top:2,color:'#4CAF50'}}
+                                                        onTouchTap={()=>this.handleShowCommentDialog(record)}/>}
+                                                    {record.result == 3 && <NavigationClose
+                                                        style={{width:18,height:18,position:'absolute',top:2,color:'#da301c'}}
+                                                        onTouchTap={()=>this.handleShowCommentDialog(record)}/>}
+                                                </div>
+                                                {record.technology && record.technology.length > 0 ? (<pre>{record.technology}</pre>) : ''}
                                                 <pre>{record.remark}</pre>
+                                                {record.comment && record.comment.length > 0 ? (<pre
+                                                    style={{borderTop:'1px dashed #999',paddingTop:5}}>{record.commentDate && utils.dateFormat(record.commentDate)}：{record.comment}</pre>) : ''}
                                             </div>
                                         )
                                     })}
@@ -171,11 +208,42 @@ export default class StockList extends Component {
                     title='总结'
                     actions={dialogActions}
                     modal={false}
-                    open={this.state.openDialog}
+                    open={this.state.openSummaryDialog}
                     onRequestClose={this.handleDialogClose}
                 >
-                    <TextField ref='summary' name='summary' multiLine={true} hintText='总结'
+                    <TextField ref='income' name='income' multiLine={true} hintText='总盈收' type='number'
+                               floatingLabelText='总盈收'
+                               defaultValue={(this.state.currentItem && this.state.currentItem.income!=0)?this.state.currentItem.income:''}/>
+                    <br/>
+                    <TextField ref='summary' name='summary' multiLine={true} hintText='总结' floatingLabelText='总结'
                                defaultValue={this.state.currentItem && this.state.currentItem.summary}/>
+                </Dialog>
+                <Dialog
+                    title='点评'
+                    actions={dialogActions}
+                    modal={false}
+                    open={this.state.openCommentDialog}
+                    onRequestClose={this.handleDialogClose}
+                >
+                    <RadioButtonGroup ref='result' name='result' defaultSelected={(!!this.state.currentRecord && !!this.state.currentRecord.result) ? this.state.currentRecord.result:1}>
+                        <RadioButton
+                            style={{marginBottom: 16}}
+                            value={1}
+                            label="待定"
+                        />
+                        <RadioButton
+                            style={{marginBottom: 16}}
+                            value={2}
+                            label="正确"
+                        />
+                        <RadioButton
+                            style={{marginBottom: 16}}
+                            value={3}
+                            label="错误"
+                        />
+                    </RadioButtonGroup>
+                    <TextField ref='comment' name='comment' multiLine={true} hintText='点评' floatingLabelText='点评'
+                               defaultValue={this.state.currentRecord && this.state.currentRecord.comment}/>
                 </Dialog>
             </StickyContainer>
         )

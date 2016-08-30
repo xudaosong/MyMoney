@@ -1,6 +1,7 @@
 import _ from 'underscore'
 import 'whatwg-fetch'
 import Toast from 'rk-toast'
+import utils from './utils'
 let config = require('config');
 
 let stockData = window.localStorage.getItem('stock') || []
@@ -34,6 +35,9 @@ let template = {
         type: 1,
         amount: 0,
         remark: '',
+        comment:'',
+        commentDate:'2000-1-1 00:00:00',
+        result:0,//0:待定，1：正确，-1：错误
     }
 }
 
@@ -180,23 +184,30 @@ export default {
         if (record.type == 2) {// 如果是买入，则修改状态为操作中
             item.state = 2
         }
+        //record.id = new Date().getTime()
         item.records.push(_.extend({}, template.stockRecord, record))
         this._sync()
         return true
     },
-    changeState(item, state, summary){
+    recordComment(record,comment){
+        comment.commentDate=  utils.dateFormat(new Date())
+        record = _.extend(record, comment)
+        this._sync()
+        return true
+    },
+    changeState(item, state, data){
         if (typeof item !== 'object') {
             item = this.get(item)
         }
         item.state = state
         if (state == 3) {
-            item.summary = summary
+            _.extend(item,data)
         }
         this._sync()
         return true
     },
     list(){
-        return stockData
+        return _.sortBy(stockData,'state')
     },
     get(id){
         return _.find(stockData, (item)=> {
