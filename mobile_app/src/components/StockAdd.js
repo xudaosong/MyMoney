@@ -78,18 +78,18 @@ export default class StockAdd extends Component {
                             </td>
                         </tr>
                         <tr>
-                            <th className='required'>符合技术</th>
+                            <th>符合技术</th>
                             <td>
                                 <FormsyText style={styles.input} value={this.state.technology}
                                             name='technology' hintText='符合技术' onTouchTap={this.handleShowTechnology}
-                                            required validationErrors={{'isDefaultRequiredValue':'请选择符合的技术'}}/>
+                                            validations='choice:reason' validationErrors={{'choice':'符合技术和其它理由必须填一个'}}/>
                             </td>
                         </tr>
                         <tr>
-                            <th className='required multi-line'>其它理由</th>
+                            <th className='multi-line'>其它理由</th>
                             <td>
                                 <FormsyText style={styles.input} hintText='选股理由' multiLine={true} name='reason'
-                                            validationErrors={{'isDefaultRequiredValue':'请输入其它理由'}} required/>
+                                            validations='choice:technology' validationErrors={{'choice':'符合技术和其它理由必须填一个'}}/>
                             </td>
                         </tr>
                         </tbody>

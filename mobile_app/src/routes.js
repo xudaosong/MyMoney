@@ -17,9 +17,9 @@ import StockTechnologyAdd from './components/StockTechnologyAdd'
 import MainContainer from './components/MainContainer'
 import Home from './components/Home'
 import Setting from './components/Setting'
-
 import RedTheme from './common/redTheme'
 
+require('./common/validation')
 injectTapEventPlugin();
 
 const AppRouter = (

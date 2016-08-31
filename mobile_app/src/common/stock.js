@@ -23,7 +23,7 @@ let template = {
         name: '',
         code: '',
         reason: '',
-        state: 1,
+        state: 2,// 1:操作中，2：观察中，3:已完成
         amount: 0,//当前持仓
         income: 0,//总盈收
         summary: '',//总结
@@ -32,12 +32,12 @@ let template = {
     },
     stockRecord:{
         date: '2000-1-1 00:00:00',
-        type: 1,
+        type: 1, // 1：观察，2：买入，3：卖出
         amount: 0,
         remark: '',
         comment:'',
         commentDate:'2000-1-1 00:00:00',
-        result:0,//0:待定，1：正确，-1：错误
+        result:0,//1:待定，2：正确，3：错误，4：重要
     }
 }
 
@@ -182,7 +182,10 @@ export default {
         if (!item)
             return false
         if (record.type == 2) {// 如果是买入，则修改状态为操作中
-            item.state = 2
+            item.state = 1
+            item.amount = parseInt(item.amount) + parseInt(record.amount)
+        } else if(record.type == 3) {// 如果是卖出
+            item.amount =  parseInt(item.amount) - parseInt(record.amount)
         }
         //record.id = new Date().getTime()
         item.records.push(_.extend({}, template.stockRecord, record))

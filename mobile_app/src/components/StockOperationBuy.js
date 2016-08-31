@@ -93,17 +93,18 @@ export default class StockOperationBuy extends Component {
                         </td>
                     </tr>
                     <tr>
-                        <th className='required'>符合技术</th>
+                        <th>符合技术</th>
                         <td>
                             <FormsyText style={styles.input} value={this.state.technology}
                                         name='technology' hintText='符合技术' onTouchTap={this.handleShowTechnology}
-                                        required validationErrors={{'isDefaultRequiredValue':'请选择符合的技术'}}/>
+                                        validations='choice:remark' validationErrors={{'choice':'符合技术和备注必须填一个'}}/>
                         </td>
                     </tr>
                     <tr>
                         <th style={{verticalAlign: 'top',paddingTop: 17}}>备注</th>
                         <td>
-                            <FormsyText style={styles.input} hintText='备注' multiLine={true} name='remark'/>
+                            <FormsyText style={styles.input} hintText='备注' multiLine={true} name='remark'
+                                        validations='choice:technology' validationErrors={{'choice':'符合技术和备注必须填一个'}}/>
                         </td>
                     </tr>
                     </tbody>

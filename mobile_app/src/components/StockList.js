@@ -10,6 +10,7 @@ import NavigationBefore from 'material-ui/svg-icons/image/navigate-before'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import ActionAssignment from 'material-ui/svg-icons/action/assignment'
 import ActionDone from 'material-ui/svg-icons/action/done'
+import SocialNotifications from 'material-ui/svg-icons/social/notifications'
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
 import Popover from 'material-ui/Popover'
@@ -143,12 +144,12 @@ export default class StockList extends Component {
                                 />
                                 <Divider/>
                                 <CardText expandable={true}>
-                                    <div className='item'>符合技术：
+                                    {item.technology && item.technology.length > 0 ? (<div className='item'>符合技术：
                                         <pre>{item.technology}</pre>
-                                    </div>
-                                    <div className='item'>其它理由：
+                                    </div>) : ''}
+                                    {item.reason && item.reason.length > 0 ? (<div className='item'>其它理由：
                                         <pre>{item.reason}</pre>
-                                    </div>
+                                    </div>) : ''}
                                     {item.state == 1 ?
                                         <div className='item'>持股数量：<span>{item.amount}</span></div> : ''}
                                     {item.state == 3 ?
@@ -172,9 +173,14 @@ export default class StockList extends Component {
                                                     {record.result == 3 && <NavigationClose
                                                         style={{width:18,height:18,position:'absolute',top:2,color:'#da301c'}}
                                                         onTouchTap={()=>this.handleShowCommentDialog(record)}/>}
+                                                    {record.result == 4 && <SocialNotifications
+                                                        style={{width:18,height:18,position:'absolute',top:2,color:'#da301c'}}
+                                                        onTouchTap={()=>this.handleShowCommentDialog(record)}/>}
                                                 </div>
-                                                {record.technology && record.technology.length > 0 ? (<pre>{record.technology}</pre>) : ''}
-                                                <pre>{record.remark}</pre>
+                                                {record.technology && record.technology.length > 0 ? (
+                                                    <pre>{record.technology}</pre>) : ''}
+                                                {record.remark && record.remark.length > 0 ? (
+                                                    <pre>{record.remark}</pre>) : ''}
                                                 {record.comment && record.comment.length > 0 ? (<pre
                                                     style={{borderTop:'1px dashed #999',paddingTop:5}}>{record.commentDate && utils.dateFormat(record.commentDate)}：{record.comment}</pre>) : ''}
                                             </div>
@@ -219,31 +225,39 @@ export default class StockList extends Component {
                                defaultValue={this.state.currentItem && this.state.currentItem.summary}/>
                 </Dialog>
                 <Dialog
+                    titleStyle={{paddingBottom:0}}
                     title='点评'
                     actions={dialogActions}
                     modal={false}
                     open={this.state.openCommentDialog}
                     onRequestClose={this.handleDialogClose}
                 >
-                    <RadioButtonGroup ref='result' name='result' defaultSelected={(!!this.state.currentRecord && !!this.state.currentRecord.result) ? this.state.currentRecord.result:1}>
+                    <TextField style={{width:'96%'}} ref='comment' name='comment' multiLine={true} hintText='点评' floatingLabelText='点评'
+                               defaultValue={this.state.currentRecord && this.state.currentRecord.comment}/>
+                    <RadioButtonGroup style={{marginTop:10,display:'flex',flexWrap:'wrap'}} ref='result'
+                                      name='result'
+                                      defaultSelected={(!!this.state.currentRecord && !!this.state.currentRecord.result) ? this.state.currentRecord.result:1}>
                         <RadioButton
-                            style={{marginBottom: 16}}
+                            style={{marginBottom: 16,width:'50%'}}
                             value={1}
                             label="待定"
                         />
                         <RadioButton
-                            style={{marginBottom: 16}}
+                            style={{marginBottom: 16,width:'50%'}}
+                            value={4}
+                            label="重要"
+                        />
+                        <RadioButton
+                            style={{marginBottom: 16,width:'50%'}}
                             value={2}
                             label="正确"
                         />
                         <RadioButton
-                            style={{marginBottom: 16}}
+                            style={{marginBottom: 16,width:'50%'}}
                             value={3}
                             label="错误"
                         />
                     </RadioButtonGroup>
-                    <TextField ref='comment' name='comment' multiLine={true} hintText='点评' floatingLabelText='点评'
-                               defaultValue={this.state.currentRecord && this.state.currentRecord.comment}/>
                 </Dialog>
             </StickyContainer>
         )
