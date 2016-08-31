@@ -5,8 +5,12 @@ var StockRecordSchema = new Schema({
     type: Number,
     amount: Number,
     remark: String,
+    comment:String,
+    commentDate: Date,
+    result:Number,
 });
 var StockSchema = new Schema({
+    id: String,
     name: String,
     code: String,
     reason: String,

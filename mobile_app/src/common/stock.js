@@ -78,7 +78,7 @@ export default {
         }).then((response)=> {
             if (response.ok) {
                 return response.json().then((result)=> {
-                    //console.log(result)
+                    console.log(result)
                     stockData = result.Stock
                     stockTechnologyData = result.StockTechnology
                     this._sync()
