@@ -54,7 +54,7 @@ export default class StockOperationSale extends Component {
     }
 
     handleSelectedTechnology = (items) => {
-        this.setState({showTechnology: false, 'technology': items.join(',')})
+        this.setState({showTechnology: false, 'technology': items.join('；')})
     }
 
     renderTechnology() {
@@ -94,9 +94,9 @@ export default class StockOperationSale extends Component {
                         </td>
                     </tr>
                     <tr>
-                        <th>符合技术</th>
+                        <th style={{verticalAlign: 'top',paddingTop: 17}}>符合技术</th>
                         <td>
-                            <FormsyText style={styles.input} value={this.state.technology}
+                            <FormsyText style={styles.input} value={this.state.technology} multiLine={true}
                                         name='technology' hintText='符合技术' onTouchTap={this.handleShowTechnology}
                                         validations='choice:remark' validationErrors={{'choice':'符合技术和备注必须填一个'}}/>
                         </td>

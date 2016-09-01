@@ -211,17 +211,20 @@ export default class StockList extends Component {
                     }
                 </Popover>
                 <Dialog
+                    style={{paddingTop:12}}
+                    titleStyle={{paddingBottom:0}}
                     title='总结'
                     actions={dialogActions}
+                    repositionOnUpdate={false}
                     modal={false}
                     open={this.state.openSummaryDialog}
                     onRequestClose={this.handleDialogClose}
                 >
-                    <TextField ref='income' name='income' multiLine={true} hintText='总盈收' type='number'
+                    <TextField style={{width:'96%'}} ref='income' name='income' multiLine={true} hintText='总盈收' type='number'
                                floatingLabelText='总盈收'
                                defaultValue={(this.state.currentItem && this.state.currentItem.income!=0)?this.state.currentItem.income:''}/>
                     <br/>
-                    <TextField ref='summary' name='summary' multiLine={true} hintText='总结' floatingLabelText='总结'
+                    <TextField style={{width:'96%'}} ref='summary' name='summary' multiLine={true} hintText='总结' floatingLabelText='总结'
                                defaultValue={this.state.currentItem && this.state.currentItem.summary}/>
                 </Dialog>
                 <Dialog

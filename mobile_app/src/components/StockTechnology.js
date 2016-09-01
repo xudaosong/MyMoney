@@ -97,16 +97,16 @@ export default class StockTechnology extends Component {
     renderHeader() {
         if (this.props.isSelect) {
             return (
-                <div style={{display:'flex',padding:5,backgroundColor:'#da301c',minHeight:32}}>
+                <div style={{display:'flex',flexWrap:'wrap',paddingBottom:5,backgroundColor:'#da301c',minHeight:32,maxWidth:ScreenWidth}}>
                     {this.state.selectedCategory.map((item)=> {
                         return (
-                            <Chip style={{marginRight:5}} key={item}
+                            <Chip style={{margin:'5px 5px 0 5px',maxWidth:ScreenWidth-10}} labelStyle={{textOverflow: 'ellipsis',overflow: 'hidden',whiteSpace: 'nowrap',maxWidth:ScreenWidth-10}} key={item}
                                   onRequestDelete={()=>this.handleSelectedRemove(item)}>
                                 {item}
                             </Chip>
                         )
                     })}
-                    <ActionDone style={{width:32,height:32,color:'#fff'}} onTouchTap={this.handleFinish}/>
+                    <ActionDone style={{width:32,height:32,margin:'5px 5px 0 5px',color:'#fff'}} onTouchTap={this.handleFinish}/>
                 </div>
             )
         } else {
@@ -124,10 +124,8 @@ export default class StockTechnology extends Component {
     render() {
         let headerHeight =  this.props.isSelect ? 42:48
         return (
-            <StickyContainer>
-                <Sticky style={{zIndex:9999,}}>
+            <div>
                     {this.renderHeader()}
-                </Sticky>
                 <div
                     style={{width:100,backgroundColor:'#5096d2',minHeight:ScreenHeight-headerHeight,float:'left',overflowY:'auto',overflowX:'hidden'}}>
                     <Menu style={{maxWidth:100}} listStyle={{paddingBottom:0,paddingTop:0}}
@@ -151,7 +149,7 @@ export default class StockTechnology extends Component {
                                     showExpandableButton={true}
                                 />
                                 <CardText style={{padding:'0 6px',textAlign:'left'}} expandable={true}>
-                                    <pre style={{margin:'10px 0'}}>{item.description}</pre>
+                                    <pre style={{margin:'10px 0',wordWrap:'break-word',wordBreak:'normal',color:'#999'}}>{item.description}</pre>
                                 </CardText>
                                 <CardActions style={{padding:0,textAlign:'right'}} expandable={true}>
                                     <FlatButton style={{minWidth:40}} labelStyle={{paddingLeft:8,paddingRight:8}}
@@ -166,7 +164,7 @@ export default class StockTechnology extends Component {
                         )
                     })}
                 </div>
-            </StickyContainer>
+            </div>
         )
     }
 }
