@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>待办事项</ion-title>
+    <ion-buttons end>
+      <button (click)="addTodo()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="todo">
+  <ion-list>
+    <ion-item-sliding *ngFor="let todo of todos;let index=index">
+       <button [ngClass]="{finish:todo.state === 1}" ion-item text-wrap (click)="changeState(todo,index)">{{todo.createDate | date:'yyyy-MM-dd HH:mm'}}：{{todo.description}}</button>
+      <ion-item-options side="right">
+        <button primary (click)="removeTodo(index)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+        <button primary (click)="editTodo(index,todo)">
+          <ion-icon name="create"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

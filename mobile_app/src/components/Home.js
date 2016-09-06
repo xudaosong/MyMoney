@@ -8,6 +8,7 @@ import ActionTrendingUp from 'material-ui/svg-icons/action/trending-up'
 import FileDownload from 'material-ui/svg-icons/file/file-download'
 import FileUpload from 'material-ui/svg-icons/file/file-upload'
 import CreditCard from 'material-ui/svg-icons/action/credit-card'
+import ActionSchedule from 'material-ui/svg-icons/action/schedule'
 import {GridList, GridTile} from 'material-ui/GridList'
 import Toast from 'rk-toast'
 import ConfirmDialog from '../common/ConfirmDialog'
@@ -67,6 +68,12 @@ export default class Home extends Component {
                         <a href='#/stock/technology'>
                             <ActionTrendingUp style={{width:48,height:48,color:'#da301c'}}/>
                             <div>操盘技术</div>
+                        </a>
+                    </GridTile>
+                    <GridTile style={{textAlign:'center'}}>
+                        <a href='ionic.html'>
+                            <ActionSchedule style={{width:48,height:48,color:'#da301c'}}/>
+                            <div>待办事项</div>
                         </a>
                     </GridTile>
                     <GridTile style={{textAlign:'center'}}>
