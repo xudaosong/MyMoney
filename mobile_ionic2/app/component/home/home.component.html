@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的钱</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="home" text-center>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let item of items">
+        <a (click)="goto(item)">
+          <ion-icon [name]="item.icon"></ion-icon>
+          <div class="title">{{item.title}}</div>
+        </a>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

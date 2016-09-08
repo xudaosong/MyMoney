@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { TodoAddPage } from './todo-add';
-import { TodoModel } from '../../providers/todo.model'
-import { TodoService } from '../../providers/todo.service'
+import { TodoAddComponent } from './todo-add.component';
+import { TodoModel } from './todo.model'
+import { TodoService } from './todo.service'
 
 /*
  Generated class for the TodoPage page.
@@ -11,15 +11,13 @@ import { TodoService } from '../../providers/todo.service'
  Ionic pages and navigation.
  */
 @Component({
-  templateUrl: 'build/pages/todo/todo.html',
+  templateUrl: 'build/component/todo/todo.component.html',
+  providers: [TodoService],
 })
-export class TodoPage {
+export class TodoComponent implements OnInit {
   todos: TodoModel[]
 
-  todoService: TodoService
-
-  constructor(private navCtrl: NavController) {
-    this.todoService = new TodoService()
+  constructor(private navCtrl: NavController, private todoService: TodoService) {
   }
 
   getTodos(): void {
@@ -43,22 +41,22 @@ export class TodoPage {
   }
 
   addTodo() {
-    this.navCtrl.push(TodoAddPage, {
+    this.navCtrl.push(TodoAddComponent, {
       listPage: this
     })
   }
 
   editTodo(index, todo) {
-    this.navCtrl.push(TodoAddPage, {
+    this.navCtrl.push(TodoAddComponent, {
       listPage: this,
       index: index,
       todo: todo
     })
   }
 
-  changeState(todo,index){
-    todo.state = todo.state === 0 ?1:0
-    this.todoService.update(todo,index)
+  changeState(todo, index) {
+    todo.state = todo.state === 0 ? 1 : 0
+    this.todoService.update(todo, index)
     this.getTodos()
   }
 

@@ -1,25 +1,33 @@
-import {Component} from '@angular/core';
-import {Platform, ionicBootstrap} from 'ionic-angular';
-//import {StatusBar} from 'ionic-native';
-import {TodoPage} from './pages/todo/todo';
+import {Component, ViewChild} from '@angular/core';
+import {Platform, ionicBootstrap, NavController} from 'ionic-angular';
+import {StatusBar} from 'ionic-native';
+import {HomeComponent} from './component/home/home.component';
 
 
 @Component({
-  template: '<ion-nav [root]="rootPage"></ion-nav>'
+  template: '<ion-nav #rootNavController [root]="rootPage" swipe-back-enabled="false"></ion-nav>'
 })
-export class MyApp {
+export class MyMoney {
+  @ViewChild('rootNavController') nav: NavController;
 
   private rootPage: any;
 
   constructor(private platform: Platform) {
-    this.rootPage = TodoPage;
+    this.rootPage = HomeComponent;
+    // console.log('platform',platform)
 
-    //platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-    //  StatusBar.styleDefault();
-    //});
+    platform.ready().then(() => {
+      StatusBar.overlaysWebView(false)
+      StatusBar.backgroundColorByHexString('#da301c')
+      document.addEventListener('backbutton', () => {
+        if (!this.nav.canGoBack()) {
+          this.platform.exitApp()
+        } else {
+          this.nav.pop()
+        }
+      }, false);
+    })
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyMoney);

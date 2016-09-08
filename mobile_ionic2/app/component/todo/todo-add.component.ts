@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {TodoModel} from '../../providers/todo.model'
+import {TodoModel} from './todo.model'
 /*
  Generated class for the TodoPage page.
 
@@ -8,9 +8,9 @@ import {TodoModel} from '../../providers/todo.model'
  Ionic pages and navigation.
  */
 @Component({
-  templateUrl: 'build/pages/todo/todo-add.html',
+  templateUrl: 'build/component/todo/todo-add.component.html',
 })
-export class TodoAddPage {
+export class TodoAddComponent {
   isEdit: boolean
   todo: TodoModel
 
