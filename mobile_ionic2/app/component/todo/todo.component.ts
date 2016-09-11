@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { TodoAddComponent } from './todo-add.component';
+import { Component, OnInit } from '@angular/core'
+import { NavController } from 'ionic-angular'
+import { TodoAddComponent } from './todo-add.component'
 import { TodoModel } from './todo.model'
 import { TodoService } from './todo.service'
+import { DialogService } from '../common/dialog.service'
 
 /*
  Generated class for the TodoPage page.
@@ -12,12 +13,13 @@ import { TodoService } from './todo.service'
  */
 @Component({
   templateUrl: 'build/component/todo/todo.component.html',
-  providers: [TodoService],
+  providers: [TodoService, DialogService],
 })
 export class TodoComponent implements OnInit {
   todos: TodoModel[]
 
-  constructor(private navCtrl: NavController, private todoService: TodoService) {
+  constructor(private navCtrl: NavController, private todoService: TodoService, private dialog: DialogService) {
+    
   }
 
   getTodos(): void {
@@ -41,6 +43,7 @@ export class TodoComponent implements OnInit {
   }
 
   addTodo() {
+     // console.log('TodoComponent:canGoBack',this.navCtrl.canGoBack())
     this.navCtrl.push(TodoAddComponent, {
       listPage: this
     })
@@ -61,7 +64,9 @@ export class TodoComponent implements OnInit {
   }
 
   removeTodo(index) {
-    this.todoService.remove(index)
-    this.getTodos()
+    this.dialog.confirm('确定要删除该待办事项吗？', () => {
+      this.todoService.remove(index)
+      this.getTodos()
+    })
   }
 }

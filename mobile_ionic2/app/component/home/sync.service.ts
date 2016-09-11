@@ -54,6 +54,7 @@ export class SyncService {
                     let result = response.json()
                     this._sync(result.Stock)
                     this._syncTechnology(result.StockTechnology)
+                    this._syncTodo(result.Todo)
                     this.toast('数据拉取成功')
                 }
             }).catch((response) => {
@@ -70,13 +71,17 @@ export class SyncService {
             })
             let stockData = window.localStorage.getItem('stock') || []
             let stockTechnologyData = window.localStorage.getItem('stockTechnology') || []
+            let todoData = window.localStorage.getItem('myMoney-todo') || []
             if (typeof stockData === 'string') {
                 stockData = JSON.parse(stockData)
             }
             if (typeof stockTechnologyData === 'string') {
                 stockTechnologyData = JSON.parse(stockTechnologyData)
             }
-            return this.http.post(url, JSON.stringify({ Stock: stockData, StockTechnology: stockTechnologyData }), { headers: headers })
+            if (typeof todoData === 'string') {
+                todoData = JSON.parse(todoData)
+            }
+            return this.http.post(url, JSON.stringify({ Stock: stockData, StockTechnology: stockTechnologyData,Todo:todoData }), { headers: headers })
                 .toPromise()
                 .then((response) => {
                     if (response.ok) {
@@ -109,7 +114,7 @@ export class SyncService {
             message: message,
             duration: 5000
         })
-
+    
         toast.present(toast)
     }
     private _sync(data) {
@@ -117,5 +122,8 @@ export class SyncService {
     }
     private _syncTechnology(data) {
         window.localStorage.setItem('stockTechnology', JSON.stringify(data))
+    }
+    private _syncTodo(data) {
+        window.localStorage.setItem('myMoney-todo', JSON.stringify(data))
     }
 }

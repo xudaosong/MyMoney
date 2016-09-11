@@ -18,7 +18,7 @@ export class TodoService {
       todos = JSON.parse(todos) || []
       todos = todos.sort((a, b) => {
         if (a.state - b.state === 0) {
-          return new Date(b.createDate).getTime() - new Date(a.createDate).getTime()
+          return new Date(b.created).getTime() - new Date(a.created).getTime()
         } else {
           return a.state - b.state
         }
@@ -34,7 +34,7 @@ export class TodoService {
     } else {
       this.data.splice(0, 0, item)
     }
-    item.createDate = new Date()
+    item.created = new Date()
     item.state = 0
     let newItem = JSON.stringify(this.data)
     this.storage.set(this.StorageName, newItem)

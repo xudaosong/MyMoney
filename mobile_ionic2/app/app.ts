@@ -1,11 +1,11 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, enableProdMode} from '@angular/core';
 import {Platform, ionicBootstrap, NavController} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HomeComponent} from './component/home/home.component';
 
 
 @Component({
-  template: '<ion-nav #rootNavController [root]="rootPage" swipe-back-enabled="false"></ion-nav>'
+  template: '<ion-nav #rootNavController [root]="rootPage" swipe-back-enabled="false"></ion-nav>',
 })
 export class MyMoney {
   @ViewChild('rootNavController') nav: NavController;
@@ -14,20 +14,21 @@ export class MyMoney {
 
   constructor(private platform: Platform) {
     this.rootPage = HomeComponent;
-    // console.log('platform',platform)
 
     platform.ready().then(() => {
       StatusBar.overlaysWebView(false)
       StatusBar.backgroundColorByHexString('#da301c')
+
       document.addEventListener('backbutton', () => {
-        if (!this.nav.canGoBack()) {
-          this.platform.exitApp()
-        } else {
+        if (this.nav.canGoBack()) {
           this.nav.pop()
+        } else {
+          navigator.app.exitApp()
         }
       }, false);
     })
   }
 }
 
+enableProdMode()
 ionicBootstrap(MyMoney);
