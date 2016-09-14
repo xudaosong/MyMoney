@@ -1,6 +1,7 @@
 var util = require('util');
 var StockTechnology = require('mongoose').model('StockTechnology');
 var Stock = require('mongoose').model('Stock');
+var Todo = require('mongoose').model('Todo');
 
 var getErrorMessage = function (err) {
     if (err.errors) {
@@ -15,7 +16,8 @@ var getErrorMessage = function (err) {
 exports.create = function (req, res, next) {
     StockTechnology.collection.drop();
     Stock.collection.drop();
-    var count = 2, messages = []
+    Todo.collection.drop();
+    var count = 3, messages = []
 
     StockTechnology.collection.insert(req.body.StockTechnology, function (err) {
         count--;
@@ -55,10 +57,30 @@ exports.create = function (req, res, next) {
             }
         }
     });
+    console.log(req.body)
+    Todo.collection.insert(req.body.Todo, function (err) {
+        count--;
+        if (err) {
+            messages.push(getErrorMessage(err))
+            if (count === 0) {
+                return res.status(400).send({
+                    messages: messages
+                });
+            }
+        } else if (count === 0) {
+            if (messages.length > 0) {
+                return res.status(400).send({
+                    messages: messages
+                });
+            } else {
+                return res.end();
+            }
+        }
+    });
 };
 
 exports.list = function (req, res) {
-    var result = {}, count = 2, messages = [];
+    var result = {}, count = 3, messages = [];
     Stock.find().sort({"created": 1}).exec(function (err, data) {
         count--;
         if (err) {
@@ -87,6 +109,26 @@ exports.list = function (req, res) {
                 });
             } else {
                 result.StockTechnology = data;
+                if (count === 0) {
+                    if (messages.length > 0) {
+                        return res.status(400).send({
+                            messages: messages
+                        });
+                    } else {
+                        return res.json(result);
+                    }
+                }
+            }
+        });
+    Todo.find().sort({"created": -1})
+        .exec(function (err, data) {
+            count--;
+            if (err) {
+                return res.status(400).send({
+                    message: getErrorMessage(err)
+                });
+            } else {
+                result.Todo = data;
                 if (count === 0) {
                     if (messages.length > 0) {
                         return res.status(400).send({

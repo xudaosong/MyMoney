@@ -11,6 +11,7 @@ module.exports = function() {
 	require('../models/price-ratio.server.model');
 	require('../models/stock.server.model');
 	require('../models/stock-technology.server.model');
+	require('../models/todo.server.model');
 
 	return db;
 };

@@ -23,7 +23,7 @@ export class MyMoney {
         if (this.nav.canGoBack()) {
           this.nav.pop()
         } else {
-          navigator.app.exitApp()
+          platform.exitApp()
         }
       }, false);
     })
