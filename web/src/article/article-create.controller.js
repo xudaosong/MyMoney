@@ -55,7 +55,8 @@
                     vm.data = {
                         category: vm.data.category,
                         author: vm.data.author,
-                        source: vm.data.source
+                        source: vm.data.source,
+						created: vm.data.created
                     };
                     vm.submitted = false;
                     vm.myForm.$setPristine();
