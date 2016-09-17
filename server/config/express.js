@@ -16,6 +16,7 @@ var config = require('./config'),
     unless = require('express-unless'),
     // passport = require('passport');
     expressJwt = require('express-jwt'),
+	multiparty = require('connect-multiparty'),
     jwt = require('jsonwebtoken');
 
 module.exports = function (db) {
@@ -43,7 +44,7 @@ module.exports = function (db) {
     }));
     app.use(bodyParser.json());
     app.use(methodOverride());
-
+	app.use(multiparty({uploadDir:'../temp' }));
     // var jwtCheck = expressJwt({
     //     secret: config.sessionSecret
     // });
