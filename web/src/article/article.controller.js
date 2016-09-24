@@ -20,6 +20,8 @@
             sort: null,
             keywords: null
         };
+        vm.authors = ['王宁', '王晓', '羿飞'];
+        vm.sources = ['和讯直播室', '微信公众号', '网易博客'];
         vm.getList = getList;
         vm.remove = remove;
         vm.removeChecked = removeChecked;

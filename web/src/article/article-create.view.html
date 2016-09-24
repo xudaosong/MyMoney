@@ -46,7 +46,7 @@
             <label class="col-sm-1 control-label required" for="author">作者</label>
             <div class="col-sm-11 has-feedback" ng-class="{'has-success': vm.check(vm.myForm.author,true),'has-error':vm.check(vm.myForm.author,false)}">
                 <fs-typeahead id="author" name="author" ng-model="vm.data.author" theme="bootstrap" required>
-                    <fs-typeahead-match placeholder="类别">{{$select.selected}}</fs-typeahead-match>
+                    <fs-typeahead-match placeholder="作者">{{$select.selected}}</fs-typeahead-match>
                     <fs-typeahead-choices repeat="author in vm.authors | filter: $select.search">
                         <div ng-bind-html="author | highlight: $select.search"></div>
                     </fs-typeahead-choices>

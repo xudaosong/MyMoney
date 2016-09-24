@@ -11,8 +11,8 @@
         /* jshint validthis: true */
         var vm = this,
             article = Restangular.all('article');
-        vm.categories = ['股票技术'];
-        vm.authors = ['王宁', '王晓'];
+        vm.categories = ['股票技术', 'P2P', '宏观经济', '大宗商品'];
+        vm.authors = ['王宁', '王晓', '羿飞'];
         vm.sources = ['和讯直播室', '微信公众号', '网易博客'];
         vm.origin = '';
         vm.submitted = false;
