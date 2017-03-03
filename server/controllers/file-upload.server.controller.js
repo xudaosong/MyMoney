@@ -2,7 +2,7 @@ var fs = require('fs'),
     config = require('../config/config'),
     mkdirOrig = fs.mkdir,
     // directory = config.root + '/files/public',
-    directory = config.resources + '/upload',
+    directory = config.resources,
     osSep = '/';
 
 function getNewFilename(file) {
@@ -18,7 +18,7 @@ function rename(file, dest, user, callback) {
             callback({
                 success: true,
                 file: {
-                    src: config.staticUrl + '/upload' + dest + filename,
+                    src: config.staticUrl + dest + filename,
                     name: filename,
                     size: file.size,
                     type: file.type,

@@ -16,7 +16,7 @@ var config = require('./config'),
     unless = require('express-unless'),
     // passport = require('passport');
     expressJwt = require('express-jwt'),
-	multiparty = require('connect-multiparty'),
+	  multiparty = require('connect-multiparty'),
     jwt = require('jsonwebtoken');
 
 module.exports = function (db) {
@@ -38,17 +38,17 @@ module.exports = function (db) {
     } else if (process.env.NODE_ENV === 'production') {
         app.use(compress());
     }
-    
+
     app.use(bodyParser.urlencoded({
         extended: true
     }));
     app.use(bodyParser.json());
     app.use(methodOverride());
-	app.use(multiparty({uploadDir:'../temp' }));
+	app.use(multiparty({uploadDir:'./resources' }));
     // var jwtCheck = expressJwt({
     //     secret: config.sessionSecret
     // });
-    var jwtCheck = expressJwt({secret: config.secret}).unless( {path: 
+    var jwtCheck = expressJwt({secret: config.secret}).unless( {path:
         [
             '/api/login',
             '/api/signup',
@@ -67,8 +67,8 @@ module.exports = function (db) {
     //     saveUninitialized: true,
     //     resave: true,
     //     secret: config.sessionSecret,
-    //     store: mongoStore, 
-    //     cookie: { 
+    //     store: mongoStore,
+    //     cookie: {
     //         path: '/',
     //         domain: '.money.dev',
     //         maxAge: 1000 * 60 * 24
@@ -98,6 +98,10 @@ module.exports = function (db) {
     if (process.env.NODE_ENV === 'development') {
         app.use(express.static('../../'));
         app.use(express.static('../web'));
+        app.use(express.static('./resources/dev'));
+    } else {
+        app.use(express.static('../web/dist'));
+        app.use(express.static('./resources/production'));
     }
     app.use(express.static(config.static));
     app.use(express.static(config.resources));
